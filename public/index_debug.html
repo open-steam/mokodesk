@@ -1,0 +1,142 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+ <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <title>MokoDesk</title>
+	<!--<link rel="stylesheet" type="text/css" href="css/gridsearch.css" />-->
+	<!--<link rel="stylesheet" type="text/css" href="css/GTDViewer.css" />-->
+	<link rel="stylesheet" type="text/css" href="moko/css/rowactions.css" />
+	<link rel="stylesheet" type="text/css" href="moko/css/Ext.ux.grid.RowActions.css" />
+	<!--<link rel="stylesheet" type="text/css" href="css/icons.css" />-->
+	<link rel="stylesheet" type="text/css" href="ext2/resources/css/ext-all.css" />
+	<!--<link rel="stylesheet" type="text/css" href="../ext2/examples/shared/examples.css" />-->
+	<link rel="stylesheet" type="text/css" href="moko/css/larsDesktop.css" />
+	<link rel="stylesheet" type="text/css" href="moko/css/filetype.css" />
+</head>
+<body scroll="no" id="docs">
+<div id="loading-mask" style=""></div>
+  <div id="loading">
+    <div class="loading-indicator"><style="margin-right:8px;" align="absmiddle">Anwendung wird geladen...</style></div>
+  </div>
+      
+    <!-- GC -->
+ 	<!-- LIBS -->
+ 	<!--
+ 	<script src="../ext2/source/core/Ext.js"></script>
+	<script src="../ext2/source/adapter/ext-base.js"></script>
+	-->
+ 	<script type="text/javascript" src="ext2/adapter/ext/ext-base.js"></script>
+ 	<!-- ENDLIBS -->
+
+    <!--<script type="text/javascript" src="../ext2/ext-all.js"></script>-->
+    <script type="text/javascript" src="ext2/ext-all-debug.js"></script>
+    <!--<script type="text/javascript" src="firebug.js"></script>-->
+  
+    <!--<script language="javascript" src="../grid/PropsGrid.js"></script>-->
+
+ 	<script type="text/javascript" src="moko/lang/ext-lang-de.js"></script>
+	
+	<script type="text/javascript" src="moko/ASCIIMathML2wMnGFallback.js"></script>    
+<script type="text/javascript" src="moko/tiny_mce/plugins/asciisvg/js/ASCIIsvgPI.js"></script>
+
+<script type="text/javascript" src="moko/ux/uxmedia.js"></script>
+<script type="text/javascript" src="moko/ux/uxflash.js"></script>
+    <script type="text/javascript" src="moko/ux/TabCloseMenu.js"></script>
+    <script type="text/javascript" src="moko/copy.js"></script>
+    <script type="text/javascript" src="moko/tiny_mce/tiny_mce.js"></script>
+    <script type="text/javascript" src="moko/ux/miframe.js"></script>
+    <script type="text/javascript" src="moko/ux/Ext.ux.TinyMCE.js"></script>
+
+	<script type="text/javascript" src="moko/menu/EditableItem.js"></script>
+	<script type="text/javascript" src="moko/menu/RangeMenu.js"></script>
+
+	<script type="text/javascript" src="moko/grid/Ext.ux.grid.RowActions.js"></script>
+
+<!--
+	<script type="text/javascript" src="moko/grid/GridFilters.js"></script>
+	<script type="text/javascript" src="moko/grid/filter/Filter.js"></script>
+	<script type="text/javascript" src="moko/grid/filter/StringFilter.js"></script>
+	<script type="text/javascript" src="moko/grid/filter/DateFilter.js"></script>
+	<script type="text/javascript" src="moko/grid/filter/ListFilter.js"></script>
+	<script type="text/javascript" src="moko/grid/filter/NumericFilter.js"></script>
+	<script type="text/javascript" src="moko/grid/filter/BooleanFilter.js"></script>
+-->
+	<script type="text/javascript" src="moko/grid/Ext.ux.grid.Search.js"></script>
+
+    <script type="text/javascript" src="moko/grid/RowExpander.js"></script>
+
+    <script type="text/javascript" src="moko/grid/Ext.Grid.CheckColumn.js"></script>
+
+    
+    <script type="text/javascript" src="moko/lang/lars_de.js"></script>
+    <script type="text/javascript" src="moko/LarsOverrides.js"></script>
+    <script type="text/javascript" src="moko/LarsViewer.js"></script>
+    <script type="text/javascript" src="moko/LarsUpdater.js"></script>
+    <script type="text/javascript" src="moko/LarsBrowseFileWindow.js"></script>
+    <script type="text/javascript" src="moko/LarsTreePanelFolderLinks.js"></script>
+    <script type="text/javascript" src="moko/LarsTreePanelLinks.js"></script>
+    <script type="text/javascript" src="moko/LarsResourcesPanel.js"></script>
+    <script type="text/javascript" src="moko/LarsResourcesAddWindow.js"></script>
+    <script type="text/javascript" src="moko/LarsResourcesAddNameWindow.js"></script>
+    <script type="text/javascript" src="moko/LarsCommentWindow.js"></script>
+    <script type="text/javascript" src="moko/LarsDesktopDiscussion.js"></script>
+    <script type="text/javascript" src="moko/LarsDesktop.js"></script>
+    <script type="text/javascript" src="moko/LarsDesktopNorth3.js"></script>
+    <script type="text/javascript" src="moko/LarsDesktopNotes.js"></script>
+    <script type="text/javascript" src="moko/LarsDesktopGrid.js"></script>
+    <script type="text/javascript" src="moko/LarsVoiceChat.js"></script>
+    <script type="text/javascript" src="moko/LarsJoinChat.js"></script>
+    <script type="text/javascript" src="moko/LarsNewHtmlTextWindow.js"></script>
+    <script type="text/javascript" src="moko/LarsNewHtmlTextWindowNew.js"></script>
+    <script type="text/javascript" src="moko/LarsMessageWindow.js"></script>
+    <script type="text/javascript" src="moko/LarsSetPackageRightsWindow.js"></script>
+    <script type="text/javascript" src="moko/LarsPackageDiscussion.js"></script>
+    <script type="text/javascript" src="moko/LarsHtmlMessageWindow.js"></script>
+    <script type="text/javascript" src="moko/LarsCustomImagePanel.js"></script>
+    <script type="text/javascript" src="moko/LarsCustomPanelTextChange.js"></script>
+    <script type="text/javascript" src="moko/LarsUploadImageWindow.js"></script>
+    <script type="text/javascript" src="moko/LarsTreePanelDesk.js"></script>
+    <script type="text/javascript" src="moko/LarsTreePanelDeskOthers.js"></script>
+    <script type="text/javascript" src="moko/LarsPackageGrid.js"></script>
+    <script type="text/javascript" src="moko/LarsPackagePanel.js"></script>
+
+    <script type="text/javascript" src="moko/LarsGroupsDesktopsGrid.js"></script>
+    <script type="text/javascript" src="moko/LarsGroupsDesktopsGridWindow.js"></script>
+    <script type="text/javascript" src="moko/LarsGroupsRightsGrid.js"></script>
+    <script type="text/javascript" src="moko/LarsGroupsRightsGridWindow.js"></script>
+    <script type="text/javascript" src="moko/LarsGroupsTreePanel.js"></script>
+    <script type="text/javascript" src="moko/LarsGroupsTreePanelWindow.js"></script>
+    <script type="text/javascript" src="moko/LarsGroupsAddUserWindow.js"></script>
+
+    <script type="text/javascript" src="moko/LarsDocumentsSubscriptionWindow.js"></script>
+    <script type="text/javascript" src="moko/LarsDocumentsSubscriptionGrid.js"></script>
+
+    <script type="text/javascript" src="moko/LarsAddFolderWindow.js"></script>
+    <script type="text/javascript" src="moko/LarsAddFolderLinksWindow.js"></script>
+    <script type="text/javascript" src="moko/LarsAddSchuelerWindow.js"></script>
+    <script type="text/javascript" src="moko/LarsAddLinkWindow.js"></script>
+    <script type="text/javascript" src="moko/LarsUploadFileWindow.js"></script>
+    <script type="text/javascript" src="moko/LarsHtmlPanel.js"></script>
+    <script type="text/javascript" src="moko/LarsIFramePanel.js"></script>
+    <script type="text/javascript" src="moko/LarsIFramePanelInternet.js"></script>
+    <script type="text/javascript" src="moko/LarsAddAssignmentWindow.js"></script>
+    <script type="text/javascript" src="moko/LarsMainPanel.js"></script>
+    <script type="text/javascript" src="moko/LarsTreePanelArchivWindow.js"></script>
+    <script type="text/javascript" src="moko/LarsTreePanelArchiv.js"></script>
+    <script type="text/javascript" src="moko/LarsTreePanel.js"></script>
+    <script type="text/javascript" src="moko/LarsTreePanelBin.js"></script>
+    <script type="text/javascript" src="moko/LarsTreePanelBinWindow.js"></script>
+    <script type="text/javascript" src="moko/LarsTopicsPanel.js"></script>
+    <script type="text/javascript" src="moko/LarsTopicsPanelTeacher.js"></script>
+    <script type="text/javascript" src="moko/LarsChangeDescWindow.js"></script>
+    <script type="text/javascript" src="moko/LarsDesktopErrorWindow.js"></script>
+	
+    
+
+
+<script type="text/javascript" src="moko/ux/Ext.ux.ToastLars.js"></script>
+<script type="text/javascript" src="moko/ux/Ext.ux.ToastLarsDiscussion.js"></script>
+</body>
+
+ 
+</html>

@@ -1,0 +1,378 @@
+var Lars = {
+tinyMceLanguage: "en",
+button_cancel: "Cancel",
+button_save: "Save",
+refresh: "Refresh",
+closedown: "Close",
+del: "Delete",
+copy_document: "Copy document.",
+copy_document_tt: "Copy this document.<br>Insert via the right mouse button into a folder within the resources or into a work package.",
+msg_success_new_content: "Successfully saved.",
+edit: "Edit",
+printer: "Print",
+today: "Today",
+close_tab: "Close this tab.",
+close_tab_others: "Close other tabs.",
+rename: "Rename",
+msg: 	{
+	loading: 'One moment please.',
+	loading_data: 'Transferring data.',
+	connecting: 'Connecting',
+	warning: "Warning",
+	attention: 'Attention',
+	attention_firefox: "Please use <a href=\"http://www.firefox-browser.de\" target=\"_blank\">Firefox Browser<\/a> for this application. <br> This browser is not supported; therefore, it may not be possible to execute all functions without errors.",
+	failure: "Error",
+	failure_delete: 'Object has not been deleted.',
+	failure_connection: "The connection to the server has failed.",
+	failure_nothing_changed: 'No changes have been made.',
+	failure_no_response: 'Server does not respond.',
+	failure_redirect: 'Automatic redirection has failed. No connection to server?',
+	failure_login: 'Login incorrect or connection to server cannot be established.',
+	failure_response: 'Error loading a request.',
+	failure_copy: 'Error while copying.',
+	success_copy: 'Successfully copied.',
+	success: "Successful",
+	success_changed_data: "Changes have been made successfully.",
+	success_new_content: "New content has been saved.",
+	success_login: 'Login successful.',
+	loading_editor: "Loading editor.",
+	loading_app: 'Loading application.',
+	loading_folder: 'Loading folders.',
+	automatic_redirect_1: 'Automatic redirection?',
+	automatic_redirect_2: 'If you have already been logged on to <b>bid-owl</b>, you will be <br>automatically redirected to your MokoDesk any moment.',
+	dialog_updater_error:"An error has occured while performing automatic updates."
+	},
+main: {
+	desktop_title: "Overview",
+	tree_title: 'My MokoDesk',
+	voice_chat: "Voice Chat",
+	my_site: "My Site",
+	edit: "Edit",
+	item_s: "Entry",
+	item_p: "Entries",
+	show: "Show",	
+	show_as_package:'Show as work package.',
+	refresh_here: 'Refresh here.',
+	logged_in_since: 'Logged in since ',
+	last_login: 'Last Login ',
+	news: 'MokoDesk Changes',
+	about: 'About MokoDesk',
+	help: 'Help',
+	desktop_grid: {
+		tabTip: 'Here you can find all the documents which have been added or altered since the last login.',
+		loadMask: 'Searching for new and altered documents, loading them afterwards.',
+		title: 'New documents',
+		titleBeginning: 'New documents',
+		timeout_msg_1: "Connection error",
+		timeout_msg_2: "The connection to the server is probably too slow to retrieve all new documents within the time limit."
+	},
+	bin: {
+		trash:'Recycle Bin',
+		empty_trash:"Empty the Recycle Bin.",
+		empty_trash_confirm:'Are you sure you want to empty the recycle bin?',
+		delete_irrevocable:'Delete permanently.',
+		delete_confirm:'Delete this object?',
+		del_failure_msg: "The selected object has not been deleted."
+	},
+	send_bug: {
+		text: "Report errors.",
+		text_tt: "If an error has occurred, you can forward an error message here."
+	},
+	chat: {
+		title: "MokoChat",
+		chat_home: "Start a chat session on your own MokoDesk.",
+		chat_else: "Chat elsewhere."
+	},
+	tree: {
+		package_moved_msg:"Work package has been moved.",
+		package_not_moved_msg:"Work package has not been moved.",
+		main_directory: "Main directory",
+		root_directory: 'Main directory of the server',
+		home_directory: 'Your own home directory',
+		add_resource_folder: "Include a new folder in the resources.",
+		add_to_resources: 'Add to resources.',
+		add_package_here: 'Add work package here.',
+		add_package: 'Add work package.',
+		add_package_advice: "If you create a workbook directly on another desk, no copy will be generated in the archive.<br><i>Copying</i> via Drag & Drop from the <i>linked folders</i> or via the right mouse button and <i>inserting</i> into the destination folder is the common way to simultaneously generate a copy in the archive.",
+		add_folder_here: 'Add folder here.',
+		add_folder:"Add a new folder.",
+		add_link: "Add a new link.",
+		add_link_here: 'Add a link here.',
+		folder_properties: 'Folder properties',
+		folder_as_package: 'Mark as work package.',
+		folder_as_normal: 'Mark as ordinary folder.',
+		download: 'Download',
+		show_archive:"Show archive.",
+		show_bin:"Show recycle bin.",
+		set_rights:"Define access rights to your MokoDesk.",
+		show_package: 'Show work package.',
+		copy_package:'Copy work package.',
+		copy_folder: 'Copy folder.',
+		del_desktop_link: 'Delete this MokoDesk-link.',
+		del_desktop_link_confirm: 'Are you sure you want to delete this MokoDesk-link?',
+		del_link: 'Delete link.',
+		del_confirm_link: 'Delete this link?',
+		del_confirm_package:'Delete this work package?',
+		del_confirm_object: 'Delete this object?',
+		del_failure_msg: "The selected work package has not been deleted.",
+		del_failure_msg_folder: "The selected folder has not been deleted.",
+		del_failure_msg_link: "The selected link has not been deleted.",
+		move_to_archive:'Move to the archive.',
+		move_to_archive_tt:"As soon as you have finished the work package, it can be moved to the archive.",
+		open_learn_process:'Open display of learning progress.',
+		delete_folder_confirm:'Delete this folder?',
+		insert_here:'Insert here.',
+		copy_confirm_1:"Insert?",
+		copy_confirm_2_folder:'Would you like to insert the copied folder <b>',
+		copy_confirm_2_document: 'Would you like to insert the copied document entitled <b>',	
+		copy_confirm_2:'Would you like to insert the copied work package <b>',
+		copy_confirm_3:'</b> in <b>',
+		copy_confirm_3_in_package: '</b> in this work package?',
+		copy_confirm_4:'</b>?',
+		copy_confirm_5: '<br>An additional copy is filed in the archive.',
+		copy_progress_1: 'Copying the work package.',
+		copy_progress_2: "One moment please...",	
+		copy_success_msg:'Successfully copied.',
+		copy_failure_msg:'Error while copying.',
+		copy_document: 'Copy the document and insert it here.',
+		load_mask_desktops: 'Loading MokoDesks.',
+		embed_desktop: "Include someone else's MokoDesk.",
+		embed_desktop_group: "Include a group's MokoDesk.",
+		package_convert_confirm_1: "Convert?",
+		package_convert_confirm_2: 'Would you like to assign the file as a work package to the user? <br>The original file will be preserved.',
+		msg_failure_no_package: "Folder does not belong to the category work package.<br>Change beforehand via the menu opened by clicking the right mouse button.",
+		resources_title: 'Linked folders',
+		internet_links_title:'Internet bookmarks',
+		desktops_title: "Other MokoDesks"
+	},
+	grid: {
+		emptyText: "There are no documents available here.",
+		loadMask: "Loading documents.",
+		count_new_documents: "",//TODO: Entfernen
+		edit_tt: "Edit content.",
+		del_tt: "Delete this document.",
+		del_confirm: "Are you sure you want to delete this document?",
+		del_failure_msg: "The selected document has not been deleted.",
+		solution_attached: "(solution)",
+		open_link_1: "Open link?",
+		open_link_2: "Open link in a new window?",
+		download_1: "Download",
+		download_2: "Would you like to download the document?",
+		package_append: " - work package",
+		columns: {
+			desc: "Name",
+			content: "Content",
+			folder: "Folder",
+			type: "Type",
+			valueNotFoundText: "Kein passender Wert gefunden",
+			last_changed:"Last modified",
+			created: "Created"
+		},
+		change_state: "Change state.",
+		state_0: 'Not yet started',
+		state_1: 'In progress',
+		state_2: 'Ready for submission',
+		state_3: 'Corrected',
+		state_4: 'Finished',
+		add_text: "Add a new text to this work package.",
+		add_text_title: 'Write text.',
+		add_document:"Add a document to this work package.",
+		add_document_title:"Upload document.",
+		solution: " (solution)",
+		only_teacher: "Only a teacher can change the state to <b>Finished</b>."
+	},
+	discussion: {
+		title: "Messages",
+		loadMask: 'Loading messages.',
+		emptyText: 'No messages.',
+		write_new_message: "Write a message.",
+		write_new_message_tt: "Write a new message.",
+		show_preview: 'Show a preview of the messages.',
+		show_preview_tt: 'The beginning of the message is shown below the heading.',
+		show_preview_tt_title: "Preview",
+		expand_preview: "Expand preview.",
+		expand_preview_tt: 'Content is displayed directly below the description.',
+		expand_preview_tt_title: 'Show entire content.',
+		new_message_1: "Message",
+		new_message_2: "A new message from ",
+		save_send:"Save / Send",
+		columns: {
+			title: "Title",
+			author: "Author",
+			content: "Content",
+			date: "Date"
+		},
+		created_of: "Created by ",
+		menu: {
+			edit: "Edit",
+			edit_tt: "Edit content.",
+			del: "Delete",
+			del_tt:"Delete this message.",
+			del_confirm_1: "Are you sure you want to delete this message?",
+			del_confirm_2: "Heading:",
+			del_success_msg: "The message has been deleted.",
+			del_failure_msg: "The selected message has not been deleted."
+		}
+	},
+	editor: {
+		save_info_1: 'Problem while saving.',
+		save_info_2: "In the meantime, the content of the document has changed on the server. <br>You now have the possibility of saving the content in a new document.<br>If you do not save the changes in a new document, they will get lost.",
+		document_not_available: "The selected document is not available."
+	},
+	notes: "Notes",
+	north: {
+		new_documents1: 'New documents',
+		new_documents: 'New documents on my MokoDesk',
+		new_documents_others: 'New documents on other MokoDesks',
+		new_mymessages: 'My Messages',
+		new_messages: 'New messages on other MokoDesks',
+		new_messages_packages: 'New messages in my work packages',
+		about: 'About MokoDesk'
+	},
+	help_and_news_tt: "Help and news about the MokoDesk",
+	document_subscription: "Show new documents of this?",
+	group_or_user: "Group or user"
+},
+dialog: {
+	assignment: {
+		fieldLabel:'Enter the name of the work package.',
+		emptyText:'New work package',
+		title:'Add work package.',
+		button_add:'Add work package.'
+	},
+	addFolderLinks: {
+		fieldLabel:'Name of the new folder',
+		title:'Add folder.',
+		button_add:'Add folder.'
+	},
+	addFolder: {
+		fieldLabel:'Name of the new folder, for example <i>German</i> or <i>English</i>',
+		title:'Add folder.',
+		button_add:'Add folder.'
+	},
+	addLink: {
+		fieldLabel:'Name of the new folder, for example <i>German</i> or <i>English</i>',
+		title:'Add link.',
+		button_add:'Add link.',
+		adress: "URL",
+		name: "Name"
+	},
+	addSchueler: {
+		title: 'Include someone\'s MokoDesk.',
+		button_add: 'Include MokoDesk.',
+		msg_success: 'MokoDesk has been included.',
+		msg_failure: 'MokoDesk has not been included.',
+		usernameLabel: 'Person\'s username'
+	},
+	browseFile: {
+		description: 'Description of the document',
+		filePath: 'Select document from your local hard disk.',
+		title: 'Upload document to ',
+		button_add: 'Add file.',
+		msg_success: 'File has been uploaded into the work package.',
+		msg_failure: 'No file has been uploaded.'
+	},
+	changeDesc: {
+		title: "Change title\/name.",
+		fieldLabel: "Title\/Name",
+		msg_success: 'Changes have been made successfully.',
+		msg_failure: 'No changes have been made.'
+	},
+	comment: {
+		title_1: "Comment by ",
+		title_2: ' Change',
+		fieldLabel: "Comment",
+		button_save: "Save comment.",
+		msg_success: 'Changes have been made successfully.',
+		msg_failure: 'No changes have been made.'
+	},
+	customPanelTextChange: {
+		fieldLabel: "Name",
+		title: "Change name."
+	},
+	groups: {
+		username: "Person's username",
+		add_to_favorites: 'Add user to favourites.',
+		add_user: 'Add user.',
+		user_added_msg:'Person has been added.',
+		user_not_added_msg:'Person has not been added.',
+		embed_desktop: "Include MokoDesk?",
+		groupname: "Group name",
+		other_desktops: "Other MokoDesks",
+		add_group:'Add group.',
+		add_group_tt:"Add group to allow access to your own MokoDesk.",
+		add_user_tt: "Add user to allow access to your own MokoDesk.",
+		allow_read:"Allow reading only?",
+		allow_all: "Allow everything?",
+		favorite:"Favourite",
+		type: "Type",
+		del_group_user_1:"Delete this person/group.",
+		del_group_user_2:"Delete?",
+		del_group_user_3:"Delete the person or group from the list?",
+		define_rights: 'Define access rights to your MokoDesk.',
+		root_directory: "Main directory",
+		add_group_to_list: 'Add group to list.',
+		add_group_to_selection: "Add group to selection."
+	},
+	rights: {
+		fieldLabel_1: 'Only you yourself are allowed to view and edit this folder.',
+		fieldLabel_2: 'You and your teachers can view and edit this folder.',
+		title_1: 'Access rights for',
+		title_1: 'Set',
+		button_set: 'Set access rights.'
+	},
+	htmlMessage: {
+		fieldLabel: 'Heading of the message',
+		title: 'Create new message.',
+		button_create: 'Create message.'
+	},
+	htmlText: {
+		fieldLabel:'Heading of the new text',
+		title_1: 'New text in',
+		title_2: 'Create',
+		button_add: 'Create text.'
+	},
+	htmlTextNew: {
+		fieldLabel:'New heading',
+		title: 'Create text within the same work package?',
+		button_add: 'Create text. '
+	},
+	resourcesAddName: {
+		fieldLabel: 'Name of the resource',
+		title:'Name of the link',
+		button_add:'Add link.',
+		msg_success:'New resource has been added.'
+	},
+	resourcesAdd: 'Add resources.',
+	login: {
+		username: 'Username',
+		password: 'Password',
+		button_login: 'Login',
+		title: 'Login to your MokoDesk <i>('
+	},
+	link: {
+		open_both: "Would you like to open this URL within the MokoDesk or download it in your browser?",
+		open_browser: 'Would you like to open this URL in a new window of your browser?',
+		open_app:'Would you like to open this URL in a new tab of the MokoDesk?',
+		button_app: 'Within MokoDesk',
+		button_browser: 'Within the browser / download'
+	},
+	upload_image: {
+		choose_hd: 'Choose image from your local hard disk.',
+		msg_failure: 'Image has not been uploaded.',
+		msg_success: 'Image has been inserted.',
+		upload: 'Upload image.'
+	},
+	imagePanel: {
+		change_picture: 'Upload a different image.'
+	},
+	upload_file: {
+		choose_hd: 'Choose a document from your local hard disk.',
+		msg_failure: 'The file has not been uploaded.',
+		msg_success: 'The file has been uploaded.',
+		upload_description: 'Descripton of the document',
+		button_upload: 'Upload file.',
+		title: 'Upload document to '
+	}
+}
+}

@@ -1,0 +1,17 @@
+﻿body { background-color: #ffffea; font-family: Arial; font-size: 10pt; width: 640px; }
+
+p, td, th { font-size: 10pt; }
+
+tr { vertical-align: top; }
+
+th { padding-right: 20px; text-align: left; }
+
+h1 { font-size: 14pt; }
+
+h2 { font-size: 12pt; }
+
+img { border: none; }
+
+.helptext { position: absolute; left: 60px; width: 540px; }
+
+.image { text-align: center; }
