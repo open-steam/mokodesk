@@ -26,8 +26,7 @@
 function derive_mimetype($name)
 {
   global $configDocRoot;
-  require_once("config/mimetype_map.php");
-//  require_once($configDocRoot."/public/config/mimetype_map.php");
+  require_once("mimetype_map.php");
 
   //if name is stringtype derive mime through names tail
   if(is_string($name) && isset($mimetype_map[strrchr($name, '.')]))

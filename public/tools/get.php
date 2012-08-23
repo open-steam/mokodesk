@@ -22,24 +22,17 @@
   		  Bastian Schröder <bastian@upb.de>
 
   ****************************************************************************/
-  //include stuff
-//  require_once("../../etc/config.php");
-require_once("../mokodesk_steam.php");
-  require_once("../lars_tools.php");
-  require_once("../config/mimetype_map.php");
-//  require_once("$phpsteamApiRoot/steam_connector.class.php");
-
-  require_once("../includes/derive_mimetype.php");
+require_once("$configDocRoot/mokodesk_steam.php");
+  require_once("$configDocRoot/lars_tools.php");
+  require_once("$configDocRoot/includes/mimetype_map.php");
+  require_once("$configDocRoot/includes/derive_mimetype.php");
 
   $object = (int) (isset($_GET["object"]))?trim($_GET["object"]):0;
-//  $login_name = (isset($_SERVER["PHP_AUTH_USER"]))?$_SERVER["PHP_AUTH_USER"]:"guest";
-//  $login_pwd = (isset($_SERVER["PHP_AUTH_PW"]))?$_SERVER["PHP_AUTH_PW"]:"guest";
 session_name("bidowl_session");
 session_start();    
 	$login_name = ($_SESSION['user']) ? ($_SESSION['user']) : null;
 	$login_pwd = ($_SESSION['pass']) ? ($_SESSION['pass']) : null;
 session_write_close();	  
-  //login und $steam def. in "./includes/login.php"
 	$steam = mokodesk_steam::connect(	$configServerIp,
                   $configServerPort,
                   $login_name,
@@ -55,11 +48,6 @@ session_write_close();
   if( $object !== 0 && $object !== "")
   {
     if ($object - 0 == 0) {
-//TODO: Warum wird ein Leerzeichen durch ein + ersetzt?
-//    $object = str_replace (" ", "+", $object);
-//      print ($object.'\n');
-//      $object = steam_factory::path_to_object($steam, '/home/brix1/Lars Desktop/123/Aufgabenpaket%201/database_refresh.png');
-//      print ('/home/brix1/Lars Desktop/123/Aufgabenpaket%201/database_refresh.png'.'\n');
 	  $path = $object;
       $object = steam_factory::path_to_object($GLOBALS["STEAM"]->get_id(), $object);
 	  if ($object instanceof steam_object){
@@ -68,10 +56,6 @@ session_write_close();
 	  	error_log("no object for path ".$path);
 		exit;
 	  }
-//      print ($object);
-	
-      
-//      print ($object);
     }
 
     $object = steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $object );
@@ -136,9 +120,6 @@ session_write_close();
   }
   else
   {
-    //ID Fehler ausgeben
-//    error_log("get.php mit fehlender ID ...", 3, "/var/log/httpd/phpsteam.log");
-
     echo("Download nicht m&ouml;glich. ID wurde nicht korrekt &uumlbergeben.<br>");
     exit();
   }
