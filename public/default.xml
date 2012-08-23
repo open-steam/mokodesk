@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FlocsConfig>
-	<ServerSettings>
-		<Server type="red5" uri="rtmp://eve.cs.uni-paderborn.de/flocs/" />
-		<Server type="steam" uri="steam.upb.de" />
-		<Server type="steam" uri="bid-owl.de" />
-	</ServerSettings>
+        <ServerSettings>
+                <Server type="red5" uri="rtmp://xserve2.ufc.uni-paderborn.de/flocs/" />
+                <Server type="steam" uri="steam.upb.de" />
+                <Server type="steam" uri="bid-owl.de" />
+        </ServerSettings>
 </FlocsConfig>
