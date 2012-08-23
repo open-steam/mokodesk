@@ -73,16 +73,13 @@ class steam_object implements Serializable {
 	 * @param steam_connector $pSteamConnector The connection to a sTeam-server
 	 * @param integer $pID unique object ID inside the virtual space (optional)
 	 */
-	public function __construct( $pSteamConnectorID, $pID = "0")
-	{
-		$s = debug_backtrace();
-		if ($s[1]['class'] !== "steam_factory") {
-			error_log("phpsteam error: direct construtor-call not allowed ({$s[1]['class']})");
-			throw new Exception("direct construtor-call not allowed ({$s[1]['class']})");
-		}
-		if (!is_string($pSteamConnectorID)) throw new ParameterException( "pSteamConnectorID", "string" );
-		$this->id 	= (int) $pID;
-		$this->steam_connectorID = $pSteamConnectorID;
+	public function __construct($steamFactory, $steamConnectorId, $id) {
+        if (!($steamFactory instanceof steam_factory)) {
+            error_log("phpsteam error: only steam_factory is allowed to call");
+            throw new Exception("phpsteam error: only steam_factory is allowed to call");
+        }
+		$this->id = (int) $id;
+		$this->steam_connectorID = $steamConnectorId;
 	}
 	
 	public function get_type() {

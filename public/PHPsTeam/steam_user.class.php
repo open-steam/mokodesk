@@ -77,7 +77,7 @@ class steam_user extends steam_container
 		$my_id = $this->get_id();
 		for($i =0;$i< $s; $i++){
 			$tc = $user_favourites[$i];
-			if($tc->get_id() == $contact_id){
+			if($tc instanceof steam_user && $tc->get_id() == $contact_id){
 				$found = TRUE;
 				unset($user_favourites[$i]);
 			}
@@ -89,7 +89,7 @@ class steam_user extends steam_container
 	}
 
 	public function add_contact($contact_id){
-		$admin_steam = new steam_connector(STEAM_SERVER, STEAM_PORT, STEAM_ROOT_LOGIN, STEAM_ROOT_PW);
+		$admin_steam = steam_connector::connect(STEAM_SERVER, STEAM_PORT, STEAM_ROOT_LOGIN, STEAM_ROOT_PW);
 		$contact = steam_factory::get_object( $admin_steam->get_id(), $contact_id, CLASS_USER );
 
 		//The user you are sending a request to is immediatly your contact
@@ -99,7 +99,7 @@ class steam_user extends steam_container
 		//of the target user
 
 		$contact->add_unconfirmed_contact($this->get_id(), $admin_steam);
-		$admin_steam->disconnect();
+		//$admin_steam->disconnect();
 	}
 
 	/**
@@ -176,11 +176,16 @@ class steam_user extends steam_container
 	}
 
 
-	public function get_full_name( ) {
+	public function get_full_name($reverse = false) {
 		$fullname = $this->get_attribute( "USER_FULLNAME");
 		$firstname = $this->get_attribute( "USER_FIRSTNAME");
-		if ( !is_string( $firstname ) ) return $fullname;
-		else return $firstname . " " . $fullname;
+		if (!is_string($firstname)) {
+                    return $fullname;
+                } else if ($reverse) {
+                    return $fullname . ", " . $firstname;
+                } else {
+                    return $firstname . " " . $fullname;
+                }
 	}
 
 	/**
@@ -799,7 +804,6 @@ class steam_user extends steam_container
 		$confirmed_contacts = $this->get_attribute( "USER_CONTACTS_CONFIRMED" );
 		$user_favourites_obj = $this->get_attribute( "USER_FAVOURITES" );
 		$user_toconfirm_obj = $this->get_attribute( "USER_CONTACTS_TOCONFIRM" );
-
 		$user_favourites_ids = array();
 		$user_toconfirm_ids = array();
 		$buddies = array();
@@ -807,7 +811,9 @@ class steam_user extends steam_container
 		//Get ids
 		if(is_array($user_favourites_obj))
 		foreach($user_favourites_obj as $ufo){
-			$user_favourites_ids[] =  $ufo->get_id();
+			if ($ufo instanceof steam_user) {
+				$user_favourites_ids[] =  $ufo->get_id();
+			}
 		}
 
 		//Get ids
@@ -817,17 +823,23 @@ class steam_user extends steam_container
 		}
 
 		$buddie_ids = array();
-		if(is_array($confirmed_contacts)){
+		if(is_array($confirmed_contacts))
+		{
 			$buddie_ids += array_keys($confirmed_contacts);
 		}
-		$buddie_ids += $user_favourites_ids;
+		$buddie_ids = array_unique(array_merge ($user_favourites_ids, $buddie_ids));
+		
 
 		$c = array_diff($buddie_ids, $user_toconfirm_ids);
 		$buddie_ids = array_intersect($c, $buddie_ids);
 
 
-		foreach($buddie_ids as $buddy_id){
-			$buddies[] = steam_factory::get_object( $GLOBALS[ "STEAM" ]->get_id(), $buddy_id, CLASS_USER | CLASS_GROUP);
+		foreach($buddie_ids as $buddy_id)
+		{
+			if ( steam_factory::get_object( $GLOBALS[ "STEAM" ]->get_id(), $buddy_id, CLASS_USER | CLASS_GROUP) instanceof STEAM_USER || steam_factory::get_object( $GLOBALS[ "STEAM" ]->get_id(), $buddy_id, CLASS_USER | CLASS_GROUP) instanceof STEAM_GROUP )
+			{
+				$buddies[] = steam_factory::get_object( $GLOBALS[ "STEAM" ]->get_id(), $buddy_id, CLASS_USER | CLASS_GROUP);
+			}
 		}
 
 		//Registry::get('logger')->info("Picked buddies: ".print_r($buddie_ids, true));

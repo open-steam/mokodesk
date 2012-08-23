@@ -495,7 +495,11 @@ class steam_connection {
           try {
             $pCommandBuffer[ $i ]->decode( $res, $flushing );
           } catch( Exception $exception ){
-            throw new steam_exception($this->get_login_user_name(), $exception->get_message(), 300);
+          	if (method_exists($exception, "get_message")) {
+            	throw new steam_exception($this->get_login_user_name(), $exception->get_message(), 300);
+          	} else {
+          		throw new steam_exception($this->get_login_user_name(), $exception->getMessage(), 300);
+          	}
           }
         }
         else {
@@ -638,7 +642,7 @@ class steam_connection {
 	 */
 	public function buffer_attributes_request( $pObject, $pAttributes, $pSourceObjectID = 0 )
 	{
-			$object = ( $pSourceObjectID == 0 ) ? $pObject : new steam_object( $this, $pSourceObjectID );
+			$object = ( $pSourceObjectID == 0 ) ? $pObject : steam_factory::get_object($this->get_id(), $pSourceObjectID);
 			$transaction_id = $this->predefined_command(
 				$object,
 				"query_attributes",

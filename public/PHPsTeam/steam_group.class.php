@@ -571,10 +571,6 @@ class steam_group extends steam_object
 	public function drop_subGroupsLookupCache() {
 		$this->subGroupsLookupCache = null;
 	}
-	
-	public function get_subgroup_by_name($subgroup_name) {
-		return steam_factory::get_group($this->steam_connectorID, $this->get_groupname() . '.' . $subgroup_name);
-	}
 }
 
 ?>

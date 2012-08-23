@@ -30,8 +30,7 @@ class steam_document extends steam_object
 	 *
 	 * @return
 	 */
-	public function download()
-	{
+	public function download() {
 		//first run server request
 		$request = new steam_request($this->get_steam_connector()->get_id(), $this->get_steam_connector()->get_transaction_id(), $this, 0, COAL_FILE_DOWNLOAD );
 		$command = $this->get_steam_connector()->command( $request );
@@ -52,8 +51,9 @@ class steam_document extends steam_object
 		header( "Content-Type: " . $this->get_attribute( "DOC_MIME_TYPE" ) . "\n");
 		header( "Content-Disposition: attachment; filename=\"" . $this->get_name() . "\"\n" );
 		header( "Content-Length: " . $this->get_content_size() . "\n");
-		//return data
-		return $buffer;
+		//print data
+		echo $buffer;
+		return "";
 	}
 
 	/**

@@ -31,7 +31,7 @@ require_once( "steam_connection.class.php" );
  * Insofar, an object of steam_connector can be seen as the key to
  * access all other steam_objects. PHPsTeam is so easy like this:
  * <code>
- * $steam = new steam_connector(
+ * $steam = steam_connector::connect(
  * 		"steam.open-steam.org",
  *		1900, "aroth",
  *		"secret_pw"
@@ -58,7 +58,7 @@ class steam_connector implements Serializable
 	 * Arguments are all optional. If arguments are given, steam_connector
 	 * tries to connect to the defined sTeam-server.
 	 * Examples:
-	 * - <code>$steam = new steam_connector( "steam.upb.de", 1900, "aroth", "secret" );</code>
+	 * - <code>$steam = steam_connector::connect( "steam.upb.de", 1900, "aroth", "secret" );</code>
 	 *
 	 * @param string  $pServerIP	IP or hostname of a sTeam-server
 	 * @param integer $pServerPort	server's port for COAL-protocol
@@ -510,7 +510,6 @@ class steam_connector implements Serializable
   	public function command($pRequest){
   		return steam_connection::get_instance($this->get_id())->command($pRequest);
   	}
-  	
   	public function read_socket($pLength) {
   		return steam_connection::get_instance($this->get_id())->read_socket($pLength);
   	}

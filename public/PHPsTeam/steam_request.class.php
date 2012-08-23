@@ -244,7 +244,7 @@ class steam_request
 		return $this->arguments;
 	} //function decode($command)
 
-	function mybin2dec($str) {
+	function mybin2dec($str) {		
 		$result = 0;
 		$pos = true;
 		if (($str[0] & chr(pow(2,7))) == chr(pow(2,7))) {
@@ -269,6 +269,8 @@ class steam_request
 				}
 			}
 		}
+		
+
 		return $result;
 	}
 

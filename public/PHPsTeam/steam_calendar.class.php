@@ -79,7 +79,7 @@ class steam_calendar extends steam_room
 {
 	
 	public function get_type() {
-		return CLASS_CALENDAR | CLASS_ROOM | CLASS_OBJECT;
+		return CLASS_CALENDAR | CLASS_ROOM | CLASS_CONTAINER | CLASS_OBJECT;
 	}
 	
 	/**
