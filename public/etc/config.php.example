@@ -20,6 +20,6 @@
  
   $MOKODESK_ALLOWED_GROUP_NAME = "mokodesk";
   $MOKODESK_ALLOWED_CHATGROUP_NAME = "mokochat";
-  $MOKODESK_TEACHER_GROUP_NAME = "asb.Jule.lars.lars-owl-lehrer";
+  $MOKODESK_TEACHER_GROUP_NAME = "asb.Jule.jule-lehrer";
   
 ?>
