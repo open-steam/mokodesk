@@ -22,10 +22,10 @@
   		  Bastian Schröder <bastian@upb.de>
 
   ****************************************************************************/
-require_once("$configDocRoot/mokodesk_steam.php");
-  require_once("$configDocRoot/lars_tools.php");
-  require_once("$configDocRoot/includes/mimetype_map.php");
-  require_once("$configDocRoot/includes/derive_mimetype.php");
+require_once("../mokodesk_steam.php");
+  require_once("$configDocRoot/public/lars_tools.php");
+  require_once("$configDocRoot/public/includes/mimetype_map.php");
+  require_once("$configDocRoot/public/includes/derive_mimetype.php");
 
   $object = (int) (isset($_GET["object"]))?trim($_GET["object"]):0;
 session_name("bidowl_session");
@@ -91,7 +91,7 @@ session_write_close();
       $data["mimetype"] = $object->get_attribute(DOC_MIME_TYPE);
       
       //get content
-      $filecontent = $object->download();
+      $filecontent = $object->get_content();
       if ( empty($filecontent) ) {
         echo "Das Dokument " . $data["name"] . " hat keinen Inhalt";
 //        header("WWW-Authenticate: Basic realm=\"Test Authentication System\"");

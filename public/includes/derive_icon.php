@@ -26,8 +26,9 @@
 
   function derive_icon($properties)
   {
+    global $config_doc_root;
     global $config_webserver_ip;
-    include("mimetype_map.php");
+    include("$config_doc_root/config/mimetype_map.php");
 
     //bidOWL:Collection Types
     $collectiontype = (isset($properties["bid:collectiontype"]) && is_string($properties["bid:collectiontype"]))?$properties["bid:collectiontype"]:"";
