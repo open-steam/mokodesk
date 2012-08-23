@@ -1053,7 +1053,7 @@ function copyFile($steam, $id)
 		exit;
 		}
 	// copy document
-	$copy1 = steam_factory::create_copy( $steam, $object_to_copy );
+	$copy1 = steam_factory::create_copy( $GLOBALS["STEAM"]->get_id(), $object_to_copy );
 	$copy1->move( $target_folder );	
 
 	print (json_encode(array(success => true, newId => $copy1->get_id(), origName => $copy1->get_name())));
@@ -1080,7 +1080,7 @@ function copyFilePackage($steam, $id)
 	// copy document
 	$copy1 = steam_factory::create_container($GLOBALS["STEAM"]->get_id(), $file_name['filename'], $archiv_folder, $file_name['filename']);
 	$file_copy->move($copy1);
-	$copy2 = steam_factory::create_copy( $steam, $copy1 );
+	$copy2 = steam_factory::create_copy( $GLOBALS["STEAM"]->get_id(), $copy1 );
 
 	$steam_user_target = $target_folder->get_environment()->get_environment()->get_creator();
 	$folderName = $steam_user_target->get_attribute("USER_FIRSTNAME")." ".$steam_user_target->get_attribute("USER_FULLNAME");
