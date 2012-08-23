@@ -1,9 +1,6 @@
 <?php
-error_reporting(E_ERROR | E_WARNING | E_PARSE);
 require_once("mokodesk_steam.php");
 
-//error_reporting(6143);
-//error_log("lars_json call");
 $task = ($_POST['task'])?($_POST['task']):
     $LANG = 'de';
     include ("../etc/config.php");

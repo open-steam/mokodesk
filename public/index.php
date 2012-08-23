@@ -1,10 +1,5 @@
 <?php
-//error_reporting(E_ERROR | E_WARNING | E_PARSE);
-error_reporting(E_ALL);
-
-//include("../etc/config.php");
 require_once("mokodesk_steam.php");
-//include("$phpsteamApiRoot/steam_connector.class.php");
 $form = <<<E
 		<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 		<html>
@@ -113,13 +108,11 @@ $form = <<<E
 		<select name="lang">
 		
 E;
-$current_version = "V0.973 15.05.2012";
 $options = array(
 			"Wie beim letzten Mal" => "last",
 			"LARS" => "de_lars",
 			"MokoDesk (Deutsch)" => "de",
 			"MokoDesk (Englisch)" => "en",
-//			"Lars english" => "en_lars",
 //			"debug" => "debug",
 			);
 foreach($options as $key => $value)

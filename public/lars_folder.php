@@ -1,8 +1,6 @@
 <?php
 
 require_once("mokodesk_steam.php");
-	//require_once("../etc/config.php");
-	//require_once("$phpsteamApiRoot/get_current_steam_user.class.php");
     include("lars_tools.php");
 	include("lars_lang.php");
 	$id = ($_POST['node']) ? ($_POST['node']) : null;
@@ -180,13 +178,9 @@ function getResources($steam, $id){
 				array( '-', 'attribute', 'DRAWING_TYPE', '>', 0 ), // Mediarena Elements
 //				array( '+', 'class', CLASS_ROOM),
 //				array( '-', 'class', CLASS_CONTAINER),
-//TODO: Aufgabenpakete zu steam_room umwandeln
 				array( '+', 'class', CLASS_OBJECT)
 				)
 		);
-//TODO:  Vermutlich ein Rechteproblem, beim Aufruf.		
-//[Wed Aug 19 12:11:46 2009] [error] [client 131.234.65.8] PHP Fatal error: Uncaught exception 'steam_exception' with message 'Error during data transfer. COAL_ERROR : args[0]=192 args[1]=Function: get_inventory_filtered not found inside (267185)' in /var/www/PHPsTeam/get_current_steam_user.class.php:703\nStack trace:\n#0 /var/www/PHPsTeam/get_current_steam_user.class.php(611): get_current_steam_user->send_command(Array)\n#1 /var/www/PHPsTeam/get_current_steam_user.class.php(982): get_current_steam_user->command(Object(steam_request))\n#2 /var/www/PHPsTeam/steam_object.class.php(597): get_current_steam_user->predefined_command(Object(steam_container), 'get_inventory_f...', Array, false)\n#3 /var/www/PHPsTeam/steam_container.class.php(313): steam_object->steam_command(Object(steam_container), 'get_inventory_f...', Array, false)\n#4 /var/www/lars2/public/lars_folder.php(182): steam_container->get_inventory_filtered(Array)\n#5 /var/www/lars2/public/lars_folder.php(31): getResources(Object(get_current_steam_user), '267185')\n#6 {main}\n thrown in /var/www/PHPsTeam/get_current_steam_user.class.php on line 703, referer: http://bid-owl.de/mokodesk/   
-//    	$inventory = $current_room->get_inventory("", array("DOC_MIME_TYPE", "DOC_LAST_MODIFIED", "CONT_LAST_MODIFIED", "OBJ_LAST_CHANGED", "DOC_EXTERN_URL", "OBJ_CREATION_TIME", "GTD_PROJECT"));
 
 	$items_array = array();
 	foreach ($inventory as $key => $item) {
@@ -315,7 +309,6 @@ function getResources($steam, $id){
 function getResourcesLinks($steam, $id){
 	require_once("includes/derive_url.php");
 	include("../etc/config.php");
-//	include("lars_lang.php");
 	if ($id == "folder"){
 		$current_room = $steam->get_current_steam_user()->get_attribute("LARS_RESOURCES");
 	} else if ($id == "links"){

@@ -1,14 +1,8 @@
 <?php
-error_reporting(E_ERROR | E_WARNING | E_PARSE);
 require_once("mokodesk_steam.php");
 
 $task = ($_POST['task']) ? ($_POST['task']) : null;
-#if ($task == "getUsersLastLogin"){exit;}
-#if ($task == "getUpdate"){exit;}
-
-//	include("../etc/config.php");
-//    include("$phpsteamApiRoot/get_current_steam_user.class.php");
-    include("lars_tools.php");
+include("lars_tools.php");
 session_name("bidowl_session");
 session_start();      
 	$loginName = ($_SESSION['user']) ? ($_SESSION['user']) : null;

@@ -1,7 +1,4 @@
 <?php
-//error_reporting(6143);
-error_reporting(E_ERROR | E_WARNING | E_PARSE);
-//error_log("lars_json call");
 require_once("mokodesk_steam.php");
 $task = ($_POST['task'])?($_POST['task']):
     null;

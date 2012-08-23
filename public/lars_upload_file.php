@@ -1,27 +1,6 @@
 <?php
-error_reporting(E_ERROR | E_WARNING | E_PARSE);
 require_once("mokodesk_steam.php");
 
-//print ("lskdhfklsdf");
-//$o = array(
-//     "success"=>true
-//    ,"post"=>preg_replace("/\\n+/", "<br>", print_r($_POST, 1))
-//    ,"files"=>preg_replace("/\\n+/", "<br>", print_r($_FILES, 1))
-//);
-//echo json_encode($o);
-//error_log("upload aufruf");
-//error_reporting(6143);
-//if(isset($_SERVER['CONTENT_LENGTH']) && $_SERVER['CONTENT_LENGTH']>2097152)
-//	error_log('Upload FAILED, file is too large !'.$_SERVER['CONTENT_LENGTH']);
-// error_log(preg_replace("/\\n+/", "<br>", print_r($_POST, 1)));
-// error_log(preg_replace("/\\n+/", "<br>", print_r($_FILES, 1)));
-
-
-// error_log(print_r($_POST, 1));
-// error_log($_FILES['file']['size']);
-// error_log(print_r($_FILES, 1));
-// include("../etc/config.php");
-//    include("$phpsteamApiRoot/get_current_steam_user.class.php");
     include("lars_tools.php");
     
 session_name("bidowl_session");

@@ -78,8 +78,6 @@ $origContent = ($_POST['origValue']) ? ($_POST['origValue']) : null;
     $origContent = stripslashes($origContent);
 	$origContent = preg_replace('#src="' . $config_webserver_ip . '/tools/get.php\?object=([a-z0-9.\- _\/]*)"#iU', 'src="$1"', $origContent);
     $origContent = preg_replace('#'.$current_path.'#iU', '', $origContent);
-// echo $serverContent."\n";
-// echo $origContent."\n";
   
   if($origContent == $serverContent)
   {
@@ -140,8 +138,6 @@ $name = ($_POST['name']) ? $_POST['name'] : "Neu";
   	$newDocument = steam_factory::create_document($GLOBALS["STEAM"]->get_id(), tidyName($name).".html", stripslashes($content), "text/html", $discussion_folder, tidyDesc($name) );
   } else {
   	$document->set_attribute("OBJ_DESC", tidyDesc($name)); //Name wird nicht geändert bei erneutem editieren
-//  	$document->set_name(tidyName($name).".html"); //TODO: error_log bid_owl
-//[Sun Feb 15 22:37:36 2009] [error] [client 131.234.252.13] PHP Fatal error:  Uncaught exception 'steam_exception' with message 'Error during data transfer. COAL_ERROR : args[0]=1 args[1]=Cannot update identifier - object with name exists (/kernel/proxy.pike(492940/PSTAT_SAVE_OK))!' in /var/www/lars/PHPsTeam/steam_connector.class.php:690\nStack trace:\n#0 /var/www/lars/PHPsTeam/steam_connector.class.php(599): steam_connector->send_command(Array)\n#1 /var/www/lars/PHPsTeam/steam_connector.class.php(970): steam_connector->command(Object(steam_request))\n#2 /var/www/lars/PHPsTeam/steam_object.class.php(584): steam_connector->predefined_command(Object(steam_document), 'set_attributes', Array, 0)\n#3 /var/www/lars/PHPsTeam/steam_object.class.php(490): steam_object->steam_command(Object(steam_document), 'set_attributes', Array, 0)\n#4 /var/www/lars/PHPsTeam/steam_object.class.php(453): steam_object->set_attributes(Array, 0)\n#5 /var/www/lars/PHPsTeam/steam_object.class.php(360): steam_object->set_attribute('OBJ_NAME', 'Fehlermeldung.h...', 0)\n#6 /var/www/lars/lars_edit.php(138): steam_object->set_n in /var/www/lars/PHPsTeam/steam_connector.class.php on line 690, referer: http://www.bid-owl.de/lars/lars2/index.html
   	$document->set_content(stripslashes($content));
   }
   
@@ -160,7 +156,6 @@ function getHtml($steam, $id){
 		$content = $content ? $content : ""; 
 		$content = preg_replace('/\n\n/', '</p>', $content);
 		$content = stripslashes($content);
-//		echo $content;
 //	    $content = preg_replace('/src="\/([a-z0-9.\-\%_\/]*)"/iU', 'src="' . $config_webserver_ip . '/tools/get.php?object=$1"', $content);
 //    	$content = preg_replace('/src="+(?!http)([a-z0-9.\-_\/]*)"/iU', 'src="' . $config_webserver_ip . '/tools/get.php?object=' . $current_path . '$1"', $content);
     	$content = preg_replace('/src="([a-z0-9.\- _\/]*)"/iU', 'src="' . $config_webserver_ip . '/tools/get.php?object=' . $current_path . '$1"', $content);

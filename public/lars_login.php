@@ -1,10 +1,7 @@
 <?php
 	error_reporting(E_ERROR | E_WARNING | E_PARSE);
 require_once("mokodesk_steam.php");
-//	include("../etc/config.php");
-//    include("$phpsteamApiRoot/get_current_steam_user.class.php");
 	include_once("lars_lang.php");
-	$current_version = "V0.980 23.07.2012";
   	$loginName = isset($_POST['user']) ? ($_POST['user']) : null;
     $loginPwd = isset($_POST['pass']) ? ($_POST['pass']) : null;
 
@@ -18,7 +15,6 @@ require_once("mokodesk_steam.php");
     $loginName = isset($_SESSION["login_name"]) ?  $_SESSION['login_name'] : $loginName;
     $loginPwd = isset($_SESSION["login_pwd"]) ? $_SESSION['login_pwd'] : $loginPwd;
 	$LANG = ($_SESSION['language']) ? ($_SESSION['language']) : "de";
-//	error_log("lars_login call: ".$loginName);
 	$steam = mokodesk_steam::connect(	$configServerIp,
                                     $configServerPort,
                                     $loginName,
@@ -30,7 +26,6 @@ require_once("mokodesk_steam.php");
 	} elseif( !$steam || !$steam->get_login_status() )
 	{
     	print (json_encode(array("success" => false, "name"=>msg('LOGIN_FAILED'))));
-//		error_log("lars_login fail: login failed");
 //		session_destroy();
 //		unset $_SESSION['login_name'];
 //		unset $_SESSION['login_pwd']);

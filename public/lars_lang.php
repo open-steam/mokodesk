@@ -1,6 +1,4 @@
 <?php
-error_reporting(E_ERROR | E_WARNING | E_PARSE);
-
 global $LANG;
 global $languages;
 $languages = array (
