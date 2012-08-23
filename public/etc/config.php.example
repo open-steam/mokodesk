@@ -1,10 +1,10 @@
 <?php
 
-  $config_webserver_ip = "http://www.bid-owl.de/mokodesk";
+  $config_webserver_ip = "http://www.bid-owl.de/lars";
   
-  $configDocRoot = "/srv/www/htdocs/mokodesk/";
+  $configDocRoot = dirname(dirname(dirname(__FILE__)));
 
-  $phpsteamApiRoot = $configDocRoot."/../PHPsTeam";
+  $phpsteamApiRoot = $configDocRoot . "/public/PHPsTeam";
 
   $configServerIp = "www.bid-owl.de";
 
@@ -14,7 +14,7 @@
 
   set_include_path(get_include_path() . PATH_SEPARATOR . $phpsteamApiRoot);
   
-  $error_log_mokodesk = "/var/www/mokodesk/log/error.log";
+  $error_log_mokodesk = $configDocRoot .  "/log/error.log";
   
   $config_cgi_ip = "http://www.bid-owl.de/cgi-bin";
  
