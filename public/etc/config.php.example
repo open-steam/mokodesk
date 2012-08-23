@@ -1,7 +1,5 @@
 <?php
 
-  $current_version = "V0.981 23.08.2012";
-
   $config_webserver_ip = "http://www.bid-owl.de/lars";
   
   $configDocRoot = dirname(dirname(dirname(__FILE__)));
