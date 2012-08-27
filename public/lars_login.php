@@ -97,7 +97,7 @@ require_once("mokodesk_steam.php");
 
 			//First time creation of the users Lars room
 			if (!($desktop_attributes_array["LARS_DESKTOP"] instanceof steam_container)){
-				$new_lars_room = steam_factory::create_room($steam, "MokoDesk", $steam_workroom, "MokoDesk");
+				$new_lars_room = steam_factory::create_room($GLOBALS["STEAM"]->get_id(), "MokoDesk", $steam_workroom, "MokoDesk");
 				$new_lars_room->set_attribute("OBJ_TYPE", "LARS_DESKTOP");
 //				if (!($lehrerGruppe->is_member($steam_user))){
 //					$new_lars_room->set_sanction_all($lehrerGruppe);
@@ -108,14 +108,14 @@ require_once("mokodesk_steam.php");
 
 			$desktop_attributes_array["LARS_DESKTOP_DISCUSSION"] = $desktop_attributes_array["LARS_DESKTOP"]->get_attribute("FOLDER_DISCUSSION");
 			if (!($desktop_attributes_array["LARS_DESKTOP_DISCUSSION"] instanceof steam_container)){
-				$new_lars_room = steam_factory::create_room($steam, msg('NAME_MESSAGES_FOLDER'), $desktop_room, msg('NAME_MESSAGES_FOLDER_DESC'));
+				$new_lars_room = steam_factory::create_room($GLOBALS["STEAM"]->get_id(), msg('NAME_MESSAGES_FOLDER'), $desktop_room, msg('NAME_MESSAGES_FOLDER_DESC'));
 				$new_lars_room->set_attribute("OBJ_TYPE", "LARS_MESSAGES");
 				$desktop_attributes_array["LARS_DESKTOP"]->set_attribute("FOLDER_DISCUSSION", $new_lars_room);
 				$desktop_attributes_array["LARS_DESKTOP_DISCUSSION"] = $new_lars_room;
 			}
 			if (!($desktop_attributes_array["LARS_ARCHIV"] instanceof steam_container)){
 				$larsDesktop = $desktop_attributes_array["LARS_DESKTOP"];
-				$new_lars_archiv = steam_factory::create_room($steam, msg('NAME_ARCHIV_FOLDER'), $larsDesktop, msg('NAME_ARCHIV_FOLDER_DESC')); 
+				$new_lars_archiv = steam_factory::create_room($GLOBALS["STEAM"]->get_id(), msg('NAME_ARCHIV_FOLDER'), $larsDesktop, msg('NAME_ARCHIV_FOLDER_DESC')); 
 				$new_lars_archiv->set_attribute("OBJ_TYPE", "LARS_ARCHIV");
 				$steam_user->set_attribute("LARS_ARCHIV", $new_lars_archiv);
 				$larsDesktop->set_attribute("LARS_ARCHIV", $new_lars_archiv);
@@ -124,7 +124,7 @@ require_once("mokodesk_steam.php");
 			}
 			if (!($desktop_attributes_array["LARS_RESOURCES"] instanceof steam_container)){
 				$larsDesktop = $desktop_attributes_array["LARS_DESKTOP"];
-				$new_lars_resource = steam_factory::create_room($steam, msg('NAME_RESOURCE_FOLDER'), $larsDesktop, msg('NAME_RESOURCE_FOLDER_DESC'));
+				$new_lars_resource = steam_factory::create_room($GLOBALS["STEAM"]->get_id(), msg('NAME_RESOURCE_FOLDER'), $larsDesktop, msg('NAME_RESOURCE_FOLDER_DESC'));
 				$new_lars_resource->set_attribute("OBJ_TYPE", "LARS_RESOURCE");
 				$steam_user->set_attribute("LARS_RESOURCES", $new_lars_resource);
 				$new_lars_resource->set_attribute("LARS_HIDDEN", true);
@@ -148,7 +148,7 @@ require_once("mokodesk_steam.php");
 //			}
 			if (!($desktop_attributes_array["LARS_SCHUELER"] instanceof steam_container)){
 				$larsDesktop = $desktop_attributes_array["LARS_DESKTOP"];
-				$new_lars_resource = steam_factory::create_room($steam, msg('NAME_OTHER_PERSON_DESKS'), $larsDesktop, msg('NAME_OTHER_PERSON_DESKS_DESC'));
+				$new_lars_resource = steam_factory::create_room($GLOBALS["STEAM"]->get_id(), msg('NAME_OTHER_PERSON_DESKS'), $larsDesktop, msg('NAME_OTHER_PERSON_DESKS_DESC'));
 				$new_lars_resource->set_attribute("OBJ_TYPE", "LARS_SCHUELER");
 				$steam_user->set_attribute("LARS_SCHUELER", $new_lars_resource);
 				$new_lars_resource->set_attribute("LARS_HIDDEN", true);
@@ -157,7 +157,7 @@ require_once("mokodesk_steam.php");
 			}
 			if (!($desktop_attributes_array["MOKO_SUBSCRIPTION_CHECK"] instanceof steam_container)){
 				$larsDesktop = $desktop_attributes_array["LARS_DESKTOP"];
-				$new_lars_resource = steam_factory::create_room($steam, "Abonnement neuer Dokumnente", $larsDesktop, "Abonnement neuer Dokumnente");
+				$new_lars_resource = steam_factory::create_room($GLOBALS["STEAM"]->get_id(), "Abonnement neuer Dokumnente", $larsDesktop, "Abonnement neuer Dokumnente");
 				$new_lars_resource->set_attribute("OBJ_TYPE", "MOKO_SUBSCRIPTION_CHECK");
 				$steam_user->set_attribute("MOKO_SUBSCRIPTION_CHECK", $new_lars_resource);
 				$new_lars_resource->set_attribute("LARS_HIDDEN", true);
@@ -166,7 +166,7 @@ require_once("mokodesk_steam.php");
 			}
 			if (!($desktop_attributes_array["LARS_ABO"] instanceof steam_container)){
 				$larsDesktop = $desktop_attributes_array["LARS_DESKTOP"];
-				$new_lars_resource = steam_factory::create_room($steam, msg('NAME_OTHER_DESKS'), $larsDesktop, msg('NAME_OTHER_DESKS_DESC'));
+				$new_lars_resource = steam_factory::create_room($GLOBALS["STEAM"]->get_id(), msg('NAME_OTHER_DESKS'), $larsDesktop, msg('NAME_OTHER_DESKS_DESC'));
 				$new_lars_resource->set_attribute("OBJ_TYPE", "LARS_ABO");
 				$steam_user->set_attribute("LARS_ABO", $new_lars_resource);
 				$new_lars_resource->set_attribute("LARS_HIDDEN", true);

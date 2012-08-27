@@ -203,7 +203,7 @@ function newLink($steam, $id){
 	} else {
 		$link_folder = $steam_user->get_attribute("USER_BOOKMARKROOM");
 	}
-    $newLinkObject = steam_factory::create_docextern( $steam, tidyName($name), $url, $link_folder, tidyDesc($name) );
+    $newLinkObject = steam_factory::create_docextern( $GLOBALS["STEAM"]->get_id(), tidyName($name), $url, $link_folder, tidyDesc($name) );
     print (json_encode(array(success => true)));
 	$steam->disconnect();
 }
@@ -353,7 +353,7 @@ function newSchueler($steam){
 	    print (json_encode(array(success => false)));
 	    exit;
 	}
-	$steam_user = steam_factory::get_user($steam,$name);
+	$steam_user = steam_factory::get_user($GLOBALS["STEAM"]->get_id(),$name);
 	if (!$steam_user){
 	    print (json_encode(array(success => false, name=>msg('NO_MATCH_USERNAME'))));
 	    exit;
@@ -381,7 +381,7 @@ function newSchueler($steam){
 	    print (json_encode(array(success => false, name=>msg('NO_WRITE_OR_READ_ACCESS'))));
 	    exit;
 	}
-	$newlink = steam_factory::create_link($steam, $object_to_link);
+	$newlink = steam_factory::create_link($GLOBALS["STEAM"]->get_id(), $object_to_link);
 	$linkName = $steam_user->get_attribute("USER_FIRSTNAME")." ".$steam_user->get_attribute("USER_FULLNAME");
 	$newlink->set_attribute("OBJ_NAME", tidyName($linkName));
 	$newlink->set_attribute("OBJ_DESC", tidyDesc($linkName));
@@ -407,7 +407,7 @@ function getAppointments($steam){
 	if (in_array("LARS_APPOINTMENTS", $attribute_names)){
 		$lars_appointments = $current_user->get_attribute("LARS_APPOINTMENTS");
 	} else {
-		$lars_appointments = steam_factory::create_textdoc($steam, 'LARS_APPOINTMENTS', '', false, "Lars Termine");
+		$lars_appointments = steam_factory::create_textdoc($GLOBALS["STEAM"]->get_id(), 'LARS_APPOINTMENTS', '', false, "Lars Termine");
 		$current_user->set_attribute("LARS_APPOINTMENTS", $lars_appointments);
 	}
 	$data = $lars_appointments->get_content();
@@ -622,7 +622,7 @@ try{
 		$success = false;
 	    switch($fieldValue){
     		case "true":
-				$copy = steam_factory::create_copy( $steam, $desktop_link );
+				$copy = steam_factory::create_copy( $GLOBALS["STEAM"]->get_id(), $desktop_link );
 				$copy->move( $login_user->get_attribute("MOKO_SUBSCRIPTION_CHECK") );	
 				$success = true;
 				break;
@@ -876,7 +876,7 @@ function copyIntoPackage($steam, $id)
 	$current_folder = steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $packageId );
 	$object_to_copy = steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $id );
 	// copy document
-	$copy = steam_factory::create_copy( $steam, $object_to_copy );
+	$copy = steam_factory::create_copy( $GLOBALS["STEAM"]->get_id(), $object_to_copy );
 	$copy->move( $current_folder );	
 	
 	// copy embedded pictures
@@ -891,15 +891,15 @@ function copyIntoPackage($steam, $id)
 //	print_r($treffer);
 	for ($index=0; $index<count($treffer[0]); $index++){
 //		print $treffer[$index]."-".$index."<<<<<";
-		$original_image_1 = steam_factory::path_to_object($steam, $current_path."".$treffer[1][$index]);
-		$original_image_2 = steam_factory::path_to_object($steam, $treffer[1][$index]);
+		$original_image_1 = steam_factory::path_to_object($GLOBALS["STEAM"]->get_id(), $current_path."".$treffer[1][$index]);
+		$original_image_2 = steam_factory::path_to_object($GLOBALS["STEAM"]->get_id(), $treffer[1][$index]);
 		$original_image = $original_image_1 ? $original_image_1 : $original_image_2;
 		//		$original_image->get_id()
 		if ($original_image instanceof steam_document){
 			$baseFileName = tidyName(basename($treffer[1][$index]));
 			$original_image_id = $original_image->get_id();
 			$original_image_object = steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $original_image_id );
-			$copy_image = steam_factory::create_copy( $steam, $original_image_object );
+			$copy_image = steam_factory::create_copy( $GLOBALS["STEAM"]->get_id(), $original_image_object );
 			$copy_image->move( $current_folder );
 			$copy_image->set_attribute("OBJ_NAME", $baseFileName);
 			$newContent = str_replace($treffer[0][$index], 'src="'.$baseFileName.'"', $newContent);
@@ -938,8 +938,8 @@ function copyPackage($steam, $id)
 		exit;
 	}
 	// copy document
-	$copy1 = steam_factory::create_copy( $steam, $object_to_copy );
-	$copy2 = steam_factory::create_copy( $steam, $object_to_copy );
+	$copy1 = steam_factory::create_copy( $GLOBALS["STEAM"]->get_id(), $object_to_copy );
+	$copy2 = steam_factory::create_copy( $GLOBALS["STEAM"]->get_id(), $object_to_copy );
 	$steam_user_target = $target_folder->get_environment()->get_environment()->get_creator();
 	if ($steam_user_target->get_attribute("USER_FIRSTNAME")){
 		$folderName = $steam_user_target->get_attribute("USER_FIRSTNAME")." ".$steam_user_target->get_attribute("USER_FULLNAME");	
@@ -1014,7 +1014,7 @@ function copyFolder($steam, $id)
 		exit;
 	}
 	// copy document
-	$copy1 = steam_factory::create_copy( $steam, $object_to_copy );
+	$copy1 = steam_factory::create_copy( $GLOBALS["STEAM"]->get_id(), $object_to_copy );
 
 	$copy_inventory_1 = $copy1->get_inventory();
 	$current_path = $object_to_copy->get_path()."/";
@@ -1069,7 +1069,7 @@ function copyFilePackage($steam, $id)
 	$file_to_copy = steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $sourceId );
 	$file_desc = $file_to_copy->get_attribute(OBJ_DESC) ? $file_to_copy->get_attribute(OBJ_DESC) : $file_to_copy->get_attribute(OBJ_NAME);
 	$file_name = pathinfo($file_desc);
-	$file_copy = steam_factory::create_copy( $steam, $file_to_copy );
+	$file_copy = steam_factory::create_copy( $GLOBALS["STEAM"]->get_id(), $file_to_copy );
 	$file_copy->set_attribute("OBJ_DESC", $file_desc);
 	$target_folder = steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $targetId );
 	$archiv_folder = $steam->get_current_steam_user()->get_attribute("LARS_ARCHIV");
@@ -1933,10 +1933,10 @@ try{
 							break;
 						}
 					if (!$object_to_link){
-						$new_lars_room = steam_factory::create_room($steam, $group_object->get_groupname()."", $group_workroom, $group_object->get_groupname()."");
+						$new_lars_room = steam_factory::create_room($GLOBALS["STEAM"]->get_id(), $group_object->get_groupname()."", $group_workroom, $group_object->get_groupname()."");
 						$new_lars_room->set_attribute("OBJ_TYPE", "LARS_DESKTOP");
 						$object_to_link = $new_lars_room;
-						$new_lars_archiv = steam_factory::create_room($steam, "Archiv", $new_lars_room, "Archiv");
+						$new_lars_archiv = steam_factory::create_room($GLOBALS["STEAM"]->get_id(), "Archiv", $new_lars_room, "Archiv");
 						$new_lars_archiv->set_attribute("OBJ_TYPE", "LARS_ARCHIV");
 						$new_lars_archiv->set_attribute("LARS_HIDDEN", true);
 					}
@@ -1946,7 +1946,7 @@ try{
 					    print (json_encode(array(success => false, name=>msg('NO_WRITE_OR_READ_ACCESS'))));
 					    exit;
 					}
-					$newlink = steam_factory::create_link($steam, $object_to_link);
+					$newlink = steam_factory::create_link($GLOBALS["STEAM"]->get_id(), $object_to_link);
 					$linkName = $group_object->get_groupname()."";
 //					$linkName = $group_object->get_attribute("OBJ_NAME");
 					$newlink->set_attribute("OBJ_NAME", $linkName);
@@ -2030,7 +2030,7 @@ function addBuddy($steam, $id){
   		$new_group = steam_factory::get_object($GLOBALS["STEAM"]->get_id(),$id);
   	} else {
 		$name = ($_POST['name']) ? ($_POST['name']) : null;
-  		$new_group = steam_factory::get_user($steam,$name);
+  		$new_group = steam_factory::get_user($GLOBALS["STEAM"]->get_id(),$name);
   	}
 	
 //  	$access_read = $new_group->check_access_read( $steam->get_current_steam_user() );
@@ -2055,7 +2055,7 @@ function deleteBuddy($steam, $id){
   		$delete_group = steam_factory::get_object($GLOBALS["STEAM"]->get_id(),$id);
   	} else {
 		$name = ($_POST['name']) ? ($_POST['name']) : null;
-  		$delete_group = steam_factory::get_user($steam,$name);
+  		$delete_group = steam_factory::get_user($GLOBALS["STEAM"]->get_id(),$name);
   	}
 
   	for ($i = 0; $i < count($buddies); $i++){

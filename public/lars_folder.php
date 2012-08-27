@@ -405,7 +405,7 @@ function setResource($steam, $id){
 		$object_to_link = steam_factory::get_object($GLOBALS["STEAM"]->get_id(),$id);
 	}
 	$links_container = $steam->get_current_steam_user()->get_attribute("LARS_RESOURCES");
-	$newlink = steam_factory::create_link($steam, $object_to_link);
+	$newlink = steam_factory::create_link($GLOBALS["STEAM"]->get_id(), $object_to_link);
 	$newlink->set_attribute("OBJ_NAME", tidyName($name));
 	$newlink->set_attribute("OBJ_DESC", tidyDesc($name));
 	$newlink->move($links_container);

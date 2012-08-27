@@ -43,8 +43,8 @@ switch($task){
 function addAuthorization($steam, $id){
 	global $MOKODESK_ALLOWED_GROUP_NAME;
 	$group = steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $id);
-	$groupLink = steam_factory::create_link($steam, $group);
-	$moko_authorization_group = steam_factory::groupname_to_object($steam, $MOKODESK_ALLOWED_GROUP_NAME);
+	$groupLink = steam_factory::create_link($GLOBALS["STEAM"]->get_id(), $group);
+	$moko_authorization_group = steam_factory::groupname_to_object($GLOBALS["STEAM"]->get_id(), $MOKODESK_ALLOWED_GROUP_NAME);
 	if (!($moko_authorization_group instanceof steam_group)){
     	print (json_encode(array(success => false, name=>"Gruppenhome nicht gefunden")));
     	exit;
@@ -70,14 +70,14 @@ function newUser($steam, $id){
 	    print (json_encode(array(success => false)));
 	    exit;
 	}
-	$steam_user = steam_factory::get_user($steam,$name);
+	$steam_user = steam_factory::get_user($GLOBALS["STEAM"]->get_id(),$name);
 	if (!$steam_user){
 	    print (json_encode(array(success => false, name=>msg('NO_MATCH_USERNAME'))));
 	    exit;
 	}
 	
-	$userLink = steam_factory::create_link($steam, $steam_user);
-	$moko_authorization_group = steam_factory::groupname_to_object($steam, $MOKODESK_ALLOWED_GROUP_NAME);
+	$userLink = steam_factory::create_link($GLOBALS["STEAM"]->get_id(), $steam_user);
+	$moko_authorization_group = steam_factory::groupname_to_object($GLOBALS["STEAM"]->get_id(), $MOKODESK_ALLOWED_GROUP_NAME);
 	if (!($moko_authorization_group instanceof steam_group)){
     	print (json_encode(array(success => false, name=>"Gruppenhome nicht gefunden")));
     	exit;
