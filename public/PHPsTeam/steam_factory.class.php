@@ -282,6 +282,26 @@ class steam_factory
 	}
 
 	/**
+	 * function get_top_groups:
+	 *
+	 *@param $pSteamConnector
+	 *@param Boolean $pBuffer Send now or buffer request?
+	 *
+	 *@return
+	 */
+	public function get_top_groups( $pSteamConnectorID, $pBuffer = 0 )
+	{
+		if (!is_string($pSteamConnectorID)) throw new ParameterException("pSteamConnectorID", "string");
+		$result = steam_connector::get_instance($pSteamConnectorID)->predefined_command(
+							steam_connector::get_instance($pSteamConnectorID)->get_module( "groups" ),
+							"get_top_groups",
+							array( ),
+							$pBuffer
+				   );
+		return $result;
+	}
+
+	/**
 	 * function groupname_to_object:
 	 *
 	 *@param $pSteamConnector

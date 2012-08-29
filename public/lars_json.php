@@ -1998,21 +1998,16 @@ try{
 
 function getGroupsTree($steam, $id){
 	global $phpsteamApiRoot;
-//	require_once("$phpsteamApiRoot/modules/groups.class.php");
 	$arr = array();
 	$id = ($_POST['node']) ? ($_POST['node']) : null;
 	if ($id == "source"){
-		$subGroups = $steam->get_server_module("groups")->get_top_groups();
+	    $subGroups = steam_factory::get_top_groups($GLOBALS["STEAM"]->get_id());
 	} else {
 	    $master_group = steam_factory::get_object($GLOBALS["STEAM"]->get_id(),$id);
 		$subGroups = $master_group->get_subgroups();
 	}
-//	echo $master_group->get_name();
-//	echo $master_group->get_parent_group()->get_name();
-//	print_r($subGroups);
 	foreach ($subGroups as $group) {
 		$arr[] = array(
-//			"text"=>$group->get_groupname(),
 			"text"=>$group->get_attribute("OBJ_NAME"),
 			"id"=>$group->get_id(), 
 			"iconCls"=>"group",
@@ -2022,7 +2017,6 @@ function getGroupsTree($steam, $id){
     $steam->disconnect();                                    
 }
 function addBuddy($steam, $id){
-//	include("lars_lang.php");
 	$login_user = $steam->get_current_steam_user();
 	$buddies = $login_user->get_buddies();
   	if(!is_array($buddies)) $buddies = array();
