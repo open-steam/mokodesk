@@ -1825,12 +1825,12 @@ function getRightsGroups($steam, $id)
 	global $config_webserver_ip;
 	$login_user = $steam->get_current_steam_user();
 	$groups = $login_user->get_groups();
-	$buddies = $login_user->get_buddies();
+	$buddies = $login_user->get_attribute("USER_FAVOURITES");
 	$buddies_ids = array();
 	foreach ($buddies as $buddy){
 		$buddies_ids[] = $buddy->get_id();
 	}
-	$groups = is_array($login_user->get_buddies()) ? array_merge($groups, $buddies) : $groups;
+	$groups = is_array($login_user->get_attribute("USER_FAVOURITES")) ? array_merge($groups, $buddies) : $groups;
 	$lars_abo = $login_user->get_attribute("LARS_ABO")->get_inventory();
 	$lars_desktop = $login_user->get_attribute("LARS_DESKTOP");
 	
@@ -2018,7 +2018,7 @@ function getGroupsTree($steam, $id){
 }
 function addBuddy($steam, $id){
 	$login_user = $steam->get_current_steam_user();
-	$buddies = $login_user->get_buddies();
+	$buddies = $login_user->get_attribute("USER_FAVOURITES");
   	if(!is_array($buddies)) $buddies = array();
   	if ($id){
   		$new_group = steam_factory::get_object($GLOBALS["STEAM"]->get_id(),$id);
@@ -2036,14 +2036,14 @@ function addBuddy($steam, $id){
 		$steam->disconnect();                           
 		exit;
   	}
-	$steam->get_current_steam_user()->set_buddies($buddies);
+	$login_user->set_attribute("USER_FAVOURITES", $buddies);
 	$steam->disconnect();                           
 	print (json_encode(array(success => true)));
 }
 function deleteBuddy($steam, $id){
 //	include("lars_lang.php");
 	$login_user = $steam->get_current_steam_user();
-	$buddies = $login_user->get_buddies();
+	$buddies = $login_user->get_attribute("USER_FAVOURITES");
   	if(!is_array($buddies)) $buddies = array();
   	if ($id){
   		$delete_group = steam_factory::get_object($GLOBALS["STEAM"]->get_id(),$id);
