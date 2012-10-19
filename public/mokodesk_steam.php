@@ -3,7 +3,7 @@ error_reporting(E_ERROR);
 
 include "etc/config.php";
 
-$current_version = "V0.985 25.09.2012";
+$current_version = "V0.986 19.10.2012";
 
 spl_autoload_register(function ($class) {
 	global $phpsteamApiRoot;

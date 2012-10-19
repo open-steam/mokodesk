@@ -113,6 +113,7 @@ $options = array(
 			"LARS" => "de_lars",
 			"MokoDesk (Deutsch)" => "de",
 			"MokoDesk (Englisch)" => "en",
+			"MokoDesk (Französisch)" => "fr",
 //			"debug" => "debug",
 			);
 foreach($options as $key => $value)
@@ -196,6 +197,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" or isset($_SESSION["login_name"])){
 				"last" => "",
 				"de" => "LarsSchreibtischMin_formal.js",
 				"de_lars" => "LarsSchreibtischMin_colloquial.js",
+				"fr" => "LarsSchreibtischMinFr.js",
 				"en" => "LarsSchreibtischMinEn_formal.js",
 				"en_lars" => "LarsSchreibtischMinEn.js",
 				"debug" => "LarsSchreibtisch.js",

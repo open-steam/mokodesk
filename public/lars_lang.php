@@ -104,6 +104,57 @@ $languages = array (
 		'NAME_RESOURCE_FOLDER' => 'Ressourcen', //not for translation
 		'NAME_OTHER_DESKS' => 'Andere_MokoDesks', //not for translation
     ),
+    'fr'=> array(
+		'NO_CONNECTION' => 'No connection to the server.',
+		'NO_MATCH_USERNAME' => 'No user with this name.',
+		'NO_MOKODESK_PERMISSION' => 'There is no permission to use the MokoDesk.',
+		'LOGIN_FAILED' => "Login has failed.",
+		'USER_EXISTS' =>"This user already exists.",
+		'USER_HAS_NO_DESKTOP' => "The user has got no desktop.",
+		'NO_WRITE_OR_READ_ACCESS' => "No write or read permission.",
+		'NO_READ_ACCESS' => "No read permission.",
+		'NO_WRITE_ACCESS' => "No write permission.",
+		'FAILURE_DELETE' => "The item could not be deleted.",
+		'FAILURE' => 'Error',
+		'MSG_FOR' => 'Message regarding ',
+		'MSG_SAVED' => 'The messages has been saved.',
+		'BROKEN_LINK' => '<b>Invalid link: </b>',
+		'BROKEN_LINK_QT' => 'This link is broken.',
+		'NO_CONTAINER' => 'One of the folders is no container.',
+		'WRITE_COMMENT_QT' => 'Write a comment on this document.',
+		'SHOW_HERE' => 'Show document here.',
+		'DOC_EDIT' => 'Edit this document.',
+		'DOC_DEL' => 'Delete this document.',
+		'OPEN_TAB' => 'Open in a new tab.',
+		'PIC_FULL_SIZE' => 'Load this image in full size.',
+		'COPY_ADDR' => 'Copy the path of this image to the clipboard to insert it into a document.',
+		'PIC_TAB' => 'Open in a new tab in full size.',
+		'DOWNLOAD' => 'Download',
+		'ADD_SOLUTION' => 'Upload a solution to this document.',
+		'LINK_TAB' => 'Open this link in a new window.',
+		'LINK_DEL' => 'Delete this link.',
+		'DOC_DOWNLOAD' => 'Download this document.',
+		'REFRESH_BROWSER_1' => 'Please refresh this website in your browser.<br>"<i><b>(',
+		'REFRESH_BROWSER_2' => ')</b></i> "should be displayed in the bottom left-hand corner when logging in.<br><small>The cache of the browser may have to be deleted.</small>',
+		'NAME_MESSAGES_FOLDER_DESC' => 'My Messages',
+		'NAME_ARCHIV_FOLDER_DESC' => 'Archive',
+		'NAME_RESOURCE_FOLDER' => 'Resources',
+		'NAME_RESOURCE_FOLDER_DESC' => 'Resources',
+		'NAME_OWN_SITE' => 'My own page',
+		'NAME_OWN_SITE_DESC' => 'Own_page',
+		'NAME_OTHER_DESKS_DESC' => 'Other MokoDesks',
+		'NAME_OTHER_PERSON_DESKS_DESC' => 'People MokoDesks',
+		'NAME_EMPTY_TITLE_DESK' => 'My MokoDesk',
+		'QTIP_SUBJECT_HAS_ASSIGNMENT' => 'There is a new assignment in this folder.',
+		'QTIP_ASSIGNMENT_NOT_COMPLETED' => 'This assignment has been worked on, but it has not been completed yet.',
+		'QTIP_ASSIGNMENT_FINISHED_UNCORRECTED' => 'This assignment has been completed, but the teacher has not yet corrected it.',
+		'QTIP_ASSIGNMENT_CORRECTED' => 'The teacher has corrected this assignment.',
+		'QTIP_ASSIGNMENT_FINISHED' => 'This assignment is finished.',
+		'NAME_MESSAGES_FOLDER' => 'Meine_Mitteilungen', //not for translation
+		'NAME_ARCHIV_FOLDER' => 'Archiv', //not for translation
+		'NAME_RESOURCE_FOLDER' => 'Ressourcen', //not for translation
+		'NAME_OTHER_DESKS' => 'Andere_MokoDesks', //not for translation
+    ),
 );
 
 function msg($s) {
