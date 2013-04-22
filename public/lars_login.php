@@ -1,6 +1,7 @@
 <?php
-	error_reporting(E_ERROR | E_WARNING | E_PARSE);
-require_once("mokodesk_steam.php");
+	ini_set("display_errors", 1);
+	error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
+	require_once("mokodesk_steam.php");
 	include_once("lars_lang.php");
   	$loginName = isset($_POST['user']) ? ($_POST['user']) : null;
     $loginPwd = isset($_POST['pass']) ? ($_POST['pass']) : null;
@@ -9,7 +10,7 @@ require_once("mokodesk_steam.php");
     session_start();
 	unset($_SESSION['usersOn']);
 	unset($_SESSION['usersOff']);
-    
+
 //	$_SESSION["login_name"] = "";
 //	$_SESSION["login_pwd"] = "";
     $loginName = isset($_SESSION["login_name"]) ?  $_SESSION['login_name'] : $loginName;
@@ -19,13 +20,13 @@ require_once("mokodesk_steam.php");
                                     $configServerPort,
                                     $loginName,
                                     $loginPwd);
-	if($_POST['version'] != $current_version){
+	if($_REQUEST['version'] != $current_version){
 		error_log("lars_login fail: wrong version");
     	print (json_encode(array(success => false, name=>msg('REFRESH_BROWSER_1')."$current_version".msg('REFRESH_BROWSER_2'), version=>true)));
 		exit;
 	} elseif( !$steam || !$steam->get_login_status() )
 	{
-    	print (json_encode(array("success" => false, "name"=>msg('LOGIN_FAILED'))));
+    	print (json_encode(array("success" => false, "name"=>msg('LOGIN_FAILED'), version=>true)));
 //		session_destroy();
 //		unset $_SESSION['login_name'];
 //		unset $_SESSION['login_pwd']);
@@ -37,34 +38,51 @@ require_once("mokodesk_steam.php");
 		$result = $steam->buffer_flush();
 		$steam_workroom = $result[$steam_workroom];
 		$attributes = $result[$attributes];
-		
+
 		/*
 		 * Check for Mokodesk Permission
 		 * this has to be done before creating the folders ;)
 		 */
 		$allowedGroup = steam_factory::get_group($GLOBALS["STEAM"]->get_id(), $MOKODESK_ALLOWED_GROUP_NAME);
+		if (!($allowedGroup instanceof steam_group)) {
+			print (json_encode(array("success" => false, "name"=>"Config error \$MOKODESK_ALLOWED_GROUP_NAME is missing.")));
+			exit;
+		}
 		$allowedGroupWorkroom = $allowedGroup->get_workroom();
 		$groupLinks = $allowedGroupWorkroom->get_inventory_filtered(
 			array(array( '+', 'class', CLASS_LINK))
 			);
 		$allowed = false;
-		foreach ($groupLinks as $key => $groupLink){
-			$group = $groupLink->get_link_object();
-			if($group instanceof steam_user){
-				$allowed = ($steam_user->get_name() == $group->get_name()) ? true : false;
-			} elseif ($group instanceof steam_group) {
-				$allowed = $group->is_member($steam_user);
+		if ($steam_user->get_name() === "root") {
+			$allowed = true;
+		} else {
+			foreach ($groupLinks as $key => $groupLink){
+				$group = $groupLink->get_link_object();
+				if($group instanceof steam_user){
+					$allowed = ($steam_user->get_name() == $group->get_name()) ? true : false;
+				} elseif ($group instanceof steam_group) {
+					$allowed = $group->is_member($steam_user);
+				}
+				if ($allowed){break;}
 			}
-			if ($allowed){break;}
 		}
 		if (!$allowed){
-	    	print (json_encode(array("success" => false, "name"=>msg('LOGIN_FAILED') . "<br>" . msg('NO_MOKODESK_PERMISSION'))));
+	    	print (json_encode(array("success" => false, "name"=>msg('LOGIN_FAILED') . "<br>" . msg('NO_MOKODESK_PERMISSION'), version=>true)));
 			exit;
 		}
-		
-		$chatGroup = steam_factory::get_group($GLOBALS["STEAM"]->get_id(), $MOKODESK_ALLOWED_CHATGROUP_NAME);		
-		$teacherGroup = steam_factory::get_group($GLOBALS["STEAM"]->get_id(), $MOKODESK_TEACHER_GROUP_NAME);		
-		
+
+		$chatGroup = steam_factory::get_group($GLOBALS["STEAM"]->get_id(), $MOKODESK_ALLOWED_CHATGROUP_NAME);
+		$teacherGroup = steam_factory::get_group($GLOBALS["STEAM"]->get_id(), $MOKODESK_TEACHER_GROUP_NAME);
+
+		if (!($chatGroup instanceof steam_group)) {
+			print (json_encode(array(success => false, name=>"Config error \$MOKODESK_ALLOWED_CHATGROUP_NAME={$MOKODESK_ALLOWED_CHATGROUP_NAME} is missing.", version=>true)));
+			exit;
+		}
+		if (!($teacherGroup instanceof steam_group)) {
+			print (json_encode(array(success => false, name=>"Config error \$MOKODESK_TEACHER_GROUP_NAME={$MOKODESK_TEACHER_GROUP_NAME} is missing.", version=>true)));
+			exit;
+		}
+
 		$desktop_attributes_array = array();
 		$desktop_attributes_array["LARS_DESKTOP"] = $steam_user->get_attribute("LARS_DESKTOP", 1);
 		$desktop_attributes_array["LARS_ARCHIV"] = $steam_user->get_attribute("LARS_ARCHIV", 1);
@@ -78,9 +96,9 @@ require_once("mokodesk_steam.php");
 		$desktop_attributes_array["LARS_EAST_COLLAPSED"] = $steam_user->get_attribute("LARS_EAST_COLLAPSED", 1);
 		$desktop_attributes_array["LARS_TITLE"] = $steam_user->get_attribute("LARS_TITLE", 1);
 		$desktop_attributes_array["MOKO_SUBSCRIPTION_CHECK"] = $steam_user->get_attribute("MOKO_SUBSCRIPTION_CHECK", 1);
-		
+
 		$result = $steam->buffer_flush();
-		
+
 		$desktop_attributes_array["LARS_DESKTOP"] = $result[$desktop_attributes_array["LARS_DESKTOP"]];
 		$desktop_attributes_array["LARS_ARCHIV"] = $result[$desktop_attributes_array["LARS_ARCHIV"]];
 		$desktop_attributes_array["LARS_RESOURCES"] = $result[$desktop_attributes_array["LARS_RESOURCES"]];
@@ -93,7 +111,7 @@ require_once("mokodesk_steam.php");
 		$desktop_attributes_array["LARS_EAST_COLLAPSED"] = $result[$desktop_attributes_array["LARS_EAST_COLLAPSED"]];
 		$desktop_attributes_array["LARS_TITLE"] = $result[$desktop_attributes_array["LARS_TITLE"]];
 		$desktop_attributes_array["MOKO_SUBSCRIPTION_CHECK"] = $result[$desktop_attributes_array["MOKO_SUBSCRIPTION_CHECK"]];
-		
+
 
 			//First time creation of the users Lars room
 			if (!($desktop_attributes_array["LARS_DESKTOP"] instanceof steam_container)){
@@ -115,7 +133,7 @@ require_once("mokodesk_steam.php");
 			}
 			if (!($desktop_attributes_array["LARS_ARCHIV"] instanceof steam_container)){
 				$larsDesktop = $desktop_attributes_array["LARS_DESKTOP"];
-				$new_lars_archiv = steam_factory::create_room($GLOBALS["STEAM"]->get_id(), msg('NAME_ARCHIV_FOLDER'), $larsDesktop, msg('NAME_ARCHIV_FOLDER_DESC')); 
+				$new_lars_archiv = steam_factory::create_room($GLOBALS["STEAM"]->get_id(), msg('NAME_ARCHIV_FOLDER'), $larsDesktop, msg('NAME_ARCHIV_FOLDER_DESC'));
 				$new_lars_archiv->set_attribute("OBJ_TYPE", "LARS_ARCHIV");
 				$steam_user->set_attribute("LARS_ARCHIV", $new_lars_archiv);
 				$larsDesktop->set_attribute("LARS_ARCHIV", $new_lars_archiv);
@@ -174,8 +192,8 @@ require_once("mokodesk_steam.php");
 				$desktop_attributes_array["LARS_AB"] = $new_lars_resource;
 			}
 			$steam_user->set_attribute("USER_LAST_LOGIN_LARS", $desktop_attributes_array["USER_CURRENT_LOGIN_LARS"], 1);
-			$steam_user->set_attribute("USER_CURRENT_LOGIN_LARS", time(), 1);	
-	
+			$steam_user->set_attribute("USER_CURRENT_LOGIN_LARS", time(), 1);
+
 		$message = "";
 //		$steam_user->get_attribute("LARS_ARCHIV")->set_attribute("bid:hidden", 1);
 //		$steam_user->get_attribute("LARS_RESOURCES")->set_attribute("bid:hidden", 1);
@@ -190,7 +208,7 @@ require_once("mokodesk_steam.php");
 		$discussion_user = $desktop_attributes_array["LARS_DESKTOP_DISCUSSION"];
 		$desktop_attributes_array["LARS_DESKTOP_DISCUSSION"]->set_attribute("OBJ_TYPE", "LARS_MESSAGES", 1);
 		$discussion_user->sanction(0x00000019, $groupEveryone);	//insert and write and read
-		
+
 //		$chatGroup = steam_factory::get_object($GLOBALS["STEAM"]->get_id(),553498);
 //		$teacherGroup = steam_factory::get_object($GLOBALS["STEAM"]->get_id(),553498); //TODO
 		$larsBin = $desktop_attributes_array["USER_TRASHBIN"]->get_id();
@@ -202,15 +220,15 @@ require_once("mokodesk_steam.php");
 		$videoChat = $chatGroup->is_member($steam_user, 1);
 		$isTeacher = $teacherGroup->is_member($steam_user, 1);
 		$title = $steam_user->get_attribute("LARS_TITLE", 1);
-		
+
 		$result = $steam->buffer_flush();
-		
+
 		$imageHeight = $result[$imageHeight];
 		$eastCollapsed = $result[$eastCollapsed];
 		$videoChat = $result[$videoChat];
 		$isTeacher = $result[$isTeacher];
 		$title = $result[$title];
-		
+
 		if (!$title){
 			$title = msg('NAME_EMPTY_TITLE_DESK');
 		}
@@ -225,7 +243,7 @@ require_once("mokodesk_steam.php");
 //			"type" => $type,
 			"name" => $message,
 			"title" => $title,
-			"imageHeight" => $imageHeight, 
+			"imageHeight" => $imageHeight,
 			"larsDesktop" => $larsDesktop,
 			"larsArchiv" => $larsArchiv,
 			"eastCollapsed" => $eastCollapsed,
