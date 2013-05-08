@@ -58,6 +58,9 @@ main: {
 	news: 'MokoDesk Changes',
 	about: 'About MokoDesk',
 	help: 'Help',
+	retrospection: 'retrospection',
+	hours: '24 hours',
+	week: 'One week',
 	desktop_grid: {
 		tabTip: 'Here you can find all the documents which have been added or altered since the last login.',
 		loadMask: 'Searching for new and altered documents, loading them afterwards.',
