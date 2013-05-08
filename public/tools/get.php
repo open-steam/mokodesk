@@ -23,21 +23,21 @@
 
   ****************************************************************************/
 require_once("../mokodesk_steam.php");
-  require_once("$configDocRoot/public/lars_tools.php");
-  require_once("$configDocRoot/public/includes/mimetype_map.php");
-  require_once("$configDocRoot/public/includes/derive_mimetype.php");
+require_once("$configDocRoot/public/lars_tools.php");
+require_once("$configDocRoot/libary/php/mimetype_map.php");
+require_once("$configDocRoot/libary/php/derive_mimetype.php");
 
   $object = (int) (isset($_GET["object"]))?trim($_GET["object"]):0;
 session_name("bidowl_session");
-session_start();    
+session_start();
 	$login_name = ($_SESSION['user']) ? ($_SESSION['user']) : null;
 	$login_pwd = ($_SESSION['pass']) ? ($_SESSION['pass']) : null;
-session_write_close();	  
+session_write_close();
 	$steam = mokodesk_steam::connect(	$configServerIp,
                   $configServerPort,
                   $login_name,
                   $login_pwd);
-                  
+
   if( !$steam || !$steam->get_login_status() )
   {
 //    header("Location: $config_webserver_ip/index.html");
@@ -85,11 +85,11 @@ session_write_close();
     else {
       //get object attribs
       $data["name"] = $object->get_attribute(OBJ_NAME);
-    
+
       //derive mimetype
 //      $data["mimetype"] = derive_mimetype($data["name"]);
       $data["mimetype"] = $object->get_attribute(DOC_MIME_TYPE);
-      
+
       //get content
       $filecontent = $object->get_content();
       if ( empty($filecontent) ) {
@@ -108,7 +108,7 @@ session_write_close();
     header("Content-Length: " . $data["contentsize"]);
     header("Pragma: public");
     header('Connection: close');
-    
+
     header("Content-Disposition: inline; filename=" . $data["name"]);
 //    echo $data["content"];
     if ($data["mimetype"] == "text/html"){

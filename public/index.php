@@ -64,18 +64,18 @@ $form = <<<E
          #mokodesk {
 			 position:absolute;
 			 top:100%;
-			 margin-left: -100px;		 
-			 margin-top: -80px;		 
+			 margin-left: -100px;
+			 margin-top: -80px;
 		 }
          #julia {
 			 position:absolute;
 			 top:19em;
-			 margin-left: -300px;		 
+			 margin-left: -300px;
 		 }
          #lars {
 			 position:absolute;
 			 top:21em;
-			 margin-left: 0px;		 
+			 margin-left: 0px;
 		 }
          #juletext {
 			 position:absolute;
@@ -106,7 +106,7 @@ $form = <<<E
 		<input type="password" name="pass"/><br/>
 		<label>Sprache:</label>
 		<select name="lang">
-		
+
 E;
 $options = array(
 			"Wie beim letzten Mal" => "last",
@@ -114,7 +114,7 @@ $options = array(
 			"MokoDesk (Deutsch)" => "de",
 			"MokoDesk (Englisch)" => "en",
 			"MokoDesk (Französisch)" => "fr",
-//			"debug" => "debug",
+			"debug" => "debug",
 			);
 foreach($options as $key => $value)
 {
@@ -149,7 +149,7 @@ if(isset($_SESSION["login_name"])){
     $loginName = isset($_SESSION["login_name"]) ?  $_SESSION['login_name'] : $loginName;
     $loginPwd = isset($_SESSION["login_pwd"]) ? $_SESSION['login_pwd'] : $loginPwd;
 }
-session_write_close();	
+session_write_close();
 
 if($_SERVER["REQUEST_METHOD"] == "POST" or isset($_SESSION["login_name"])){
 //    $loginName = isset($_SESSION["login_name"]) ?  $_SESSION['login_name'] : $loginName;
@@ -192,7 +192,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" or isset($_SESSION["login_name"])){
 		}
 	}
 	$_SESSION['language'] = substr($language_selected, 0, 2);
-	session_write_close();	
+	session_write_close();
 	$included_js = array(
 				"last" => "",
 				"de" => "LarsSchreibtischMin_formal.js",
@@ -208,7 +208,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" or isset($_SESSION["login_name"])){
 		<head>
 		 <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
 		  <title>MokoDesk</title>
-			<link rel="stylesheet" type="text/css" href="ext2/resources/css/ext-allMin.css" />
+			<link rel="stylesheet" type="text/css" href="moko/css/ext-allMin.css" />
 			<link rel="stylesheet" type="text/css" href="moko/css/LarsSchreibtischCssMin.css" />
 		</head>
 		<body scroll="no" id="docs">
@@ -216,8 +216,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST" or isset($_SESSION["login_name"])){
 		  <div id="loading">
 			<div class="loading-indicator"><style="margin-right:8px;" align="absmiddle">Anwendung wird geladen...</style></div>
 		  </div>
-			<script type="text/javascript" src="moko/tiny_mce/tiny_mce.js"></script>  
-			<script type="text/javascript" src="moko/'.$included_js[$language_selected].'"></script>
+			<script type="text/javascript" src="moko/tiny_mce/tiny_mce.js"></script>
+			<script type="text/javascript" src="moko/js/'.$included_js[$language_selected].'"></script>
 		</body>
 		</html>';
 	exit;
