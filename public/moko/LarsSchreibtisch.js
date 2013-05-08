@@ -6594,17 +6594,11 @@ Ext.ux.TabCloseMenu = function(){
         menu.showAt(e.getPoint());
     }
 };function copy(inElement) {
-//  if (inElement.createTextRange) {
-//    var range = inElement.createTextRange();
-//    if (range && BodyLoaded==1)
-//     range.execCommand('Copy');
-//  } else {
     var flashcopier = 'flashcopier';
     if(!document.getElementById(flashcopier)) {
       var divholder = document.createElement('div');
       divholder.id = flashcopier;
       document.body.appendChild(divholder);
-//    }
     document.getElementById(flashcopier).innerHTML = '';
     var divinfo = '<embed src="img/_clipboard.swf" FlashVars="clipboard='+escape(inElement)+'" width="0" height="0" type="application/x-shockwave-flash"></embed>';
     document.getElementById(flashcopier).innerHTML = divinfo;
@@ -12268,7 +12262,6 @@ loginInfo = {}
 lastLogin = {};
 var user = {};
 var pass = {};
-//var larsOwnSite = {};
 var larsVoiceChatAllowed = false;
 var larsVoiceChatEnabled = true;
 var packageNodeToCopy = false;
@@ -12276,8 +12269,7 @@ var fileRecordToCopy = false;
 task = {};
 var AScgiloc = 'http://www.imathas.com/imathas/filter/graph/svgimg.php';
 var AMTcgiloc = "http://www.imathas.com/cgi-bin/mimetex.cgi";
-var larsNews = '<font size="3">' 
-//		+ '<font size="2">Die Hilfeseiten sowie die <a href="http://www.bid-owl.de:8080/MokoDeskvideohilfe/index.htm" target="_blank">Videohilfe</a> stehen ab sofort bereit.</p><br><br>'
+var larsNews = '<font size="3">'
 		+ '<b>Version 0.986:<br></b>'
 		+ '<ul><li>- Französisch.<br>'
 		+ '<b>Version 0.983:<br></b>'
@@ -12300,159 +12292,10 @@ var larsNews = '<font size="3">'
 
 Ext.onReady(function() {
 	Ext.QuickTips.init();
-	// Ext.state.Manager.setProvider(new Ext.state.CookieProvider());
 	var choice = 0;
 	Ext.Ajax.timeout = 90000;
 	if (choice) {
-		// setTimeout(function(){
-		// Ext.get('loading').remove();
-		// Ext.get('loading-mask').fadeOut({remove:true});
-		// }, 100);
-		//
-		// Ext.MessageBox.wait(Lars.msg.loading_app);
-		// Ext.Ajax.request({
-		// url: '../lars_login.php',
-		// params: {
-		// user: "",
-		// pass: "",
-		// version: version
-		// },
-		// success: function(response, options){
-		// var responseData =
-		// Ext.util.JSON.decode(response.responseText);//passed back from server
-		// htmlValue = responseData.html;
-		// if (responseData.success){
-		// title = responseData.title;
-		// imageHeight = responseData.imageHeight ? responseData.imageHeight :
-		// 120;
-		// eastCollapsed = responseData.eastCollapsed ?
-		// responseData.eastCollapsed : 1;
-		// larsDesktopId = responseData.larsDesktop;
-		// larsArchivId = responseData.larsArchiv;
-		// larsBinId = responseData.larsBin;
-		// larsVoiceChatAllowed = responseData.vc;
-		// larsOwnSite = responseData.larsOwnSite;
-		// log_in();
-		// } else {
-		// Ext.ux.ToastLars.msg(Lars.msg.failure, responseData.name ?
-		// responseData.name : " ", 5);
-		// }
-		// Ext.MessageBox.hide();
-		// },
-		// scope: this
-		// });
 	} else {
-		/*
-		var login = new Ext.FormPanel({
-					id : 'login-form',
-					// frame : true,
-					autoWidth : true,
-					defaultType : 'textfield',
-					margins : '8 8 8 8',
-					bodyStyle : 'background:transparent;padding:10px;',
-					scope : this,
-					stateful : true,
-					items : [{
-								// id: 'user-field',
-								fieldLabel : Lars.dialog.login.username,
-								name : 'user',
-								allowBlank : false,
-								anchor : '95%'
-							}, {
-								// id: 'pass-field',
-								fieldLabel : Lars.dialog.login.password,
-								name : 'pass',
-								inputType : 'password',
-								allowBlank : false,
-								anchor : '95%'
-							}, new Ext.form.Hidden({
-										fieldLabel : 'Version',
-										name : 'version',
-										hidden : true,
-										value : version
-									})],
-					buttons : [{
-								id : "login-button",
-								text : Lars.dialog.login.button_login,
-								scope : this,
-								handler : function() {
-									this.doLogin();
-								}
-							}]
-				});
-		this.doLogin = function() {
-			login.getForm().submit({
-				method : 'POST',
-				waitTitle : Lars.msg.connecting,
-				waitMsg : Lars.msg.loading_data,
-				url : 'lars_login.php',
-				success : function(form, action) {
-					if (!action.response.responseText) {
-						Ext.ux.ToastLars.msg(Lars.msg.failure,
-								Lars.msg.failure_no_response, 5);
-					} else {
-						var responseData = Ext.util.JSON
-								.decode(action.response.responseText);
-						title = responseData.title;
-						imageHeight = responseData.imageHeight
-								? responseData.imageHeight
-								: 120;
-						eastCollapsed = responseData.eastCollapsed
-								? responseData.eastCollapsed
-								: 1;
-						larsDesktopId = responseData.larsDesktop;
-						larsArchivId = responseData.larsArchiv;
-						larsBinId = responseData.larsBin;
-//						larsOwnSite = responseData.larsOwnSite;
-						larsVoiceChatAllowed = responseData.vc;
-						user = responseData.user;
-						pass = responseData.pass;
-						lastLogin = responseData.loginTimeLast;
-						loginTime = responseData.loginTime;
-						loginInfo = Lars.main.logged_in_since + loginTime +"<br>" + Lars.main.last_login + lastLogin;
-						if (responseData.success) {
-							log_in()
-							Ext.MessageBox.hide();
-							Ext.get('login-window').hide();
-						} else {
-							Ext.MessageBox.hide();
-							Ext.Msg.show({
-										title : Lars.msg.failure,
-										msg : responseData.name,
-										icon : Ext.MessageBox.ERROR,
-										buttons : Ext.Msg.OK
-									});
-							login.getForm().reset();
-						}
-					}
-				},
-				failure : function(form, action) {
-					if (action.failureType === 'server') {
-						responseData = Ext.util.JSON
-								.decode(action.response.responseText);
-						Ext.Msg.alert(Lars.msg.failure, obj.errors.reason);
-					} else if (action.response.responseText) {
-						responseData = Ext.util.JSON
-								.decode(action.response.responseText);
-						Ext.Msg.show({
-									title : Lars.msg.failure,
-									msg : responseData.name,
-									icon : Ext.MessageBox.ERROR,
-									buttons : Ext.Msg.OK
-								});
-					} else {
-						Ext.Msg.show({
-									title : Lars.msg.failure,
-									msg : Lars.msg.failure_login,
-									icon : Ext.MessageBox.INFO
-								});
-					}
-					// login.getForm().reset();
-				},
-				scope : this
-			});
-		};
-		*/
 		this.doLoginBid = function() {
 			Ext.Ajax.request({
 						url : 'lars_login.php',
@@ -12472,7 +12315,6 @@ Ext.onReady(function() {
 							larsDesktopId = responseData.larsDesktop;
 							larsArchivId = responseData.larsArchiv;
 							larsBinId = responseData.larsBin;
-//							larsOwnSite = responseData.larsOwnSite;
 							larsVoiceChatAllowed = responseData.vc;
 							isTeacher = responseData.isTeacher;
 							loginTime = responseData.loginTime;
@@ -12483,8 +12325,6 @@ Ext.onReady(function() {
 							pass = responseData.pass; //used for voice chat
 							if (responseData.success) {
 								log_in()
-//								Ext.MessageBox.hide();
-//								Ext.get('login-window').hide();
 							} else if (responseData.version) {
 								Ext.Msg.show({
 											title : Lars.msg.failure,
@@ -12504,24 +12344,15 @@ Ext.onReady(function() {
 								Ext.Msg.alert(Lars.msg.failure,
 										Lars.msg.failure_redirect);
 							}
-							// login.getForm().reset();
 						},
 						scope : this
 					});
 		};
 		this.doLoginBid.defer(10, this);
-//		Ext.ux.ToastLars.msg(Lars.msg.automatic_redirect_1,
-//				Lars.msg.automatic_redirect_2, 5);
 		var checkBrowser = function() {
 			if ((!Ext.isGecko2 && !Ext.isGecko3)
 					|| (Ext.isSafari || Ext.isSafari2 || Ext.isSafari3)) {
 		    	Ext.ux.ToastLars.msg('<font color="#DD0000">'+Lars.msg.attention, Lars.msg.attention_firefox, 7);
-//				Ext.Msg.show({
-//							title : Lars.msg.attention,
-//							msg : Lars.msg.attention_firefox,
-//							icon : Ext.MessageBox.ERROR,
-//							buttons : Ext.Msg.OK
-//						});
 			}
 		}
 		checkBrowser.defer(1000, this);
@@ -12593,38 +12424,9 @@ Ext.onReady(function() {
 			id : larsDesktopId
 		};
 		var mainPanel = new MainPanel();
-//		var larsVoiceChat = new LarsVoiceChat('');
-//		var newNode = {
-//			id : larsOwnSite,
-//			text : "Meine Seite",
-//			parentElement : ''
-//		}
-//		var larsCustomSite = new LarsHTMLPanel({
-//					id : "lars-own-site",
-//					iconCls : 'house',
-//					title : Lars.main.my_site,
-//					// tabTip: node.text,
-//					// bodyStyle: 'padding:5px 5px 5px 5px; background:white;
-//					// border-style:solid;border-color:#99bbe8;border-width:1;',
-//					// layout: "fit",
-//					// closable:true,
-//					html : 'Seite wird geladen...',// TODO: Sprachen
-//					autoScroll : true,
-//					node : newNode
-//				});
 
 		var larsDesktopGrid = new LarsDesktopGrid('');
 		var larsDesktop = new LarsDesktop();
-//		var larsDesktop = new Ext.Panel({
-//	        margins: '0 0 0 0',
-//			layout:'border',
-////			hideMode  : !Ext.isIE?'nosize':'display',
-////	        split: true,
-//			region: 'center',
-//	    	iconCls: 'application-home',
-//			closable: false,
-//			autoScroll: false,
-//		});
 		var larsDesktopDiscussion = new LarsDesktopDiscussion(desktopNode);
 		var larsDesktopNotes = new LarsDesktopNotes();
 
@@ -12633,7 +12435,6 @@ Ext.onReady(function() {
 
 		var larsDesktopCenter = new Ext.TabPanel({
 					id: "lars-desktop-tab-panel",
-//					split : true,
 					frame : false,
 					region : "center",
 					activeTab : 1,
@@ -12643,19 +12444,15 @@ Ext.onReady(function() {
 					hideLabel: true,
 					bodyBorder : false,
 					border: false,
-					// plain:true,
 					resizeTabs : true,
 					tabWidth : 150,
 					minTabWidth : 90,
 					enableTabScroll : true,
-					// layout: "border",
 					viewConfig : {
 						forceFit : true
 					},
 					listeners : LarsViewer.LinkInterceptor
 				});
-//		LarsViewer.getOwnSite.defer(500, this, []);
-//		larsDesktopCenter.add(larsCustomSite);
 		larsDesktopCenter.add({
 			xtype : 'panel',
 			id: 'about-panel',
@@ -12663,7 +12460,6 @@ Ext.onReady(function() {
 			iconCls : 'wand',
 			layout : 'accordion',
 			items : [{
-//						region : 'center',
 						title : Lars.main.help,
 						iconCls: 'help',
 						xtype : 'iframepanel',
@@ -12682,13 +12478,11 @@ Ext.onReady(function() {
 						edit : false,
 						layout : "fit",
 						autoScroll : true,
-						// loadMask : true,
 						defaultSrc : 'MokoDeskHelp/index.htm',
 						listeners : {
 							domready : LarsViewer.LinkInterceptorIFrame
 						}
 					},{
-//						region : 'south',
 						collapsible : true,
 						iconCls: 'about',
 						xtype : 'panel',
@@ -12702,43 +12496,6 @@ Ext.onReady(function() {
 		});
 		larsDesktopCenter.add(larsDesktopDiscussion);
 		larsDesktopCenter.add(larsDesktopGrid);
-		// new Ext.Panel({
-		// tbar:['->', {
-		// iconCls:'error',
-		// text:"Fehler melden",//TODO: Sprachen
-		// tooltip: "Wenn ein Fehler aufgetreten ist, kannst du ihn hiermit
-		// weiterleiten",
-		// handler: function(){
-		// this.win = new LarsDesktopErrorWindow();
-		// this.win.show();
-		// this.win.setZIndex(90001);
-		// },
-		// scope: this
-		//		    	
-		// }],
-		// title: 'Über MokoDesk',
-		// iconCls: 'wand',
-		// listeners: LarsViewer.LinkInterceptor,
-		// autoLoad: {
-		// url: '../MokoDeskHelp/index.html',
-		// params: {task: 'customImage'},
-		// timeout: Ext.Ajax.timeout // for equal timeouts
-		// },
-		// html: '<font size="4"><br>Hier wirst du in Kürze die Hilfe für deinen
-		// MokoDesk erhalten.<br><br>' +
-		// 'Außerdem wirst du hier erfahren, ob es Änderungen am MokoDesk
-		// gegeben hat.<br><br>' +
-		// 'Die <a
-		// href="http://www.bid-owl.de:8080/MokoDeskvideohilfe/index.htm"
-		// target="_blank">Videohilfe</a> steht ab sofort
-		// bereit.</p><br><br><br>' +
-		// '<font size="2">Version 0.941:<br>' +
-		// '- Das eigene Bild muss erneut hochgeladen werden<br>' +
-		// '- Das Layout wurde umstrukturiert<br>' +
-		// '- Jeder kann nun seine eigene Startseite für den MokoDesk selber
-		// erstellen<br>' +
-		// '- Mitteilungen lassen sich jetzt schneller verfassen'
-		// }));
 
 		larsDesktop.add(larsDesktopCenter);
 		larsDesktop.add(larsDesktopNorth);
@@ -12762,15 +12519,11 @@ Ext.onReady(function() {
 		mainPanel.add(larsDesktopWrapper);
 		var innerPanel = new Ext.Panel({
 					id : 'main-center',
-					// floating: true,
-					// shadow: true,
-					// shim:false,
 					frame : true,
 					header : true,
 					layout : 'fit',
 					region : 'center',
 					margins : '8 5 8 0',
-					// cmargins:'8 0 8 8',
 					autoScroll : false,
 					items : mainPanel
 				});
@@ -12821,7 +12574,6 @@ Ext.onReady(function() {
 					}
 				});
 		larsDesktopGrid.store.load();
-		// larsDesktopDiscussion.loadMask.disable();
 
 		larsUpdater = new LarsUpdater();
 
@@ -12846,38 +12598,9 @@ Ext.onReady(function() {
 		larsUpdater.store.on("load", function(a, b, c) {
 					load_updates.defer(larsUpdaterInterval, this, []);
 				}, this);
-// beforecollapse funktioniert nicht wie in der API beschrieben!				
-//		Ext.getCmp('lars-voice-chat').on("beforecollapse", function(a,b,c){
-//	        	Ext.Msg.confirm(
-//					"Schließen",//TODO: Sprachen
-//					 "Damit wird der Chat beendet! Fortfahren?", 
-//					function(btn){
-//						if (btn == 'yes'){
-//							Ext.getCmp('lars-voice-chat').hide();
-//						} else {
-//							return true;
-//						}
-//				}, this);
-//				return false;
-//		}, this);
 
 		load_updates.defer(10000, this, []);
 		LarsUpdaterUsers.defer(30000, this, []);
-		// task = {
-		// run: load_updates,
-		// interval: 20000,
-		// scope: larsUpdater.store
-		// }
-		// var runner = new Ext.util.TaskRunner();
-		// runner.start.defer(20000, this, [task]);
-
-		// Performance issues
-		// var newDocumentsTask = {
-		// run: larsDesktopGrid.store.load,
-		// interval: 1800000,
-		// scope: larsDesktopGrid.store
-		// }
-		// runner.start.defer(450000, this, [newDocumentsTask]);
 
 		larsDesktopDiscussion.startAutoUpdate("d" + larsDesktopId);
 	};
@@ -12885,7 +12608,7 @@ Ext.onReady(function() {
 
 /*
  * Ende des Seitenaufbaus
- * Beginn Config, ... 
+ * Beginn Config, ...
  */
 // This is a custom event handler passed to some panels so link open in a new
 // windw
@@ -12912,7 +12635,6 @@ LarsViewer.LinkInterceptorIFrame = function(frame) {
 	frame.getDoc().on({
 				'mousedown' : function(e, t) { // try to intercept the easy way
 					if (t.href.match(window.location.host)) {
-						// frame.load(t.href);
 						frame.setSrc(t.href);
 					} else {
 						t.target = '_blank';
@@ -12923,7 +12645,6 @@ LarsViewer.LinkInterceptorIFrame = function(frame) {
 					if (String(t.target).toLowerCase() != '_blank') {
 						e.stopEvent();
 						if (t.href.match(window.location.host)) {
-							// frame.load(t.href);
 							frame.setSrc(t.href);
 						} else {
 							window.open(t.href);
@@ -12933,22 +12654,6 @@ LarsViewer.LinkInterceptorIFrame = function(frame) {
 				delegate : 'a'
 			});
 }
-
-// var frameSet = frame.getWindow();
-// for (var i = 0, l1 = frameSet.frames.length; i < l1; i++) {
-// var elements = frameSet.frames[i].document.getElementsByTagName( 'a' );
-// for (var i2 = 0, aElement = elements[i2], l2 = elements.length; i2 < l2;
-// i2++) {
-// aElement.addEventListener( "click", function(){alert('a')}, true );
-// }
-
-// if (frameSet.frames[i].frames.length) {
-// for (var j = 0, l2 = frameSet.frames.length; j < l2; j++) {
-// frameSet.frames[j].select('a').set({
-// target: '_blank'
-// });
-// }
-// }
 LarsViewer.getKeyMap = function(fn, scope) {
 	// var enterKeyMap = new Ext.KeyMap(scope.form, {
 	var enterKeyMap = {
@@ -12959,28 +12664,6 @@ LarsViewer.getKeyMap = function(fn, scope) {
 	// });
 	return enterKeyMap;
 }
-// };
-// LarsViewer.LinkInterceptorIFrame2 = function(e, targetEl){
-// if (targetEl &&
-// tabs &&
-// !targetEl.getAttribute('target')) { // ignore links with specific window
-// targets?
-// e.stopEvent(); //prevent the default action of the link
-// }
-// frame.getDoc().on({
-// 'mousedown': function(e, t){ // try to intercept the easy way
-// t.target = '_blank';
-// },
-// 'click': function(e, t){ // if they tab + enter a link, need to do it old
-// fashioned way
-// if(String(t.target).toLowerCase() != '_blank'){
-// e.stopEvent();
-// window.open(t.href);
-// }
-// },
-// delegate:'a'
-// }) ;
-// };
 LarsViewer.onLoadException = function(a, b, c) {
 	Ext.ux.ToastLars.msg(Lars.msg.failure_response, '', 5);
 };
@@ -12999,11 +12682,6 @@ LarsViewer.QuestionTabOrBrowserOpen = function(node) {
 				animEl : 'elId',
 				fn : function(btn) {
 					if (btn == 'ok') {
-						// var node = {
-						// attributes: { iconCls: 'link'},
-						// text: e.currentTarget.href,
-						// id: e.currentTarget.href
-						// }
 						Ext.getCmp('main-tabs').fireEvent('viewIFrameTabAll',
 								node);
 					} else if (btn == 'no') {
@@ -13043,12 +12721,6 @@ LarsViewer.QuestionBrowserOpenPDF = function(node) {
 				animEl : 'elId',
 				fn : function(btn) {
 					if (btn == 'ok') {
-						// var node = {
-						// attributes: { iconCls: 'link'},
-						// text: e.currentTarget.href,
-						// id: e.currentTarget.href
-						// }
-//						window.open(node.attributes.lars_ref);
 						Ext.getCmp('main-tabs').fireEvent('viewIFrameTabAll',
 								node);
 					} else if (btn == 'no') {
@@ -13056,57 +12728,7 @@ LarsViewer.QuestionBrowserOpenPDF = function(node) {
 					}
 				}
 			})
-//
-//	
-//	Ext.Msg.confirm(node.attributes.lars_ref, Lars.dialog.link.open_browser,
-//			function(btn) {
-//				if (btn == 'yes') {
-//					window.open("tools/get.php?object="+node.id);
-//				}
-//			}, this)
 };
-// LarsViewer.QuestionTabOpen = function(node){
-// Ext.Msg.confirm(
-// node.attributes.lars_ref,
-// Lars.dialog.link.open_app,
-// function(btn){
-// if (btn == 'yes'){
-// Ext.getCmp('main-tabs').fireEvent('viewIFrameTabAll', node);
-// }
-// },
-// this
-// )
-// };
-
-//LarsViewer.getOwnSite = function() {
-//	var contentSite;
-//	Ext.Ajax.request({
-//		scope : this,
-//		url : '../lars_json.php',
-//		params : {
-//			id : larsOwnSite,
-//			task : 'view'
-//		},
-//		success : function(response, options) {
-//			var responseData = Ext.util.JSON.decode(response.responseText);// passed
-//																			// back
-//																			// from
-//																			// server
-//			if (responseData.success) {
-//				Ext.getCmp("lars-own-site").body.dom.innerHTML = responseData.html;
-//			}
-//		}
-//	});
-//}
-
-// var m = Ext.DomHelper.append("lala", {html:createBox(title, s)}, true);
-// msgCt.alignTo(document, 't-t');
-// m.slideIn('t').pause(sec).ghost("t", {remove:true});
-//
-//
-// this.setSize(200,100);
-// this.el.alignTo(document, "br-br", [ -20,
-// -20-((this.getSize().height+10)*this.pos) ]);
 
 LarsGridConfig = {
 	larsObj : Ext.data.Record.create([{
@@ -13145,7 +12767,6 @@ LarsGridConfig = {
 				name : 'LARS_TYPE',
 				type : 'string'
 			},
-			// {name: 'LARS_STATE', type: 'string'},
 			{
 				name : 'OBJ_TYPE',
 				type : 'string'
@@ -13213,23 +12834,11 @@ LarsGridConfig = {
 				name : 'container',
 				type : 'string'
 			}]),
-	// dsState: new Ext.data.SimpleStore({
-	// id: 0,
-	// fields: ['id', 'text'],
-	// data: [
-	// [0, 'neu'],
-	// [1, 'bearbeitet'],
-	// [2, 'fertig'],
-	// [3, 'korrigiert'],
-	// [4, 'abgeschlossen']
-	// ]
-	// }),
 
 	dsType : new Ext.data.SimpleStore({
 				id : 0,
 				fields : ['id', 'text'],
 				data : [[0, '-'], [1, 'Aufgabe'], [2, 'Lösung'],
-						// [3, 'tituli']
 						[3, 'Info']]
 			}),
 	expander : new Ext.grid.RowExpander({
@@ -13237,20 +12846,6 @@ LarsGridConfig = {
 				lazyRender : true,
 				enableCaching : false
 			}),
-	// filters: new Ext.grid.GridFilters(
-	// {
-	// autoReload: false, //false, for no reloading from server.
-	// // true, to load new data from server when filtering
-	// local: true
-	// filters:[
-	// {type: 'string', dataIndex: 'OBJ_NAME'},
-	// {type: 'numeric', dataIndex: 'LARS_STATE'},
-	// {type: 'string', dataIndex: 'type'},
-	// {type: 'date', dataIndex: 'OBJ_CREATION_TIME'},
-	// {type: 'date', dataIndex: 'OBJ_LAST_CHANGED'}
-	// ]
-	// }
-	// ),
 	applyRowClass : function(record, rowIndex, p, ds) {
 		switch (record.data.LARS_TYPE) {
 			case '0' :
@@ -13345,10 +12940,7 @@ LarsGridConfig = {
 				Ext.MessageBox.alert(Lars.msg.failure_connection, '');
 			},// end failure block
 			success : function(response, options) {
-				var responseData = Ext.util.JSON.decode(response.responseText);// passed
-																				// back
-																				// from
-																				// server
+				var responseData = Ext.util.JSON.decode(response.responseText);
 				if (responseData.success == true) {
 					Ext.ux.ToastLars.msg(Lars.msg.success_changed_data,
 							responseData.name ? responseData.name : " ", 3);
@@ -13378,10 +12970,7 @@ LarsGridConfig = {
 			failure : function(response, options) {
 			},// end failure block
 			success : function(response, options) {
-				var responseData = Ext.util.JSON.decode(response.responseText);// passed
-																				// back
-																				// from
-																				// server
+				var responseData = Ext.util.JSON.decode(response.responseText);
 			}// end success block
 		}		// end request config
 		); // end request
@@ -13407,9 +12996,6 @@ LarsUpdater = function(config) {
                 method: 'POST',
 				timeout: timeoutUpdateConnection
             }),   
-//            baseParams:{task: "getUpdates",
-//            			id: Ext.util.JSON.encode(this.updateIds)
-//            			},
             reader: this.myReader
     });
 
@@ -13421,9 +13007,7 @@ LarsUpdater = function(config) {
         );
     this.tmpStore = new Ext.data.Store({
         reader: this.tmpMyReader
-//			sortInfo:{field:'DOC_LAST_MODIFIED', direction:'DESC'}
     });
-//	this.store.on("loadexception", LarsViewer.onLoadException, this, "Update");
 	this.store.on(
 		"load",
 		function(store, records, options){
@@ -13454,8 +13038,6 @@ LarsUpdater = function(config) {
 	                var row = current.grid.view.getRow(current.store.indexOf(oldRecord));
 	                if (Ext.fly(row).hasClass('x-grid3-row-expanded')){
 		                Ext.apply(oldRecord, record);
-//	                	oldRecord.data.LARS_CONTENT = record.data.LARS_CONTENT;
-//TODO: Ext.apply überprüfen 
 	                	if (oldRecord.iFrame){
 	                		oldRecord.iFrame.setSrc();
 	                	} else if (current.expander){
@@ -13469,10 +13051,6 @@ LarsUpdater = function(config) {
 		                Ext.apply(oldRecord, record);
 		                current.grid.getView().refreshRow(oldRecord);
 	                }
-	                
-//		            if (this.updateStore.getById(record.getId())){
-//		                var row = this.grid.getView().getRow(this.updateStore.getById(record.getId()));
-//		                this.grid.getView().insertRows(this.updateStore, row, row, true);
 	            }else{
 	                newRecords.push(record);
 	            }
@@ -13503,10 +13081,6 @@ Ext.extend(LarsUpdater, Ext.util.Observable, {
 	    				id: Ext.util.JSON.encode(this.updateIds)
 	        		},
 	        success: function(response, options){
-//				var responseData = Ext.util.JSON.decode(response.responseText);//passed back from server
-//				htmlValue = responseData.html;
-//				if (responseData.success){
-//				}
 	        },
 	        scope: this
 	    });
@@ -13541,7 +13115,6 @@ LarsUpdaterUsers = function(){
 				var usersOn = responseData.online;
 				var usersOff = responseData.offline;
 				var extensionOn = '<img class=\"online\" unselectable=\"on\" src=\"http://extjs.com/s.gif\"/>';
-//				var extensionOff = '<img class=\"offline\" unselectable=\"on\" src=\"http://extjs.com/s.gif\"/>';
 				var extensionOff = '';
 				for (var index = 0; index < usersOn.length; index++) {
 					var myNode = Ext.getCmp('topics-tree-t').getNodeById(usersOn[index]);
@@ -13560,10 +13133,6 @@ LarsUpdaterUsers = function(){
 					if (myNode){
 						if (!myNode.origText) {
 							myNode.origText = myNode.text;
-	//						myNode.setText(myNode.text + extensionOff);
-	//					}
-	//					else {
-	//						myNode.setText(myNode.origText + extensionOff);
 						} else if (myNode.origText != myNode.text){
 							myNode.setText(myNode.origText);
 						}
@@ -13591,19 +13160,11 @@ Ext.util.JSON.decode = function(json){
 		if ( json[0] == "{"){
 			return eval("(" + json + ')');			
 		} else {
-//			Ext.ux.ToastLars.msg(Lars.msg.failure, json, 15);
 			return {success: false, name: Lars.msg.failure_no_response};
 		}
     };
 Ext.decode = Ext.util.JSON.decode;
 
-//Ext.form.FormPanel.on(
-//	"activate", 
-//	function(panel){
-//		panel.items.items[0].focus(false, 250);
-//		}, 
-//	this
-//);
 Ext.override(Ext.Window, {
     focusFirst : function(panel){
 		panel.form.items.items[0].focus(false, 100);
@@ -13612,12 +13173,10 @@ Ext.override(Ext.Window, {
 
 Ext.override(Ext.grid.GridView, {
     focusRow : function(row){
-//        this.focusCell(row, 0, false);
     }
 });
 Ext.override(Ext.grid.GroupingView, {
     focusRow : function(row){
-//        this.focusCell(row, 0, false);
     }
 });LarsBrowseFileWindow = function(browseField, node) {
     this.browseField = browseField;
@@ -13747,10 +13306,6 @@ Ext.extend(LarsBrowseFileWindow, Ext.Window, {
 					baseParams: {task: "getResources"}
 					}),
 				id:'folder'
-//				id:'105' //root for kessel2 and vm
-//				id:'99' //root for bid-owl
-//				id:'51353' //root for bid-owl/lars
-				
             }),
 		tbar: [{
             iconCls:'folder-add',
@@ -14206,7 +13761,6 @@ Ext.extend(LarsTreePanelFolderLinks, Ext.tree.TreePanel, {
    
     afterRender : function(){
         LarsTreePanelFolderLinks.superclass.afterRender.call(this);
-		// prevent default browser context menu to appear 
 		this.el.on({
 			contextmenu:{fn:function(){return false;},stopEvent:true}
 		});
@@ -14232,10 +13786,6 @@ Ext.extend(LarsTreePanelFolderLinks, Ext.tree.TreePanel, {
 					baseParams: {task: "getResourcesLinks"}
 					}),
 				id:'links'
-//				id:'105' //root for kessel2 and vm
-//				id:'99' //root for bid-owl
-//				id:'51353' //root for bid-owl/lars
-				
             }),
 		tbar: [{
             iconCls:'link-add',
@@ -14266,7 +13816,6 @@ Ext.extend(LarsTreePanelFolderLinks, Ext.tree.TreePanel, {
             }}]             
     }
     );
-//	new Ext.tree.TreeSorter(this, {folderSort: true});    
 	this.expand();
     this.getSelectionModel().on({
         'selectionchange' : function(sm, node){
@@ -14695,33 +14244,9 @@ Ext.extend(LarsCommentWindow, Ext.Window, {
 			},
             scope: this
 		}
-//        {
-//            pressed: true,
-//            enableToggle:true,
-//            text:Lars.main.discussion.show_preview,
-//            tooltip: {title:Lars.main.discussion.show_preview_tt_title,text:Lars.main.discussion.show_preview_tt},
-//            scope:this,
-//            toggleHandler: function(btn, pressed){
-//                this.togglePreview(pressed);
-//                pressed ? Ext.getCmp('show'+node.id).enable() : Ext.getCmp('show'+node.id).disable();
-//            }
-//        },'-',{
-//        	id: 'show'+node.id,
-//            pressed: true,
-//            enableToggle:true,
-//            disabled: false,
-//            text:Lars.main.discussion.expand_preview,
-//            tooltip: {title:Lars.main.discussion.expand_preview_tt_title,text:Lars.main.discussion.expand_preview_tt},
-//            scope:this,
-//            toggleHandler: function(btn, pressed){
-//                this.view.showAll = pressed; 
-//		        this.view.refresh();
-//            }
-//        }
         ];
     
 
-	// Json Reader that creates a JavaScript array from JSON response 
 	var myReader = new Ext.data.JsonReader(
 		{
             root: 'messages',
@@ -14746,8 +14271,6 @@ Ext.extend(LarsCommentWindow, Ext.Window, {
             }),   
             baseParams:{task: "getDiscussion",
             			id: node.id
-//            			start: 0,
-//            			limit: 10
             			},
             reader: myReader,
 			sortInfo:{field:'DOC_LAST_MODIFIED', direction:'DESC'}
@@ -14781,7 +14304,6 @@ Ext.extend(LarsCommentWindow, Ext.Window, {
                 success: function(response, options){
                     var responseData = Ext.util.JSON.decode(response.responseText);//passed back from server
                     imageUri = responseData.imageUri;
-                    //		    	Ext.ux.ToastLarsDiscussion.msg(imageUri, Lars.main.discussion.new_message_2+""+c[0].data.OBJ_AUTHOR, c[0].data.LARS_CONTENT, 60);
                     Ext.ux.ToastLarsDiscussion.msg(imageUri, '<font color="#578d00">' + c[0].data.OBJ_AUTHOR + '</font>: ' + c[0].data.OBJ_DESC, c[0].data.LARS_CONTENT, 10);
                 },
                 scope: this
@@ -14846,14 +14368,6 @@ Ext.extend(LarsCommentWindow, Ext.Window, {
             getRowClass : this.applyRowClass,
             emptyText: Lars.main.discussion.emptyText,
             deferEmptyText: true})
-//        viewConfig: {
-//            forceFit:true,
-//            enableRowBody:true,
-//            showPreview:true,
-//            showAll:true,
-//            getRowClass : this.applyRowClass,
-//            emptyText: Lars.main.discussion.emptyText
-//        }
     });
 
 
@@ -14870,8 +14384,7 @@ Ext.extend(LarsDesktopDiscussion, Ext.grid.GridPanel, {
 	    var node1 = {};
 	    node1.id = record.data.id;
 	    node1.text = record.data.OBJ_DESC;
-	    node1.parentElement = grid.id; //TODO: check if this is right
-//        if(!this.menu){ // create context menu on first right click
+	    node1.parentElement = grid.id; 
             this.menu = new Ext.menu.Menu({
                 id:'grid-discussion-ctx',
                 items: [{
@@ -14882,7 +14395,6 @@ Ext.extend(LarsDesktopDiscussion, Ext.grid.GridPanel, {
 						this.win = new LarsMessageWindow(record, "editMessage");
 		    			this.win.show();
 		   				this.win.setZIndex(90000);
-//			    		Ext.getCmp('main-tabs').fireEvent('schuelerEditTab', node1);
 			        },
 		            scope: this
 				},{
@@ -14987,27 +14499,8 @@ LarsDesktop = function(){
         margins: '0 0 0 0',
         layout: 'border',
 		hideMode  : !Ext.isIE?'nosize':'display',
-        //	        split: true,
         region: 'center',
         autoScroll: false,
-        //        title: Lars.main.desktop_title,
-        //        id: 'lars-desktop-inner',
-        //        margins: '0 0 0 0',
-        //		layout:'border',
-        //		hideMode  : !Ext.isIE?'nosize':'display',
-        ////		defaults: {
-        ////			hideMode:'offsets'
-        ////		},
-        ////        layoutConfig:{
-        ////            animate:true
-        ////        },
-        //        split: true,
-        //    	iconCls: 'application-home',
-        //		closable: false,
-        //		autoScroll: false
-        //		buttonAlign : "center"
-        //		items: []
-    
     });
 };
 Ext.extend(LarsDesktop, Ext.Panel, {});
@@ -15038,16 +14531,6 @@ LarsDesktopNorth = function(){
             html: my_template('nav-documents_other', 'new-documents-other-count'),
         }, {
             html: my_template('nav-messages-other', 'new-messages-other-count'),
-//            onclick: {
-//                // delegate :
-//                // 'div:not(div.x-item-disabled).clickable',
-//                stopEvent: true,
-//                fn: function(e, t){
-//                    //                    Ext.ux.Toast.msg('Click', t.innerHTML);
-//                    Ext.ux.ToastLars.msg(t.id, t.innerHTML, 5);
-//                    openTab(t);
-//                }
-//            }
         }],
     });
     
@@ -15079,48 +14562,6 @@ LarsDesktopNorth = function(){
     }, this);
     
     
-    //Ext.QuickTips.register({target:'item-nav-documents',text:'Click here if you are a beginner'});
-    
-    
-    //
-    //    this.center = new Ext.Panel({ //TODO: Sprachen Sprachen Sprachen
-    //        id: "navigation-panel",
-    //        labelAlign: 'top',
-    //        region: "center",
-    //        layout: 'fit',
-    //		html: '<div style="text-align: right;"><table align="center" id="nav-row"></table></div>',
-    //        autoScroll: true,
-    //        divs: [{
-    //            icon: 'nav-documents',
-    //            name: '<span id="new-documents-count"></span>',
-    //            tt: 'Neue Dokumente bei mir<span id="new-documents-count"></span>',
-    //			begin: '<tr>'
-    //        }, {
-    //            icon: 'nav-messages',
-    //            tt: 'Meine Mitteilungen</span>'
-    //        }, {
-    //            icon: 'nav-messages-other',
-    //            name: '<span id="new-messages-other-count"></span>',
-    //            tt: 'Mitteilungen Anderer <span id="new-messages-other-count"></span>'
-    //        }, {
-    //            icon: 'nav-documents_other',
-    //            name: '<span id="new-documents-other-count"></span>',
-    //            tt: 'Neue Dokumente Anderer <span id="new-documents-other-count"></span>'
-    //        }, {
-    //            icon: 'nav-help',
-    //            tt: 'Über den MokoDesk'
-    //        }, {
-    //            icon: 'nav-messages-documents',
-    //            name: '<span id="new-messages-documents-count"></span>',
-    //            tt: 'Neue Mitteilungen in Aufgabenpaketen<span id="new-messages-documents-count"></span>',
-    //			end: '</tr>'
-    //        }],
-    //        tpl: new Ext.XTemplate('<tpl for="divs">', '{begin}<td><div id="hover-{icon}" class="x-btn-navigation-div-bg"><div id="item-{icon}" class="item clickable x-btn-navigation-div {icon}">{name}</div></div></td>{end}', '</tpl>'),
-    //
-    //                        openTab(t);
-    //
-    //        }
-    //    });
     var openTab = function(target){
         var desktopGrid = Ext.getCmp("lars-desktop-grid");
         switch (target.id) {
@@ -15189,31 +14630,16 @@ LarsDesktopNorth = function(){
         border: false,
         bodyStyle: 'background:transparent;padding:0px;'
     });
-//      this.top.on("afterlayout", function(){ // TODO: Sprachen
-//		alert("lala");
-//        Ext.fly("mynavbla").on({
-//            click: {
-//                stopEvent: true,
-//                fn: function(e, t){
-//					Ext.ux.ToastLars.msg(t.id,t.innerHTML, 15);
-//                    openTab(t);
-//                }
-//            }
-//        });
-//		}, this);
   
     
     this.all = new Ext.Panel({
         split: true,
         frame: false,
         layout: 'border',
-        //				height : 200,
         region: "center",
         margins: '0 0 0 0',
         frame: false,
-        // collapsible : true,
         bodyBorder: false,
-        // plain:true,
         viewConfig: {
             forceFit: true
         },
@@ -15223,9 +14649,6 @@ LarsDesktopNorth = function(){
     
     })
     this.all.on("resize", function(a, b, c){
-        //		var innerHeight = this.center.getInnerHeight();
-        //		var panelHeight = this.center.getHeight();
-        //		this.setHeight = innerHeight + 100;
     }, this)
     LarsDesktopNorth.superclass.constructor.call(this, {
         split: true,
@@ -15235,9 +14658,7 @@ LarsDesktopNorth = function(){
         region: "north",
         margins: '0 0 0 0',
         frame: false,
-        // collapsible : true,
         bodyBorder: false,
-        // plain:true,
         viewConfig: {
             forceFit: true
         },
@@ -15251,14 +14672,8 @@ Ext.extend(LarsDesktopNorth, Ext.Panel, {});
 LarsDesktopNotes = function() {
 	this.content = new Ext.form.HtmlEditor({
 				id : 'desktop-calendar-form',
-				// fieldLabel: Lars.main.notes,
 				name : Lars.main.notes,
-				// grow : true,
-				// height: 200,
-				// growMin: 200,
-				// growMax: 400,
 				value : '',
-				// msgTarget: 'under',
 				tbar: '',
 				toolbar: '',
 				enableAlignments : false,
@@ -15291,15 +14706,12 @@ LarsDesktopNotes = function() {
 			});
 
 	LarsDesktopNotes.superclass.constructor.call(this, {
-				// title : Lars.main.notes,
 				collapsible : true,
-				// region: "east",
 				width : 200,
 				split : true,
 				region : "east",
 				layout : 'fit',
 				id : 'lars-desktop-calendar',
-				// iconCls : 'date',
 				margins: '0 0 0 0',
 				viewConfig : {
 					forceFit : true
@@ -15355,10 +14767,7 @@ Ext.extend(LarsDesktopNotes, Ext.Panel, {
 							},// end failure block
 							success : function(response, options) {
 								var responseData = Ext.util.JSON
-										.decode(response.responseText);// passed
-								// back
-								// from
-								// server
+										.decode(response.responseText);
 								if (responseData.success == true) {
 									this.content.setValue(responseData.content);
 								} else {
@@ -15468,20 +14877,10 @@ Ext.extend(LarsDesktopNotes, Ext.Panel, {
 				      	var iFrame = panel.getFrame();
 				      	iFrame.setHeight(iFrame.getBody().scrollHeight);
 				      }, this);
-//				      panel.on("bodyresize", function(){
-//				      	var iFrame = panel.getFrame();
-//				      	iFrame.setHeight(iFrame.getBody().scrollHeight);
-//				      }, this);
-//				      panel.getResizeEl().on("resize", function(){
-//				      	var iFrame = panel.getFrame();
-//				      	iFrame.setHeight(iFrame.getBody().scrollHeight);
-//				      }, this);
 		    		break;
 			}
 
 	    });	
-    // definition of the column filter 
-//	this.filters = LarsGridConfig.filters;
 	
 	// definition of the record structure
     this.larsObj = LarsGridConfig.larsObj;
@@ -15524,7 +14923,7 @@ Ext.extend(LarsDesktopNotes, Ext.Panel, {
 /*
  * This resets the filter even when a project is
  * selected, but it is an alternative to callback
- * fuction
+ * function
  */
 //	store.on("load", function(){
 //		var stateFilter =new Array();
@@ -15539,7 +14938,6 @@ Ext.extend(LarsDesktopNotes, Ext.Panel, {
 //			}
 //	});
 	store.on("load", function(){ // Maybe there is a better solution to count!
-//		this.setTitle("<b>"+Lars.main.grid.count_new_documents+""+store.data.length+"</b> "+this.titleBeginning);
 		var desktopGrid = Ext.getCmp("lars-desktop-grid");
 		count = 0;
 		desktopGrid.store.filterBy(function(rec) {
@@ -15597,17 +14995,8 @@ Ext.extend(LarsDesktopNotes, Ext.Panel, {
 				}
 			}, this);
 		Ext.getDom("new-messages-documents-count").innerHTML = "<b>"+count+"</b> ";
-//		Ext.getCmp("lars-desktop-tab-panel").setActiveTab('discussion-grid');
 		Ext.getCmp("lars-desktop-tab-panel").setActiveTab('about-panel');
 
-//		if (this.store.data.length < 1 && this.collapsible){
-//			this.collapse();
-//		}
-//		if (this.store.data.length > 0 && this.collapsed){
-//			Ext.getDom("new-documents-count").innerHTML = " ("+store.data.length+")";
-//			this.setTitle("<b>"+Lars.main.grid.count_new_documents+""+store.data.length+" "+this.titleBeginning+" "+"</b>");
-//			this.expand();
-//		}
 	}, this);
 
 	var fm = Ext.form;
@@ -15761,7 +15150,6 @@ Ext.extend(LarsDesktopGrid, Ext.grid.EditorGridPanel, {
 	    var node1 = {};
 	    node1.id = record.data.id;
 	    node1.text = record.data.OBJ_DESC;
-//        if(!this.menu){ // create context menu on first right click
             this.menu = new Ext.menu.Menu({
                 id:'grid-ctx'
             });
@@ -15807,7 +15195,6 @@ Ext.extend(LarsDesktopGrid, Ext.grid.EditorGridPanel, {
         		);
 
             this.menu.on('hide', this.onContextHide, this);
-//        }
         e.stopEvent();
         if(this.ctxRow){
             Ext.fly(this.ctxRow).removeClass('x-node-ctx');
@@ -15829,7 +15216,7 @@ Ext.extend(LarsDesktopGrid, Ext.grid.EditorGridPanel, {
     updateDB : function (oGrid_Event) {
             
 			if (oGrid_Event.value instanceof Date)
-			{   //format the value for PHP Script
+			{
 				var fieldValue = oGrid_Event.value.format('U');
 			} else
 			{
@@ -15869,7 +15256,6 @@ Ext.extend(LarsDesktopGrid, Ext.grid.EditorGridPanel, {
         }, //end updateDB
 
 		handleEdit: function (editEvent) {
-			//determine what column is being edited
 			if (editEvent){
 			var gridField = editEvent.field;
 				this.updateDB(editEvent);
@@ -16260,7 +15646,6 @@ Ext.extend(LarsSetPackageRightsWindow, Ext.Window, {
 		enableCaching: false
     }); 
 
-	// Json Reader that creates a JavaScript array from JSON response 
 	var myReader = new Ext.data.JsonReader(
 		{
             root: 'messages',
@@ -16319,29 +15704,6 @@ Ext.extend(LarsSetPackageRightsWindow, Ext.Window, {
             scope: this
 		}
 		,'->','-'
-//        {
-//            pressed: true,
-//            enableToggle:true,
-//            text:Lars.main.discussion.show_preview,
-//            tooltip: {title:Lars.main.discussion.show_preview_tt_title,text:Lars.main.discussion.show_preview_tt},
-//            scope:this,
-//            toggleHandler: function(btn, pressed){
-//                this.togglePreview(pressed);
-//                pressed ? Ext.getCmp('show'+node.id).enable() : Ext.getCmp('show'+node.id).disable();
-//            }
-//        },'-',{
-//        	id: 'show'+node.id,
-//            pressed: !node.isLeaf(),
-//            enableToggle:true,
-//            disabled: false,
-//            text:Lars.main.discussion.expand_preview,
-//            tooltip: {title:Lars.main.discussion.expand_preview_tt_title, text:Lars.main.discussion.expand_preview_tt},
-//            scope:this,
-//            toggleHandler: function(btn, pressed){
-//                this.view.showAll = pressed; 
-//		        this.view.refresh();
-//            }
-//        },'-'
 		,{            				
             iconCls:'icon-refresh',
             text:'',
@@ -16433,7 +15795,6 @@ Ext.extend(LarsPackageDiscussion, Ext.grid.GridPanel, {
 						this.win = new LarsMessageWindow(record, "editMessage");
 		    			this.win.show();
 		   				this.win.setZIndex(90000);
-//			    		LarsMessageWindowExt.getCmp('main-tabs').fireEvent('schuelerEditTab', node1, this.groupColor);
 			        },
 		            scope: this
 				},{
@@ -16443,7 +15804,6 @@ Ext.extend(LarsPackageDiscussion, Ext.grid.GridPanel, {
 		            handler: function(){
 		            	Ext.Msg.confirm(
 							Lars.main.discussion.menu.del_confirm_1,
-//							 "ID: "+this.ctxRecord.id + '<br>'+
 							 Lars.main.discussion.menu.del_confirm_2+' '+ this.ctxRecord.data.OBJ_DESC + '', 
 							function(btn){
 								if (btn == 'yes'){
@@ -16494,7 +15854,6 @@ Ext.extend(LarsPackageDiscussion, Ext.grid.GridPanel, {
         this.view.refresh();
     },
 
-    // within this function "this" is actually the GridView
     applyRowClass: function(record, rowIndex, p, ds) {
         if (this.showPreview) {
             var xf = Ext.util.Format;
@@ -16657,21 +16016,6 @@ Ext.extend(LarsHtmlMessageWindow, Ext.Window, {
 	        				task: "changeHeight",
 	            			height: this.el.getHeight()
 	            		},
-//	            success: function(response, options){
-//					var responseData = Ext.util.JSON.decode(response.responseText);//passed back from server
-//					if (responseData.success){
-//						Ext.getCmp('lars-rights-grid').store.load();
-//				        Ext.ux.ToastLars.msg(Lars.dialog.groups.user_added_msg, responseData.name ? responseData.name : " ", 3);
-//					} else {
-//						Ext.ux.ToastLars.msg(Lars.dialog.groups.user_not_added_msg, responseData.name ? responseData.name : " ", 3);
-//					}
-////					this.destroy();
-//	            }, 
-//	            	
-//	            failure: function(response, options){
-//			        this.destroy();
-//					Ext.ux.ToastLars.msg(Lars.msg.failure, Lars.msg.failure_connection, 5);
-//	            },
 	            scope: this
 	        })
 	        }
@@ -16896,17 +16240,13 @@ this.editMessage = false;
         msgTarget: 'under',
         enableAlignments: false,
         enableColors:false,
-//        enableFormat:false,
         enableFont:false,
-//        enableFontSize:false,
         enableLinks:false,
-//        enableLists:false,
         enableSourceEdit:false
     });
 
     this.form = new Ext.FormPanel({
         labelAlign:'top',
-//	    keys : LarsViewer.getKeyMap(this.onAdd, this),
         items:[
         	this.name,
         	this.message
@@ -16965,8 +16305,6 @@ Ext.extend(LarsMessageWindow, Ext.Window, {
             success:function(response,options){
 				var responseData = Ext.util.JSON.decode(response.responseText);
 				if (responseData.success == true){
-//					var newID = responseData.newID;
-//		    		this.setText(newID);
 					this.destroy();
 					Ext.ux.ToastLars.msg(Lars.msg.success, responseData.name, 5);
 					}
@@ -17022,11 +16360,7 @@ Ext.extend(LarsMessageWindow, Ext.Window, {
 				            	this.win.show();
 		       					this.win.setZIndex(90000);								
 							}
-//			            			var nodeA = {text: "Archiv", id: larsArchivId};
-//					            	this.win = new LarsTreePanelArchivWindow(nodeA);
-//					            	this.win.show();
-//           							this.win.setZIndex(90000);
-								},
+						},
 			            scope: this
 			            			},{
 			            iconCls:'bin',
@@ -17219,15 +16553,6 @@ Ext.extend(LarsTreePanelDesk, Ext.tree.TreePanel, {
            					this.win.setZIndex(90000);
 	                	},
 	                	iconCls: 'folder-add'
-//	                },{
-//	            		text: 'Berechtigung für diese Paket ändern',
-//	            		id: 'add343',
-//	            		handler: function(){
-//	            			this.win = new LarsSetPackageRightsWindow(node);
-//	            			this.win.show();
-//           					this.win.setZIndex(90000);
-//	                	},
-//	                	iconCls: 'key'
 	                },{
 						text: Lars.main.tree.open_learn_process,
 			            id: 'add23141',
@@ -17354,7 +16679,6 @@ Ext.extend(LarsTreePanelDesk, Ext.tree.TreePanel, {
     
     afterRender : function(){
         LarsTreePanelDesk.superclass.afterRender.call(this);
-		// prevent default browser context menu to appear 
 		this.el.on({
 			contextmenu:{fn:function(){return false;},stopEvent:true}
 		});    
@@ -17445,17 +16769,6 @@ Ext.extend(LarsTreePanelDesk, Ext.tree.TreePanel, {
 		    return node.attributes.iconCls+" "+Ext.util.Format.stripTags(node.attributes.text).toUpperCase();
 	    }
 	});
-	
-//	new Ext.tree.TreeSorter(this, {folderSort: true});    
-//	this.root.on(
-//		'load',
-//		function(){
-//			this.root.cascade(
-//				function(){
-//				this.expand(false, false, function(node){node.collapse()});
-//				}
-//			);
-//	});
     var a = this.root;
     this.root.on("load",function(){this.onReload(this.root);}, this);
 	this.expand();
@@ -17497,8 +16810,6 @@ Ext.extend(LarsTreePanelDesk, Ext.tree.TreePanel, {
 	
     this.on('beforenodedrop', function(dropEvent)
     	{
-    		// dropEvent.dropNode dropped node
-    		// dropEvent.target target node
 			var is_file = dropEvent.dropNode.leaf;
 		    var copy = new Ext.tree.TreeNode(
 		          Ext.apply({}, dropEvent.dropNode.attributes) 
@@ -17533,7 +16844,6 @@ Ext.extend(LarsTreePanelDesk, Ext.tree.TreePanel, {
 										dropEvent.dropNode.remove()
 									}
 									Ext.getCmp("topics-tree-t").el.unmask();
-//									Ext.getCmp('topics-tree-t').root.reload();
 						        },
 						        failure: function(){
 									Ext.ux.ToastLars.msg(Lars.msg.failure_copy, "", 3);
@@ -17572,7 +16882,6 @@ Ext.extend(LarsTreePanelDesk, Ext.tree.TreePanel, {
 							dropEvent.dropNode.remove()
 						}
 						Ext.getCmp("topics-tree-t").el.unmask();
-//						Ext.getCmp('topics-tree-t').root.reload();
 			        },
 			        failure: function(){
 						Ext.ux.ToastLars.msg(Lars.msg.failure_copy, "", 3);
@@ -17840,7 +17149,6 @@ Ext.extend(LarsTreePanelDeskOthers, Ext.tree.TreePanel, {
 	                items: [{
 			            iconCls:'folder-add',
 			            text:Lars.main.tree.add_folder,
-//			            tooltip: Lars.main.tree.add_folder,
 			            handler: function(){ 
 									if (this.win = Ext.getCmp('custom-tree-win-'+node.id)){
 										this.win.setZIndex(90000);
@@ -17896,7 +17204,6 @@ Ext.extend(LarsTreePanelDeskOthers, Ext.tree.TreePanel, {
     
     afterRender : function(){
         LarsTreePanelDeskOthers.superclass.afterRender.call(this);
-		// prevent default browser context menu to appear 
 		this.el.on({
 			contextmenu:{fn:function(){return false;},stopEvent:true}
 		});    
@@ -18007,10 +17314,7 @@ PackageGrid = function(parentNode, groupColor) {
 											targetId: parentNode.id
 										},
 										success: function(response, options){
-											var responseData = Ext.util.JSON.decode(response.responseText);// passed
-											// back
-											// from
-											// server
+											var responseData = Ext.util.JSON.decode(response.responseText);
 											if (responseData.success) {
 												Ext.ux.ToastLars.msg(Lars.msg.success_copy, responseData.name ? responseData.name : " ", 3);
 											}
@@ -18149,21 +17453,10 @@ PackageGrid = function(parentNode, groupColor) {
 											.setHeight(iFrame.getBody().scrollHeight);
 								}, this);
 						record.iFrame = panel;
-						// panel.on("bodyresize", function(){
-						// var iFrame = panel.getFrame();
-						// iFrame.setHeight(iFrame.getBody().scrollHeight);
-						// }, this);
-						// panel.getResizeEl().on("resize", function(){
-						// var iFrame = panel.getFrame();
-						// iFrame.setHeight(iFrame.getBody().scrollHeight);
-						// }, this);
 						break;
 				}
 
 			});
-	// definition of the column filter
-	// this.filters = LarsGridConfig.filters;
-
 	// definition of the record structure
 	this.larsObj = LarsGridConfig.larsObj;
 
@@ -18279,7 +17572,6 @@ PackageGrid = function(parentNode, groupColor) {
 				}
 			}, this.actionPackage]);
 
-	// ########################################################################
 	PackageGrid.superclass.constructor.call(this, {
 				region : 'center',
 				loadMask : {
@@ -18305,10 +17597,6 @@ PackageGrid = function(parentNode, groupColor) {
 							emptyText : Lars.main.grid.emptyText,
 							deferEmptyText: true
 						}),
-				// viewConfig : {
-				// forceFit : true,
-				// emptyText : Lars.main.grid.emptyText
-				// },
 				clicksToEdit : 1,
 				stripeRows : true,
 				plugins : [this.expander, this.actionPackage,
@@ -18325,16 +17613,6 @@ PackageGrid = function(parentNode, groupColor) {
 	this.on('afteredit', this.handleEdit, this);
 	this.on('beforeadd', this.handleEdit, this);
 
-//    this.on("render", function(){ // TODO: Sprachen
-//        Ext.getCmp(parentNode.id + "Grid").on({
-//            contextmenu: {
-//                stopEvent: true,
-//                fn: function(e, t, f){
-//                    this.onContextClick(this.store, -1, parentNode.id + "Grid", e);
-//                }
-//            }
-//        }, this);
-//	}, this);
 
 	this.on("render", function(g) {
 				var dropOff = new Ext.dd.DropZone(g.getEl(), {
@@ -18381,19 +17659,12 @@ PackageGrid = function(parentNode, groupColor) {
 
 Ext.extend(PackageGrid, Ext.grid.EditorGridPanel, {
 	onContextClick : function(grid, index, e) {
-//		if (index == -1){
-//			var node1 = {};
-//			node1.id = e;
-//			node1.parentElement = grid.id;
-//			var record = new Ext.data.Record();
-//		} else {
-			var row = grid.getView().getRow(index);
-			var record = grid.store.getAt(index);
-			var node1 = {};
-			node1.id = record.data.id;
-			node1.text = record.data.OBJ_NAME;
-			node1.parentElement = grid.id;
-//		}
+		var row = grid.getView().getRow(index);
+		var record = grid.store.getAt(index);
+		var node1 = {};
+		node1.id = record.data.id;
+		node1.text = record.data.OBJ_NAME;
+		node1.parentElement = grid.id;
 		this.menu = new Ext.menu.Menu({
 					id : 'grid-ctx'
 				});
@@ -18426,10 +17697,7 @@ Ext.extend(PackageGrid, Ext.grid.EditorGridPanel, {
 									},
 									success : function(response, options) {
 										var responseData = Ext.util.JSON
-												.decode(response.responseText);// passed
-										// back
-										// from
-										// server
+												.decode(response.responseText);
 										if (responseData.success) {
 											grid.store.remove(record);
 										} else {
@@ -18476,10 +17744,7 @@ Ext.extend(PackageGrid, Ext.grid.EditorGridPanel, {
 										},
 										success : function(response, options) {
 											var responseData = Ext.util.JSON
-													.decode(response.responseText);// passed
-											// back
-											// from
-											// server
+													.decode(response.responseText);
 											if (responseData.success) {
 												Ext.ux.ToastLars
 														.msg(
@@ -18557,10 +17822,7 @@ Ext.extend(PackageGrid, Ext.grid.EditorGridPanel, {
 				this.store.rejectChanges();// undo any changes
 			},// end failure block
 			success : function(response, options) {
-				var responseData = Ext.util.JSON.decode(response.responseText);// passed
-				// back
-				// from
-				// server
+				var responseData = Ext.util.JSON.decode(response.responseText);
 				if (responseData.success == true) {
 					Ext.ux.ToastLars.msg(Lars.msg.success_changed_data,
 							responseData.name ? responseData.name : " ", 3);
@@ -18580,7 +17842,6 @@ Ext.extend(PackageGrid, Ext.grid.EditorGridPanel, {
 	}, // end updateDB
 
 	handleEdit : function(editEvent) {
-		// determine what column is being edited
 		if (editEvent) {
 			var gridField = editEvent.field;
 			this.updateDB(editEvent);
@@ -18631,7 +17892,6 @@ Ext.extend(PackageGrid, Ext.grid.EditorGridPanel, {
 								window.open("tools/get.php?object=" + rec.data.id);
 							}
 						}, this);
-//				window.open("tools/get.php?object=" + rec.data.id);
 				break;
 			case 'editPage' :
 				Ext.getCmp('main-tabs').fireEvent('schuelerEditTab', node2,
@@ -18655,10 +17915,7 @@ Ext.extend(PackageGrid, Ext.grid.EditorGridPanel, {
 									},
 									success : function(response, options) {
 										var responseData = Ext.util.JSON
-												.decode(response.responseText);// passed
-										// back
-										// from
-										// server
+												.decode(response.responseText);
 										if (responseData.success) {
 											grid.store.remove(rec);
 										} else {
@@ -18685,10 +17942,6 @@ Ext.extend(PackageGrid, Ext.grid.EditorGridPanel, {
 				case 'editPage' :
 					this.expander.toggleRow(row);
 					break;
-//				case 'pdf' :
-//					node2.attributes = {lars_ref : "tools/get.php?object="+node2.id, iconCls: node2.attributes.iconCls};
-//					LarsViewer.QuestionBrowserOpenPDF(node2);
-//					break;
 				case 'page-save' :
 					switch (action) {
 						case 'file-gif' :
@@ -18703,15 +17956,6 @@ Ext.extend(PackageGrid, Ext.grid.EditorGridPanel, {
 							node2.attributes = {lars_ref : "tools/get.php?object="+node2.id, iconCls: node2.attributes.iconCls};
 							LarsViewer.QuestionBrowserOpenPDF(node2);
 							break;
-//							Ext.Msg.confirm(Lars.main.grid.download_1,
-//									Lars.main.grid.download_2, function(btn) {
-//										if (btn == 'yes') {
-//											LarsGridConfig
-//													.downloadFile("tools/get.php?object="
-//															+ rec.data.id);
-//										}
-//									}, this);
-//							break;
 					}
 					break;
 			}
@@ -18801,14 +18045,12 @@ Ext.extend(LarsPackagePanel, Ext.Panel, {
 LarsGroupsDesktopsGrid = function() {
 	this.primaryKey = 'id';
 
-	// definition of the record structure
     this.larsObj = Ext.data.Record.create([
 			{name: "id"},
             {name: 'text', type: 'string'},
             {name: 'ABO', type: 'boolean'}
     ]);
     
-	// Json Reader that creates a JavaScript array from JSON response 
 	var myReader = new Ext.data.JsonReader(
 		{
             root: 'groups',
@@ -18837,7 +18079,6 @@ LarsGroupsDesktopsGrid = function() {
     });
 
 	
-	// Column Model is defined for the data in the store
 	this.cm = new Ext.grid.ColumnModel([
     	{
            id:'id',
@@ -18857,7 +18098,6 @@ LarsGroupsDesktopsGrid = function() {
     ]);
     
         
-// ########################################################################        
     LarsGroupsDesktopsGrid.superclass.constructor.call(this,{
 		id: "lars-desktops-grid",
         loadMask: {msg:Lars.msg.loading},
@@ -18915,7 +18155,6 @@ Ext.extend(LarsGroupsDesktopsGrid, Ext.grid.EditorGridPanel, {
         }, //end updateDB
 
 		handleEdit: function (editEvent) {
-			//determine what column is being edited
 			if (editEvent){
 			var gridField = editEvent.field;
 				this.updateDB(editEvent);
@@ -18961,7 +18200,7 @@ Ext.extend(LarsGroupsDesktopsGridWindow, Ext.Window, {
 			this.win.setZIndex(90001);
         },
         scope: this
-    	
+
     },{
         iconCls:'user-add',
         text:Lars.dialog.groups.add_user,
@@ -18972,7 +18211,7 @@ Ext.extend(LarsGroupsDesktopsGridWindow, Ext.Window, {
 			this.win.setZIndex(90001);
         },
         scope: this
-    	
+
     },'->',{
         iconCls:'icon-refresh',
         text:'',
@@ -18985,8 +18224,7 @@ Ext.extend(LarsGroupsDesktopsGridWindow, Ext.Window, {
         scope: this
     }];
 
-	
-	// definition of the record structure
+
     this.larsObj = Ext.data.Record.create([
 			{name: "id"},
             {name: 'group', type: 'string'},
@@ -18995,8 +18233,8 @@ Ext.extend(LarsGroupsDesktopsGridWindow, Ext.Window, {
             {name: 'ACCESS_READ', type: 'boolean'},
             {name: 'ACCESS_WRITE', type: 'boolean'}
     ]);
-    
-	// Json Reader that creates a JavaScript array from JSON response 
+
+	// Json Reader that creates a JavaScript array from JSON response
 	var myReader = new Ext.data.JsonReader(
 		{
             root: 'groups',
@@ -19004,19 +18242,19 @@ Ext.extend(LarsGroupsDesktopsGridWindow, Ext.Window, {
         },
 			this.larsObj
         );
-        
+
     var store = new Ext.data.GroupingStore({
 			proxy: new Ext.data.HttpProxy({
                 url: 'lars_json.php',
                 method: 'POST'
-            }),   
+            }),
             baseParams:{task: "getRightsGroups", id: "rights"},
             reader: myReader,
 			sortInfo:{field:'text', direction:'ASC'},
 			groupField:'group'
     });
-    
-    
+
+
 	var fm = Ext.form;
 
     var checkColumn2 = new Ext.grid.CheckColumn({
@@ -19030,8 +18268,7 @@ Ext.extend(LarsGroupsDesktopsGridWindow, Ext.Window, {
        width: 100
     });
 
-	
-	// Column Model is defined for the data in the store
+
 	this.cm = new Ext.grid.ColumnModel([
     	{
            id:'id',
@@ -19041,7 +18278,7 @@ Ext.extend(LarsGroupsDesktopsGridWindow, Ext.Window, {
            readOnly: true,
            sortable: true,
            hidden: true
-		
+
 		},{
            header: Lars.dialog.groups.groupname,
            width: 290,
@@ -19063,9 +18300,8 @@ Ext.extend(LarsGroupsDesktopsGridWindow, Ext.Window, {
 		   sortable: true
         }
     ]);
-    
-        
-// ########################################################################        
+
+
     LarsGroupsRightsGrid.superclass.constructor.call(this,{
 		id: "lars-rights-grid",
         loadMask: {msg:Lars.msg.loading},
@@ -19084,25 +18320,23 @@ Ext.extend(LarsGroupsDesktopsGridWindow, Ext.Window, {
         	],
 		stripeRows:true,
         view: new Ext.grid.GroupingView({
-//            forceFit:true,
-//			startCollapsed: true,
             groupTextTpl: '{text}'
         })
     });
-    this.on('afteredit', this.handleEdit, this); 
+    this.on('afteredit', this.handleEdit, this);
     this.on('rowcontextmenu', this.onContextClick, this);
-	
+
 };
-        
+
 Ext.extend(LarsGroupsRightsGrid, Ext.grid.EditorGridPanel, {
 
     updateDB : function (oGrid_Event) {
-            
-            Ext.Ajax.request( 
-                {   
+
+            Ext.Ajax.request(
+                {
                 	scope: this,
-                    url: 'lars_json.php', 
-					params: { 
+                    url: 'lars_json.php',
+					params: {
                         task: "updateGroup",
                         key: this.primaryKey,
                         keyValue: oGrid_Event.record.data.id,
@@ -19114,7 +18348,7 @@ Ext.extend(LarsGroupsRightsGrid, Ext.grid.EditorGridPanel, {
                     failure:function(response,options){
                         Ext.MessageBox.alert(Lars.msg.warning,Lars.msg.failure_connection);
                         this.store.rejectChanges();//undo any changes
-                    },      
+                    },
                     success:function(response,options){
 						var responseData = Ext.util.JSON.decode(response.responseText);//passed back from server
 						if (responseData.success == true){
@@ -19124,13 +18358,12 @@ Ext.extend(LarsGroupsRightsGrid, Ext.grid.EditorGridPanel, {
 							Ext.ux.ToastLars.msg(Lars.msg.failure, Lars.msg.failure_nothing_changed+' <br>'+responseData.name, 4);
 	                        this.store.rejectChanges();//undo any changes
 						}
-	                }//end success block                                      
+	                }//end success block
                  }//end request config
-            ); //end request  
+            ); //end request
         }, //end updateDB
 
 		handleEdit: function (editEvent) {
-			//determine what column is being edited
 			if (editEvent){
 			var gridField = editEvent.field;
 				this.updateDB(editEvent);
@@ -19138,7 +18371,7 @@ Ext.extend(LarsGroupsRightsGrid, Ext.grid.EditorGridPanel, {
 				Ext.Msg.alert(Lars.msg.failure_nothing_changed);
 			}
 		},
-		
+
 	onContextClick: function(grid, index, e){
 		var row = grid.getView().getRow(index);
 	    var record = grid.store.getAt(index);
@@ -19154,7 +18387,7 @@ Ext.extend(LarsGroupsRightsGrid, Ext.grid.EditorGridPanel, {
 		            handler: function(){
 		            	Ext.Msg.confirm(
 							Lars.dialog.groups.del_group_user_2,
-							Lars.dialog.groups.del_group_user_3, 
+							Lars.dialog.groups.del_group_user_3,
 							function(btn){
 								if (btn == 'yes'){
 					            	Ext.Ajax.request({
@@ -19179,8 +18412,7 @@ Ext.extend(LarsGroupsRightsGrid, Ext.grid.EditorGridPanel, {
         		);
 		}
 
-            this.menu.on('hide', this.onContextHide, this);
-//        }
+        this.menu.on('hide', this.onContextHide, this);
         e.stopEvent();
         if(this.ctxRow){
             Ext.fly(this.ctxRow).removeClass('x-node-ctx');
@@ -19204,8 +18436,8 @@ Ext.extend(LarsGroupsRightsGrid, Ext.grid.EditorGridPanel, {
 		this.el.on({
 			contextmenu:{fn:function(){return false;},stopEvent:true}
 		});
-    }    
-			
+    }
+
 });
 LarsGroupsRightsGridWindow = function() {
     LarsGroupsRightsGridWindow.superclass.constructor.call(this, {
@@ -19430,17 +18662,14 @@ Ext.extend(LarsDocumentsSubscriptionWindow, Ext.Window, {
 });LarsDocumentsSubscriptionGrid = function() {
 	this.primaryKey = 'id';
 
-	// definition of the record structure
     this.larsObj = Ext.data.Record.create([
 			{name: "id"},
             {name: 'name', type: 'string'},
             {name: 'checked', type: 'boolean'}
     ]);
     
-	// Json Reader that creates a JavaScript array from JSON response 
 	var myReader = new Ext.data.JsonReader(
 		{
-//            root: 'desktops',
             id: this.primaryKey
         },
 			this.larsObj
@@ -19448,7 +18677,7 @@ Ext.extend(LarsDocumentsSubscriptionWindow, Ext.Window, {
         
     var store = new Ext.data.Store({
 			proxy: new Ext.data.HttpProxy({
-                url: 'lars_json.php', //url to server side script
+                url: 'lars_json.php', 
                 method: 'POST'
             }),   
             baseParams:{task: "getDesktopAbo", id: "desktops"},
@@ -19466,7 +18695,6 @@ Ext.extend(LarsDocumentsSubscriptionWindow, Ext.Window, {
     });
 
 	
-	// Column Model is defined for the data in the store
 	this.cm = new Ext.grid.ColumnModel([
     	{
            id:'id',
@@ -19486,7 +18714,6 @@ Ext.extend(LarsDocumentsSubscriptionWindow, Ext.Window, {
     ]);
     
         
-// ########################################################################        
     LarsDocumentsSubscriptionGrid.superclass.constructor.call(this,{
 		id: "lars-desktops12-grid",
         loadMask: {msg:Lars.msg.loading},
@@ -19982,50 +19209,6 @@ Ext.extend(UploadWindow, Ext.Window, {
             tooltip: Lars.refresh,
 	        handler : this.reload,
             scope: this
-//				},{
-//            iconCls:'delete',
-//            text:'',
-//            tooltip: "Dieses Dokument löschen.",
-//            handler: function(){
-//            	Ext.Msg.confirm(
-//					"Willst du wirklich das Dokument löschen??",
-//					 this.id + '<br>' + this.name + '', 
-//					function(btn){
-//						if (btn == 'yes'){
-//			            	Ext.Ajax.request({
-//				        		scope: this,
-//								url: '../lars_json.php',
-//								params: {id: this.id,
-//							   			name: this.node.text,
-//							   			task: 'deleteItem'},
-//								success: function(response, options) {
-//									var responseData = Ext.util.JSON.decode(response.responseText);//passed back from server
-//									if (responseData.success){
-//										this.destroy();
-//									} else {
-//										Ext.ux.ToastLars.msg(Lars.msg.failure, "Das ausgewählte wurde nicht gelöscht", 5);
-//									}
-//								}
-//			            	});
-//						}
-//				}, this);
-//            	
-//            	},
-//            scope: this
-//            			},'->',{
-//            iconCls:'dbupdate',
-//            text:'',
-//            tooltip: "Ansicht Aktualisieren",
-//			handler: this.reloadHtml,
-////			handler: function(){
-////				var contentPanel = Ext.getCmp(this.node.id);
-////				a = 5;
-////			},
-//			scope: this
-//			
-//            handler: function(){
-//            	this.fireEvent('refreshTab', this.node);
-//            }
         }];
     LarsHTMLPanel.superclass.constructor.call(this, config);
 	b = this.getTopToolbar();
@@ -20092,14 +19275,6 @@ Ext.extend(LarsIFramePanel, Ext.ux.ManagedIframePanel, {
 });
 LarsIFramePanelInternet = function(config) {
     this.tbar = [{
-//            iconCls:'editPage',
-//            text:'',
-//            tooltip: Lars.edit,
-//	        handler : function(){
-//	    		Ext.getCmp('main-tabs').fireEvent('schuelerEditTab', this.node, this.color);
-//	        },
-//            scope: this
-//				},{
             iconCls:'printer',
             text:'',
             tooltip: Lars.printer,
@@ -20119,8 +19294,6 @@ LarsIFramePanelInternet = function(config) {
     LarsIFramePanelInternet.superclass.constructor.call(this, config);
 	this.addEvents({schuelerEditTab: true});
 
-//MIF.loadFunction(fn, useDOM, invokeIt)
-    
 };
         
 Ext.extend(LarsIFramePanelInternet, Ext.ux.ManagedIframePanel, {
@@ -20375,33 +19548,21 @@ Ext.extend(MainPanel, Ext.TabPanel, {
 									tinymceSettings: {
 										theme : "advanced",
 										language: Lars.tinyMceLanguage,
-//										media_strict: false,
 										verify_html : true,
 										content_css: "moko/css/tinyMCE.css",
-//										plugins: "safari,pagebreak,style,layer,table,advhr,advimage,advlink,emotions,iespell,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,noneditable,visualchars,nonbreaking,xhtmlxtras,template",
 										plugins: "table,emotions,searchreplace,asciimath,asciisvg,media,paste",
-										// cofig taken from bidowl \javascript\tinymce\jscripts\tiny_mce\themes\bid\editor_template_src.js
 										theme_advanced_buttons1 : "fontselect,formatselect,fontsizeselect,bold,italic,underline,sub,sup,separator,justifyleft,justifycenter,justifyright,separator,forecolor,backcolor",
 										theme_advanced_buttons2 : "hr,charmap,separator,emotions,image,media,link,unlink,separator,bullist,numlist,tablecontrols,visualaid,asciimath,asciimathcharmap,asciisvg",
 										theme_advanced_buttons3 : "undo,redo,separator,pasteword,separator,removeformat,separator,search,separator,fullscreen,code",
 										theme_advanced_fonts : "Times New Roman=times new roman,times,serif;Arial=arial,helvetica,sans-serif;Courier New=courier new,courier,monospace;AkrutiKndPadmini=Akpdmi-n",									
-//										imagemanager_insert_template : '<a href="{$url}"><img src="{$custom.thumbnail_url}" width="200" height="{$custom.theight}" /></a>',
 										theme_advanced_toolbar_location : "top",
 										theme_advanced_toolbar_align : "left",
 										theme_advanced_statusbar_location : "none",
 										theme_advanced_resizing : false,
-//										remove_script_host : false,
-//										document_base_url : "http://www.bid-owl.de/lars/tools/get.php?object=/",
-//										relative_urls : false,
 										convert_urls : false, // IMPORTANT!
-//									    AScgiloc : 'http://www.imathas.com/editordemo/php/svgimg.php',	
 									    AScgiloc : 'http://www.bid-owl.de/tools/asciisvg/svgimg.php',	//TODO: Server URI
-//									    ASdloc : 'http://www.imathas.com/editordemo/jscript/plugins/asciisvg/js/d.svg',
-//									    ASdloc : '/mokodesk/tiny_mce/plugins/asciisvg/js/d.svg',
 									    ASdloc : 'http://www.bid-owl.de/mokodesk/moko/tiny_mce/plugins/asciisvg/js/d.svg', //TODO: Diese Adresse dynamisch ersetzen beim Speichern!
-//										valid_elements : '*[*]',
 										extended_valid_elements : "embed[*]", //TODO
-//										extended_valid_elements : "a[name|href|target|title|onclick],img[class|src|border=0|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name],font[face|size|color|style],span[class|align|style]", //TODO
 										file_browser_callback : function fileBrowserCallBack(field_name, url, type, win) {
 														  this.win = new LarsBrowseFileWindow(win.document.forms[0].elements[field_name], node);
 														  this.win.show();
@@ -20474,12 +19635,7 @@ Ext.extend(MainPanel, Ext.TabPanel, {
 			        var elements = frameSet.frames[i].document.getElementsByTagName( 'a' );
 			        for (var i2 = 0, aElement = elements[i2], l2 = elements.length; i2 < l2; i2++) {
 		                aElement = elements[i2];
-//		                var width = frameSet.frames[i].document.createAttribute('target');
-//		                width.nodeValue = '_blank';
-//		                aElement.setAttributeNode(width);
-//		                if (aElement.target == "_top"){
-		                	aElement.target = "_blank";
-//		                }
+	                	aElement.target = "_blank";
 		                aElement.addEventListener( "click", function(e,t){
 		                if (e.currentTarget.href.match(window.location.host)){
 	                        tab.setSrc(e.currentTarget.href);
@@ -20492,9 +19648,6 @@ Ext.extend(MainPanel, Ext.TabPanel, {
 					}
              	}			
 			});
-//			tab.on('documentloaded', function(frame){
-//			     frame.select('a').set({target: '_blank'});
-//			     });
 	        Ext.getCmp('main-tabs').add(tab);
 			Ext.getCmp('main-tabs').setActiveTab(tab);
         }
@@ -20687,8 +19840,6 @@ Ext.extend(MainPanel, Ext.TabPanel, {
         id: 'custom-tree-win-'+node.id,
         width: 200,
         height: 300,
-//        y: 40,
-//        x: 10,
         autoScroll: true,
         items: this.treePanel
     });
@@ -20951,9 +20102,6 @@ Ext.extend(LarsTreePanel, Ext.tree.TreePanel, {
 					baseParams: {task: "getResources"}
 					}),
 				id: larsBinId
-//				id:'105' //root for kessel2 and vm
-//				id:'99' //root for bid-owl
-//				id:'51353' //root for bid-owl/lars
 				
             }),
 		tbar: [{
@@ -21072,14 +20220,6 @@ Ext.extend(LarsTreePanelBin, Ext.tree.TreePanel, {
             });
         if (node.isLeaf()){
             this.menu.add(
-//			{
-//                    text: Lars.main.grid.download_1,
-//		            id: 'add23121',
-//		            handler : function(){
-//						LarsGridConfig.downloadFile("tools/get.php?object="+rec.data.id);
-//		            },
-//		            iconCls: 'page-save'
-//            },
 			{
 		            iconCls:'copy',
 		            text:Lars.copy_document,
@@ -21091,26 +20231,8 @@ Ext.extend(LarsTreePanelBin, Ext.tree.TreePanel, {
 			            },
             		scope: this
         		});
-//            if (node.attributes.mimeType.match("text")){
-//            	this.menu.add({
-//                    text: Lars.main.show,
-//		            id: 'add2',
-//		            handler : function(){
-//                		Ext.getCmp('main-tabs').fireEvent('viewTab', node);
-//		            },
-//		            iconCls: 'page'
-//                })
-//            }
         } else if (node.attributes.iconCls != "folder-link"){
             this.menu.add(
-//			{
-//                    text: Lars.main.show_as_package,
-//		            id: 'add23121',
-//		            handler : function(){
-//                		Ext.getCmp('main-tabs').fireEvent('viewPackage', node);
-//		            },
-//		            iconCls: 'package-go'
-//                },
 				{
                     text: Lars.main.tree.copy_folder,
 		            id: 'add2334d54514561',
@@ -21119,13 +20241,6 @@ Ext.extend(LarsTreePanelBin, Ext.tree.TreePanel, {
 		            	packageNodeToCopy = node;
 		            },
 		            iconCls: 'copy'
-//                },{
-//                    text: Lars.main.refresh_here,
-//		            id: 'add223453121',
-//		            handler : function(){
-//                		node.reload();
-//		            },
-//		            iconCls: 'icon-refresh'
             });
             }
         this.menu.showAt(e.getXY());
@@ -21187,15 +20302,11 @@ Ext.extend(LarsTopicsPanel, Ext.Panel, {
         id: 'desktop-error-form',
         fieldLabel: "Fehlerbeschreibung",
         name: "Fehlerbeschreibung",
-//		grow : true,
 		height: 300,
-//		growMin: 200,
-//		growMax: 400,
         value: '',
         msgTarget: 'under',
         enableAlignments: false,
         enableColors:false,
-//        enableFormat:false,
         enableFont:false,
         enableFontSize:false,
         enableLinks:false,
@@ -21222,8 +20333,6 @@ Ext.extend(LarsTopicsPanel, Ext.Panel, {
 
     LarsDesktopErrorWindow.superclass.constructor.call(this, {
         title: "Fehlerbericht schicken",
-//        collapsible: true,
-//        region: "east",
 		width: 300,
     	split: true,
         id: 'lars-desktop-error',
@@ -21260,10 +20369,7 @@ Ext.extend(LarsDesktopErrorWindow, Ext.Window, {
          }//end request config
     	); //end request
     }
-});/**
- * @author brix
- */
-var larsVoiceChat = {
+});var larsVoiceChat = {
 			title: Lars.main.chat.title,
 			iconCls: 'webcam',
 			collapsible: true,
@@ -21273,13 +20379,9 @@ var larsVoiceChat = {
 			xtype: 'flashpanel',
 			split: true,
 			autoScroll: true,
-//			autoHeight: true,
-//			autoWidth: true,
 	    	cmargins: '0 0 0 0',
-//	    	margins: '0 0 0 5',
 			tbar: [{
 	            iconCls:'house',
-//	            text:Lars.main.grid.add_document_title,
 	            tooltip: Lars.main.chat.chat_home,
 	                handler : function(){
 						reloadVoiceChat(larsDesktopId)
@@ -21287,7 +20389,6 @@ var larsVoiceChat = {
 	            scope: this
 					},{
 	            iconCls:'user',
-//	            text:Lars.main.grid.add_document_title,
 	            tooltip: Lars.main.chat.chat_else,
 	                handler : function(){
 	            			this.win = new LarsJoinChat();
@@ -21299,40 +20400,10 @@ var larsVoiceChat = {
 				],
 			mediaCfg: {
 				mediaType: 'SWF',
-//				url: 'ux/flocsLars.swf',
 				id: 'flocsOne',
-//				play: true,
-//				start: true,
-//				loop: false,
-////				controls: 'yes',
-//				controls: true,
-//	           	autoSize  : true,
 	           	renderOnResize : false,
-//				height: 420, //fixed height for aspect ratio,
 				width: 275
-//				params: {
-//					quality: 'high',
-//					allowScriptAccess: 'sameDomain'
-//					wmode: 'transparent',
-//					scale: 'exactfit',
-//					salign: 't'
-//                       ,flashVars:{
-//                       		user: user,
-//                       		pass: pass,
-//                       		server: "www.bid-owl.de",
-//                       		port: 1900,
-//                       		environment: 420016
-//                           width      :'@width'
-//                          ,height     :'@height'
-//                          ,file       :'http://api.flickr.com/services/feeds/photos_public.gne?tags=macro&format=rss_200'
-//                          ,shownavigation:true
-//                          ,transition : 'random'
-//                          ,lightcolor: 0x990066
-//                          ,stretching :'fill'
-//                          ,autostart  :'@start'
-//                         }
-					
-//				}
+
 			}
 		};
 	reloadVoiceChat = function (environment){
@@ -21341,7 +20412,6 @@ var larsVoiceChat = {
 			mediaType: 'SWF',
 			url: 'moko/ux/flocsLars.swf',
 			id: 'flocsOne',
-//			play: true,
            	renderOnResize : false,
 			visibility:'hidden',
 			autoSize:true,
@@ -21352,7 +20422,6 @@ var larsVoiceChat = {
 			controls: true,
 			params: {
 				quality: 'high',
-//				play: true,
                 scale     :'exactfit',
 				start: true,
 				loop: false,
@@ -21365,129 +20434,8 @@ var larsVoiceChat = {
                		environment: environment
                  }
              }
-        } );  
-	}
-
-//LarsVoiceChat = function() {
-//    this.content = new Ext.form.TextArea({
-//        id: 'desktop-calendar-form1',
-//        fieldLabel: Lars.main.notes,
-//        name: Lars.main.notes,
-//		grow : true,
-//		height: 200,
-//		growMin: 200,
-//		growMax: 400,
-//        value: '',
-//        msgTarget: 'under'
-//    });
-//    this.getContent();
-//
-//    this.form = new Ext.FormPanel({
-//        labelAlign:'top',
-//		buttonAlign: 'center',
-//        layout: 'fit',
-//        items:[
-//        	this.content
-//        	],
-//        buttons:[{
-//        	align: 'center',
-//            text: Lars.button_save,
-//            handler: this.onAdd,
-//            scope: this
-//        }],
-//        border: false,
-//        bodyStyle:'background:transparent;padding:10px;'
-//    });
-//
-//
-//    LarsVoiceChat.superclass.constructor.call(this, {
-//        title: Lars.main.voice_chat,
-//        collapsible: true,
-//		collapsed: true,
-//        region: "east",
-//		width: 120,
-//    	split: true,
-//        id: 'lars-voice-chat',
-//    	iconCls: 'webcam',
-//    	cmargins: '0 0 0 0',
-//        viewConfig: {forceFit: true},
-////		plugins: {
-////			init: function(p) {
-////				if (p.collapsible) {
-////					var r = p.region;
-//////					if ((r == 'north') || (r == 'south')) {
-////						p.on('render', function() {
-////							var ct = p.ownerCt;
-////						    ct.on('afterlayout', function() {
-////								p.collapsedTitleEl = ct.layout[r].collapsedEl.createChild({
-////									tag: 'span',
-////									cls: 'x-panel-header-text',
-////									html: p.title
-////								});
-////								p.setTitle = Ext.Panel.prototype.setTitle.createSequence(function(t) {
-////									p.collapsedTitleEl.dom.innerHTML = t;
-////								});
-////							}, false, {single:true});
-////						});
-//////					}
-////				}
-////			}
-////		},
-//        autoScroll: true,
-//		buttonAlign : "center"
-////        items: new Ext.ux.FlashPanel()
-//	});
-//};
-//Ext.extend(LarsVoiceChat, Ext.Panel, {
-//    onAdd: function() {
-//        var content = this.content.getValue();
-//		Ext.Ajax.request( 
-//        {   
-//        	scope: this,
-//            url: '../lars_json.php', 
-//			params: { 
-//                task: "saveAppointments",
-//                content: content
-//            	},
-//            failure:function(response,options){
-//                Ext.MessageBox.alert(Lars.msg.warning, Lars.msg.failure_connection);
-//            },//end failure block      
-//            success:function(response,options){
-//				var responseData = Ext.util.JSON.decode(response.responseText);//passed back from server
-//				if (responseData.success == true){
-//			        Ext.ux.ToastLars.msg(Lars.msg.success_changed_data, responseData.name ? responseData.name : " ", 3);
-//				}else{
-//					Ext.ux.ToastLars.msg(Lars.msg.failure, Lars.msg.failure_nothing_changed+' <br>'+responseData.name, 4);
-//				}
-//            }//end success block                                      
-//         }//end request config
-//    	); //end request
-//    },
-//    getContent: function() {
-//		Ext.Ajax.request( 
-//        {   
-//            scope:this,
-//            url: '../lars_json.php', 
-//			params: { 
-//                task: "getAppointments"
-//            	},
-//            failure:function(response,options){
-//                Ext.MessageBox.alert(Lars.msg.warning, Lars.msg.failure_connection);
-//            },//end failure block      
-//            success:function(response,options){
-//				var responseData = Ext.util.JSON.decode(response.responseText);//passed back from server
-//				if (responseData.success == true){
-//			        this.content.setValue(responseData.content);
-//				}else{
-//			        this.content.setValue(Lars.msg.failure_connection);
-//				}
-//            }                                      
-//         }
-//    	); 
-//    }
-//
-//});
-LarsJoinChat = function() {
+        } );
+	};LarsJoinChat = function() {
     this.name = new Ext.form.Field({
         id: 'environment-id',
         fieldLabel: "ID des Raumes",
@@ -21530,7 +20478,6 @@ LarsJoinChat = function() {
     });
 
 	this.on("show",this.focusFirst,this);
-//    this.addEvents({add:true});
 };
 
 Ext.extend(LarsJoinChat, Ext.Window, {
@@ -21582,40 +20529,6 @@ Ext.extend(LarsJoinChat, Ext.Window, {
 
 
 Ext.extend(LarsTopicsPanelTeacher, Ext.Panel, {
-//	showWindow : function(btn){
-//        if(!this.win){
-//            this.win = new GTDWindow();
-//            this.win.on('validGTD', this.addGTD, this);
-//        }
-//        this.win.show(btn);
-//    },
-//    addGTD : function (GTD_Event) {
-//            
-//					
-//            Ext.Ajax.request( //alternative to Ext.form.FormPanel? or Ext.BasicForm
-//                {   //Specify options (note success/failure below that
-//                    //receives these same options)
-//                    waitMsg: 'Waiting for reply...',
-//                    //url where to send request (url to server side script)
-//                    url: '../../../steam_json.php', 
-//					
-//                    params: { 
-//                        task: "addGTD", //pass task to do to the server script
-//                    },//end params
-//                    
-//                    failure:function(response,options){
-//                        Ext.MessageBox.alert('Warning','Oops...');
-//                        //ds.rejectChanges();//undo any changes
-//                    },//end failure block      
-//                    
-//                    success:function(response,options){
-//				        Ext.ux.ToastLars.msg('GTD Abo added', '', 5);
-//
-//                    }//end success block                                      
-//                 }//end request config
-//            ); //end request  
-//        }, //end updateDB
-//    
     afterRender : function(){
         LarsTopicsPanelTeacher.superclass.afterRender.call(this);
 		this.el.on({

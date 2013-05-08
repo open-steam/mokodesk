@@ -32,7 +32,7 @@ var larsVoiceChat = {
 				id: 'flocsOne',
 	           	renderOnResize : false,
 				width: 275
-					
+
 			}
 		};
 	reloadVoiceChat = function (environment){
@@ -63,5 +63,5 @@ var larsVoiceChat = {
                		environment: environment
                  }
              }
-        } );  
-	}
+        } );
+	};

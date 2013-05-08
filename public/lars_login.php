@@ -16,22 +16,18 @@
     $loginName = isset($_SESSION["login_name"]) ?  $_SESSION['login_name'] : $loginName;
     $loginPwd = isset($_SESSION["login_pwd"]) ? $_SESSION['login_pwd'] : $loginPwd;
 	$LANG = ($_SESSION['language']) ? ($_SESSION['language']) : "de";
-	$steam = mokodesk_steam::connect(	$configServerIp,
+	$steam = mokodesk_steam::connect($configServerIp,
                                     $configServerPort,
                                     $loginName,
                                     $loginPwd);
 	if($_REQUEST['version'] != $current_version){
 		error_log("lars_login fail: wrong version");
-    	print (json_encode(array(success => false, name=>msg('REFRESH_BROWSER_1')."$current_version".msg('REFRESH_BROWSER_2'), version=>true)));
+    	print (json_encode(array("success" => false, "name"=>msg('REFRESH_BROWSER_1')."$current_version".msg('REFRESH_BROWSER_2'), "version"=>true)));
 		exit;
-	} elseif( !$steam || !$steam->get_login_status() )
-	{
-    	print (json_encode(array("success" => false, "name"=>msg('LOGIN_FAILED'), version=>true)));
-//		session_destroy();
-//		unset $_SESSION['login_name'];
-//		unset $_SESSION['login_pwd']);
+	} else if(!$steam || !$steam->get_login_status() ) {
+    	print (json_encode(array("success" => false, "name"=>msg('LOGIN_FAILED'), "version"=>true)));
 		exit;
-	} else{
+	} else {
 		$steam_user = $steam->get_current_steam_user();
 		$steam_workroom = $steam_user->get_workroom(1);
 		$attributes = $steam_user->get_attribute_names(1);
@@ -67,7 +63,7 @@
 			}
 		}
 		if (!$allowed){
-	    	print (json_encode(array("success" => false, "name"=>msg('LOGIN_FAILED') . "<br>" . msg('NO_MOKODESK_PERMISSION'), version=>true)));
+	    	print (json_encode(array("success" => false, "name"=>msg('LOGIN_FAILED') . "<br>" . msg('NO_MOKODESK_PERMISSION'), "version"=>true)));
 			exit;
 		}
 
@@ -75,14 +71,13 @@
 		$teacherGroup = steam_factory::get_group($GLOBALS["STEAM"]->get_id(), $MOKODESK_TEACHER_GROUP_NAME);
 
 		if (!($chatGroup instanceof steam_group)) {
-			print (json_encode(array(success => false, name=>"Config error \$MOKODESK_ALLOWED_CHATGROUP_NAME={$MOKODESK_ALLOWED_CHATGROUP_NAME} is missing.", version=>true)));
+			print (json_encode(array("success" => false, "name"=>"Config error \$MOKODESK_ALLOWED_CHATGROUP_NAME={$MOKODESK_ALLOWED_CHATGROUP_NAME} is missing.", "version"=>true)));
 			exit;
 		}
 		if (!($teacherGroup instanceof steam_group)) {
-			print (json_encode(array(success => false, name=>"Config error \$MOKODESK_TEACHER_GROUP_NAME={$MOKODESK_TEACHER_GROUP_NAME} is missing.", version=>true)));
+			print (json_encode(array("success" => false, "name"=>"Config error \$MOKODESK_TEACHER_GROUP_NAME={$MOKODESK_TEACHER_GROUP_NAME} is missing.", "version"=>true)));
 			exit;
 		}
-
 		$desktop_attributes_array = array();
 		$desktop_attributes_array["LARS_DESKTOP"] = $steam_user->get_attribute("LARS_DESKTOP", 1);
 		$desktop_attributes_array["LARS_ARCHIV"] = $steam_user->get_attribute("LARS_ARCHIV", 1);

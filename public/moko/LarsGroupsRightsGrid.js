@@ -11,7 +11,7 @@ LarsGroupsRightsGrid = function() {
 			this.win.setZIndex(90001);
         },
         scope: this
-    	
+
     },{
         iconCls:'user-add',
         text:Lars.dialog.groups.add_user,
@@ -22,7 +22,7 @@ LarsGroupsRightsGrid = function() {
 			this.win.setZIndex(90001);
         },
         scope: this
-    	
+
     },'->',{
         iconCls:'icon-refresh',
         text:'',
@@ -35,7 +35,7 @@ LarsGroupsRightsGrid = function() {
         scope: this
     }];
 
-	
+
     this.larsObj = Ext.data.Record.create([
 			{name: "id"},
             {name: 'group', type: 'string'},
@@ -44,8 +44,8 @@ LarsGroupsRightsGrid = function() {
             {name: 'ACCESS_READ', type: 'boolean'},
             {name: 'ACCESS_WRITE', type: 'boolean'}
     ]);
-    
-	// Json Reader that creates a JavaScript array from JSON response 
+
+	// Json Reader that creates a JavaScript array from JSON response
 	var myReader = new Ext.data.JsonReader(
 		{
             root: 'groups',
@@ -53,19 +53,19 @@ LarsGroupsRightsGrid = function() {
         },
 			this.larsObj
         );
-        
+
     var store = new Ext.data.GroupingStore({
 			proxy: new Ext.data.HttpProxy({
                 url: 'lars_json.php',
                 method: 'POST'
-            }),   
+            }),
             baseParams:{task: "getRightsGroups", id: "rights"},
             reader: myReader,
 			sortInfo:{field:'text', direction:'ASC'},
 			groupField:'group'
     });
-    
-    
+
+
 	var fm = Ext.form;
 
     var checkColumn2 = new Ext.grid.CheckColumn({
@@ -79,7 +79,7 @@ LarsGroupsRightsGrid = function() {
        width: 100
     });
 
-	
+
 	this.cm = new Ext.grid.ColumnModel([
     	{
            id:'id',
@@ -89,7 +89,7 @@ LarsGroupsRightsGrid = function() {
            readOnly: true,
            sortable: true,
            hidden: true
-		
+
 		},{
            header: Lars.dialog.groups.groupname,
            width: 290,
@@ -111,8 +111,8 @@ LarsGroupsRightsGrid = function() {
 		   sortable: true
         }
     ]);
-    
-        
+
+
     LarsGroupsRightsGrid.superclass.constructor.call(this,{
 		id: "lars-rights-grid",
         loadMask: {msg:Lars.msg.loading},
@@ -134,20 +134,20 @@ LarsGroupsRightsGrid = function() {
             groupTextTpl: '{text}'
         })
     });
-    this.on('afteredit', this.handleEdit, this); 
+    this.on('afteredit', this.handleEdit, this);
     this.on('rowcontextmenu', this.onContextClick, this);
-	
+
 };
-        
+
 Ext.extend(LarsGroupsRightsGrid, Ext.grid.EditorGridPanel, {
 
     updateDB : function (oGrid_Event) {
-            
-            Ext.Ajax.request( 
-                {   
+
+            Ext.Ajax.request(
+                {
                 	scope: this,
-                    url: 'lars_json.php', 
-					params: { 
+                    url: 'lars_json.php',
+					params: {
                         task: "updateGroup",
                         key: this.primaryKey,
                         keyValue: oGrid_Event.record.data.id,
@@ -159,7 +159,7 @@ Ext.extend(LarsGroupsRightsGrid, Ext.grid.EditorGridPanel, {
                     failure:function(response,options){
                         Ext.MessageBox.alert(Lars.msg.warning,Lars.msg.failure_connection);
                         this.store.rejectChanges();//undo any changes
-                    },      
+                    },
                     success:function(response,options){
 						var responseData = Ext.util.JSON.decode(response.responseText);//passed back from server
 						if (responseData.success == true){
@@ -169,9 +169,9 @@ Ext.extend(LarsGroupsRightsGrid, Ext.grid.EditorGridPanel, {
 							Ext.ux.ToastLars.msg(Lars.msg.failure, Lars.msg.failure_nothing_changed+' <br>'+responseData.name, 4);
 	                        this.store.rejectChanges();//undo any changes
 						}
-	                }//end success block                                      
+	                }//end success block
                  }//end request config
-            ); //end request  
+            ); //end request
         }, //end updateDB
 
 		handleEdit: function (editEvent) {
@@ -182,7 +182,7 @@ Ext.extend(LarsGroupsRightsGrid, Ext.grid.EditorGridPanel, {
 				Ext.Msg.alert(Lars.msg.failure_nothing_changed);
 			}
 		},
-		
+
 	onContextClick: function(grid, index, e){
 		var row = grid.getView().getRow(index);
 	    var record = grid.store.getAt(index);
@@ -198,7 +198,7 @@ Ext.extend(LarsGroupsRightsGrid, Ext.grid.EditorGridPanel, {
 		            handler: function(){
 		            	Ext.Msg.confirm(
 							Lars.dialog.groups.del_group_user_2,
-							Lars.dialog.groups.del_group_user_3, 
+							Lars.dialog.groups.del_group_user_3,
 							function(btn){
 								if (btn == 'yes'){
 					            	Ext.Ajax.request({
@@ -223,7 +223,8 @@ Ext.extend(LarsGroupsRightsGrid, Ext.grid.EditorGridPanel, {
         		);
 		}
 
-            this.menu.on('hide', this.onContextHide, this);
+        this.menu.on('hide', this.onContextHide, this);
+        e.stopEvent();
         if(this.ctxRow){
             Ext.fly(this.ctxRow).removeClass('x-node-ctx');
             this.ctxRow = null;
@@ -246,6 +247,6 @@ Ext.extend(LarsGroupsRightsGrid, Ext.grid.EditorGridPanel, {
 		this.el.on({
 			contextmenu:{fn:function(){return false;},stopEvent:true}
 		});
-    }    
-			
+    }
+
 });

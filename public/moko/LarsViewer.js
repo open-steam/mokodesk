@@ -23,7 +23,7 @@ var fileRecordToCopy = false;
 task = {};
 var AScgiloc = 'http://www.imathas.com/imathas/filter/graph/svgimg.php';
 var AMTcgiloc = "http://www.imathas.com/cgi-bin/mimetex.cgi";
-var larsNews = '<font size="3">' 
+var larsNews = '<font size="3">'
 		+ '<b>Version 0.986:<br></b>'
 		+ '<ul><li>- Französisch.<br>'
 		+ '<b>Version 0.983:<br></b>'
@@ -362,7 +362,7 @@ Ext.onReady(function() {
 
 /*
  * Ende des Seitenaufbaus
- * Beginn Config, ... 
+ * Beginn Config, ...
  */
 // This is a custom event handler passed to some panels so link open in a new
 // windw
@@ -482,6 +482,7 @@ LarsViewer.QuestionBrowserOpenPDF = function(node) {
 					}
 				}
 			})
+};
 
 LarsGridConfig = {
 	larsObj : Ext.data.Record.create([{
