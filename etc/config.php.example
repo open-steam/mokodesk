@@ -1,25 +1,27 @@
 <?php
 
   $config_webserver_ip = "http://www.bid-owl.de/lars";
-  
-  $configDocRoot = dirname(dirname(dirname(__FILE__)));
+  //$config_webserver_ip = "http://mokodesk.local";
 
-  $phpsteamApiRoot = $configDocRoot . "/public/PHPsTeam";
+  $configDocRoot = dirname(dirname(__FILE__));
+
+  $phpsteamApiRoot = $configDocRoot . "/libary/php/PHPsTeam";
 
   $configServerIp = "www.bid-owl.de";
 
   $configServerPort = 1900;
-  
+
   $maintenance = false;
 
   set_include_path(get_include_path() . PATH_SEPARATOR . $phpsteamApiRoot);
-  
-  $error_log_mokodesk = $configDocRoot .  "/log/error.log";
-  
+
+  $error_log_mokodesk = $configDocRoot .  "/var/log/error.log";
+
   $config_cgi_ip = "http://www.bid-owl.de/cgi-bin";
- 
+
   $MOKODESK_ALLOWED_GROUP_NAME = "mokodesk";
   $MOKODESK_ALLOWED_CHATGROUP_NAME = "mokochat";
   $MOKODESK_TEACHER_GROUP_NAME = "asb.Jule.jule-lehrer";
-  
+  //$MOKODESK_TEACHER_GROUP_NAME = "mokoteacher";
+
 ?>
