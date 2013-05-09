@@ -15,18 +15,22 @@ require_once("mokodesk_steam.php");
     $content = preg_replace('/src="(?!\/|http)([a-z0-9.\- _\/]+)"/iU', 'src="' . $config_webserver_ip . '/tools/get.php?object=' . $current_path . '$1"', $content);
 //http://de3.php.net/manual/en/regexp.reference.assertions.php
     $content = preg_replace('/code="([a-z0-9.\-_\/]*)"/iU', 'src="' . $config_webserver_ip . '/tools/get.php?object=' . $current_path . '$1"', $content);
+    $addition_math = "";
+    $addition_anno = "";
 	if (strpos($content, '<span class="AM') || strpos($content, 'image/svg+xml')){
-		$addition_math = '<head>
-		<script type="text/javascript" src="' . $config_webserver_ip . '/moko/tiny_mce/plugins/asciimath/js/ASCIIMathMLwFallbackMin.js"></script>
-		<script type="text/javascript" src="' . $config_webserver_ip . '/moko/tiny_mce/plugins/asciisvg/js/ASCIIsvgPIMin.js"></script>
-		<script type="text/javascript">
-		var AScgiloc = "http://www.bid-owl.de/tools/asciisvg/svgimg.php";
-		var AMTcgiloc = "http://www.bid-owl.de/cgi-bin/mimetex.cgi";
-		</script>
-        <link href="/moko/tiny_mce/plugins/bid_tooltip/css/content.css" type="text/css" rel="stylesheet">
-		</head>';
-		$content = 	$addition_math.' '.$content;
+		$addition_math = '<script type="text/javascript" src="' . $config_webserver_ip . '/moko/tiny_mce/plugins/asciimath/js/ASCIIMathMLwFallbackMin.js"></script>
+		                  <script type="text/javascript" src="' . $config_webserver_ip . '/moko/tiny_mce/plugins/asciisvg/js/ASCIIsvgPIMin.js"></script>
+		                  <script type="text/javascript">
+		                  var AScgiloc = "http://www.bid-owl.de/tools/asciisvg/svgimg.php";
+		                  var AMTcgiloc = "http://www.bid-owl.de/cgi-bin/mimetex.cgi";
+		                  </script>';
 	}
+    if (strpos($content, '<acronym')) {
+        $addition_anno = '<link href="/moko/tiny_mce/plugins/bid_tooltip/css/content.css" type="text/css" rel="stylesheet">';
+    }
+
+    $content =  '<head>' . $addition_math . $addition_anno . '</head> ' . $content;
+
 	//TODO Server URI
 	// TODO d.svg dynamisch Adresse erzeugen!
 //		var AScgiloc = "http://www.imathas.com/imathas/filter/graph/svgimg.php";
