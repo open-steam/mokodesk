@@ -2,12 +2,12 @@
 require_once("mokodesk_steam.php");
 
 include("lars_tools.php");
-    
+
 session_name("bidowl_session");
 session_start();
 $loginName = ($_SESSION['user']) ? ($_SESSION['user']) : null;
 $loginPwd = ($_SESSION['pass']) ? ($_SESSION['pass']) : null;
-session_write_close();	
+session_write_close();
 $action = ($_POST['aktion']) ? ($_POST['aktion']) : null;
 $id = ($_POST['id']) ? ($_POST['id']) : null;
 $hidden = ($_POST['bidHidden']) ? ($_POST['bidHidden']) : false;
@@ -39,18 +39,18 @@ switch ($action){
 						"name"=>"Unbekannter Fehler"
 					));
 			exit;
-		}                                    
+		}
 		$current_room = steam_factory::get_object($GLOBALS["STEAM"]->get_id(),$id);
 		if (!($current_room instanceof steam_container)){
 			$current_room = $current_room->get_environment();
 		}
 		break;
 }
-require_once("includes/derive_mimetype.php");
+require_once("../libary/php/derive_mimetype.php");
 
 try{
     if( isset($_FILES["file"]) && $_FILES["file"]["name"] != "" ){
-    	if ($_FILES['file']['size'] > 16000000 
+    	if ($_FILES['file']['size'] > 16000000
     		){
 			echo json_encode(array(
 			     		"success"=>false,
@@ -73,12 +73,12 @@ try{
 		$newDocument = steam_factory::create_document($GLOBALS["STEAM"]->get_id(), tidyName($baseFileName), $fileContent, $mimetype, $current_room, tidyDesc($description) );
 		$newDocument->set_attribute("bid:hidden", $hidden);
 		$newDocument->set_attribute("LARS_TYPE", $type);
-		
+
 		if ($action === "image"){
 			$steam->get_current_steam_user()->set_attribute("OBJ_ICON", $newDocument);
 		}
 		echo (json_encode(array(
-			success => true 
+			success => true
 			,fileName=>$config_webserver_ip."/tools/get.php?object=".$newDocument->get_path()
 			)));
 	}
@@ -87,8 +87,8 @@ try{
      		"success"=>false,
         	"name"=>"Files nicht gesetzt"));
     }
-    
-    
+
+
 } catch (Exception $e){
 	error_log("exception: ".ErrorException::getTrace());
 	echo json_encode(array(
