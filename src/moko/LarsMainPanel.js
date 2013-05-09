@@ -13,25 +13,25 @@ MainPanel = function() {
         enableTabScroll: true,
         plugins: new Ext.ux.TabCloseMenu()
 	});
-	
-	this.on("schuelerEditTab", 
+
+	this.on("schuelerEditTab",
 		function(node, color){
 			Ext.ux.ToastLars.msg(Lars.msg.loading, Lars.msg.loading_editor, 2);
 			this.openTabEdit(node, color);}, this
 		);
-	this.on("viewTab", 
+	this.on("viewTab",
 		function(node, color){
 			this.openTabView(node, color);}
 		);
-	this.on("viewIFrameTab", 
+	this.on("viewIFrameTab",
 		function(node, color){
 			this.openTabIFrame(node, color);}
 		);
-	this.on("viewIFrameTabAll", 
+	this.on("viewIFrameTabAll",
 		function(node, color){
 			this.openTabIFrameInternet(node, color);}
 		);
-	this.on("viewPackage", 
+	this.on("viewPackage",
 			this.openTabPackage, this
 		);
 };
@@ -75,7 +75,7 @@ Ext.extend(MainPanel, Ext.TabPanel, {
 										tinyMCE.triggerSave();
 										var f = Ext.getCmp(node.id+"editor");
 										f.syncValue();
-									
+
 										// Submit the form
 										frm.getForm().submit({
 												url: "lars_edit.php",
@@ -146,7 +146,7 @@ Ext.extend(MainPanel, Ext.TabPanel, {
 										Ext.getCmp('main-tabs').remove(Ext.getCmp(id+'editorTab'));
 									}
 								}
-								
+
 								],
 								items: [
 								{
@@ -160,11 +160,11 @@ Ext.extend(MainPanel, Ext.TabPanel, {
 										language: Lars.tinyMceLanguage,
 										verify_html : true,
 										content_css: "moko/css/tinyMCE.css",
-										plugins: "table,emotions,searchreplace,asciimath,asciisvg,media,paste",
+										plugins: "table,emotions,searchreplace,asciimath,asciisvg,media,paste,bid_tooltip",
 										theme_advanced_buttons1 : "fontselect,formatselect,fontsizeselect,bold,italic,underline,sub,sup,separator,justifyleft,justifycenter,justifyright,separator,forecolor,backcolor",
 										theme_advanced_buttons2 : "hr,charmap,separator,emotions,image,media,link,unlink,separator,bullist,numlist,tablecontrols,visualaid,asciimath,asciimathcharmap,asciisvg",
-										theme_advanced_buttons3 : "undo,redo,separator,pasteword,separator,removeformat,separator,search,separator,fullscreen,code",
-										theme_advanced_fonts : "Times New Roman=times new roman,times,serif;Arial=arial,helvetica,sans-serif;Courier New=courier new,courier,monospace;AkrutiKndPadmini=Akpdmi-n",									
+										theme_advanced_buttons3 : "undo,redo,separator,pasteword,separator,removeformat,separator,search,separator,fullscreen,code,bid_tooltip",
+										theme_advanced_fonts : "Times New Roman=times new roman,times,serif;Arial=arial,helvetica,sans-serif;Courier New=courier new,courier,monospace;AkrutiKndPadmini=Akpdmi-n",
 										theme_advanced_toolbar_location : "top",
 										theme_advanced_toolbar_align : "left",
 										theme_advanced_statusbar_location : "none",
@@ -180,7 +180,7 @@ Ext.extend(MainPanel, Ext.TabPanel, {
 														 }
 									},
 									value: responseData.html
-								}					
+								}
 								]
 						});
 				        Ext.getCmp('main-tabs').add(frm);
@@ -256,7 +256,7 @@ Ext.extend(MainPanel, Ext.TabPanel, {
                         return false;
 		        		}, false );
 					}
-             	}			
+             	}
 			});
 	        Ext.getCmp('main-tabs').add(tab);
 			Ext.getCmp('main-tabs').setActiveTab(tab);
@@ -264,7 +264,7 @@ Ext.extend(MainPanel, Ext.TabPanel, {
 
     this.setActiveTab(tab);
     },
-    
+
 
     openTabView : function(node, color){
         var tab;
@@ -311,10 +311,10 @@ Ext.extend(MainPanel, Ext.TabPanel, {
         var id = node.id;
 		if (!(tab = this.getItem("package-panel-"+id))){
 
-			// Unterscheidung zwischen Ordner und Aufgabenpaketen			
+			// Unterscheidung zwischen Ordner und Aufgabenpaketen
 			if (node.ownerTree && node.isLeaf()==false && node.ownerTree.id.match("topics") && !node.attributes.iconCls.match("report")){
 				var discussionPanel = new LarsPackageDiscussion(node, {region:'center', collapsible: false}, node.attributes.groupColor);
-	
+
 			    tab = new LarsPackagePanel({
 					iconCls: node.attributes.iconCls,
 					border: false,
@@ -330,16 +330,16 @@ Ext.extend(MainPanel, Ext.TabPanel, {
 					margins: '0 0 0 0',
 					items: [
 						discussionPanel //!
-						] 
+						]
 				});
 				discussionPanel.startAutoUpdate("d"+node.id);
 				discussionPanel.on("destroy", function(){discussionPanel.stopAutoUpdate("d"+node.id)}, this);
 			} else {
 				var discussionPanel = new LarsPackageDiscussion(node, {region:'south', collapsible: true}, node.attributes.groupColor);
-	
+
 				var grid = new PackageGrid(node, node.attributes.groupColor);
 				grid.getView().getRowClass = LarsGridConfig.applyRowClass;
-				
+
 			    tab = new LarsPackagePanel({
 			        defaults: {
 					    collapsible: true,
@@ -361,7 +361,7 @@ Ext.extend(MainPanel, Ext.TabPanel, {
 					items: [
 						grid, //!
 						discussionPanel
-						] 
+						]
 				});
 				grid.startAutoUpdate("p"+node.id);
 				discussionPanel.startAutoUpdate("d"+node.id);
@@ -369,7 +369,7 @@ Ext.extend(MainPanel, Ext.TabPanel, {
 				grid.on("destroy", function(){grid.stopAutoUpdate("p"+node.id)}, this);
 			}
 			tab.on(
-				'activate', 
+				'activate',
 				function(panel){
 					if (!panel.node){return;};
 					var treeMine = Ext.getCmp("topics-tree");
@@ -395,7 +395,7 @@ Ext.extend(MainPanel, Ext.TabPanel, {
 				callback: function(){
 						for(var index=0; index<grid.store.data.length; index++) {
 							if (grid.store.data.items[index].data.LARS_TYPE == '1' || grid.store.data.items[index].data.LARS_TYPE == '3'){
-								grid.expander.expandRow.defer(500, grid.expander, [index]);	
+								grid.expander.expandRow.defer(500, grid.expander, [index]);
 							}
 						}
 					}
@@ -419,7 +419,7 @@ Ext.extend(MainPanel, Ext.TabPanel, {
 				}
 			}
 		});
-	},	
+	},
     archiveGroupPackage: function(node, archive_id){
  	   Ext.Ajax.request({
 		   scope: this,
@@ -436,6 +436,6 @@ Ext.extend(MainPanel, Ext.TabPanel, {
 				}
 			}
 		});
-	}		
+	}
 }
 );

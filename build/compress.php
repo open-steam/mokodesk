@@ -165,9 +165,9 @@ passthru("cat " . implode(" ", array_merge($moko_css_files)) . " > " . $tmpFile)
 passthru($compressorCmd . " " . $tmpFile . " -o " . $publicDir . "/moko/css/LarsSchreibtischCssMin.css");
 
 //ext-allMin.css
-$tmpFile = $publicDir  . "/moko/css/ext-all.css";
+$tmpFile = $publicDir  . "/ext2/resources/css/ext-all.css";
 passthru("cat " . implode(" ", array_merge($ext_css_files)) . " > " . $tmpFile);
-passthru($compressorCmd . " " . $tmpFile . " -o " . $publicDir . "/moko/css/ext-allMin.css");
+passthru($compressorCmd . " " . $tmpFile . " -o " . $publicDir . "/ext2/resources/css/ext-allMin.css");
 
 //tiny_mce/plugins/asciisvg/js/ASCIIsvgPIMin.js
 

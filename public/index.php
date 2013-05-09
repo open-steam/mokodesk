@@ -200,7 +200,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" or isset($_SESSION["login_name"])){
 				"fr" => "LarsSchreibtischMinFr.js",
 				"en" => "LarsSchreibtischMinEn_formal.js",
 				"en_lars" => "LarsSchreibtischMinEn.js",
-				"debug" => "LarsSchreibtisch.js",
+				//"debug" => "LarsSchreibtisch.js",
 				);
 	$steam_user->set_attribute( "LARS_LANGUAGE", $language_selected );
 	print '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -208,7 +208,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" or isset($_SESSION["login_name"])){
 		<head>
 		 <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
 		  <title>MokoDesk</title>
-			<link rel="stylesheet" type="text/css" href="moko/css/ext-allMin.css" />
+			<link rel="stylesheet" type="text/css" href="/ext2/resources/css/ext-allMin.css" />
 			<link rel="stylesheet" type="text/css" href="moko/css/LarsSchreibtischCssMin.css" />
 		</head>
 		<body scroll="no" id="docs">

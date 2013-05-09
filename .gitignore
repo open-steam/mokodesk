@@ -1,1 +1,3 @@
-public/etc/config.php
+.idea
+/etc/config.php
+/src/#attic

@@ -10,48 +10,48 @@
 		<link href="css/content.css" rel="stylesheet" type="text/css" />
         <base target="_self" />
 		<style type="text/css" media="screen">
-			
+
 			#text {
 				width: 450px;
 				height: 200px;
 			}
-			
+
 			#colors {
 				margin-bottom: 10px;
 			}
-			
+
 			#colors label {
 				padding: 3px;
 				border-radius: 3px;
 				margin-right: 5px;
 			}
-			
+
 		</style>
 		<script type="text/javascript" charset="utf-8">
-			
+
 			var el = tinyMCEPopup.editor;
 			var update = false;
 			var old_classes = undefined;
-			
+
 			function init() {
-				
+
 				if (el.selection.getNode().tagName.toLowerCase() == "acronym") {
-					
+
 					var text = el.selection.getNode().getAttribute("title");
-					
+
 					text = text.replace(/\<br\ \/\>/g, "\n");
-					
+
 					document.getElementById("text").innerHTML = text;
-					
+
 					update = true;
-					
-					document.getElementById("insert").value = "Ändern";
-					
+
+					document.getElementById("insert").value = "Ã„ndern";
+
 					/* get old classes */
 					var classes = el.selection.getNode().getAttribute("class");
-					
+
 					if (classes !== undefined && classes !== null) {
-						
+
 						if (classes.indexOf(" ") > -1) {
 							/* more than one classname found */
 
@@ -60,19 +60,19 @@
 
 							for (var i in classesArray) {
 								var classname = classesArray[i];
-								
+
 								if (!classname.match(/color\_(.*)/g)) {
-									
+
 									old_classes += classname+" ";
-									
+
 								} else {
-									
+
 									document.getElementById(classname).checked = true;
-									
+
 								}
-								
+
 							}
-							
+
 						} else {
 							/* one classname found */
 							if (classes.match(/color\_(.*)/g)) {
@@ -83,64 +83,64 @@
 								document.getElementById("bid_tooltip_color_yellow").checked = true;
 							}
 						}
-						
+
 					} else {
 						old_classes = undefined;
 						document.getElementById("bid_tooltip_color_yellow").checked = true;
 					}
-					
+
 				} else {
 					document.getElementById("remove").style.display = "none";
 					update = false;
 					old_classes = undefined;
 					document.getElementById("bid_tooltip_color_yellow").checked = true;
 				}
-				
+
 			}
-			
+
 			function form_submit() {
-				
+
 				var text = document.getElementById("text").value;
 				text = text.replace(/\n/g, '<br />');
 
 				if (update) {
 					el.selection.getNode().setAttribute("title", text);
-					
+
 					if (old_classes === undefined) {
 						var cl = getColorClass();
 					} else {
 						var cl = old_classes+" "+getColorClass();
 					}
-					
+
 					el.selection.getNode().setAttribute("class", cl);
 				} else {
 					el.execCommand('mceInsertContent',false,'<acronym title="'+text+'" class="'+getColorClass()+'">'+el.selection.getContent()+'</acronym>');
 				}
-				
+
 				tinyMCEPopup.close();
-				
+
 			}
-			
+
 			function form_remove() {
 				el.execCommand('mceRemoveNode', false, el.selection.getNode());
 				tinyMCEPopup.close();
 			}
-			
+
 			function getColorClass() {
-				
+
 				var colorInputs = document.getElementById("colors").getElementsByTagName("input");
-				
+
 				for (var i in colorInputs) {
 					var colorInput = colorInputs[i];
-					
+
 					if (colorInput.name == "color" && colorInput.checked) {
 						return "bid_tooltip_color_"+colorInput.value;
 					}
-					
+
 				}
-				
+
 			}
-			
+
 		</script>
 </head>
 <body style="display: none" onload="init()">
@@ -154,8 +154,8 @@
                 </div>
 
                 <div class="panel_wrapper">
-                
-                
+
+
 <div id="panel1" class="panel1 current">
 <form onsubmit="form_submit();return false;" action="#" id="form1">
 
@@ -163,20 +163,20 @@
 	<fieldset id="colors">
 
 		<legend>Farbe</legend>
-		
+
 		<input type="radio" name="color" value="yellow" id="bid_tooltip_color_yellow" /><label for="bid_tooltip_color_yellow" class="bid_tooltip_color_yellow">Gelb</label>
-		<input type="radio" name="color" value="green" id="bid_tooltip_color_green" /><label for="bid_tooltip_color_green" class="bid_tooltip_color_green">Grün</label>
+		<input type="radio" name="color" value="green" id="bid_tooltip_color_green" /><label for="bid_tooltip_color_green" class="bid_tooltip_color_green">GrÃ¼n</label>
 		<input type="radio" name="color" value="red" id="bid_tooltip_color_red" /><label for="bid_tooltip_color_red" class="bid_tooltip_color_red">Rot</label>
 		<input type="radio" name="color" value="blue" id="bid_tooltip_color_blue" /><label for="bid_tooltip_color_blue" class="bid_tooltip_color_blue">Blau</label>
 		<input type="radio" name="color" value="orange" id="bid_tooltip_color_orange" /><label for="bid_tooltip_color_orange" class="bid_tooltip_color_orange">Orange</label>
 		<input type="radio" name="color" value="pink" id="bid_tooltip_color_pink" /><label for="bid_tooltip_color_pink" class="bid_tooltip_color_pink">Pink</label>
 
 	</fieldset>
-	
+
 	<fieldset>
 
 		<legend>Text</legend>
-		
+
 		<textarea id="text" name="text"></textarea>
 
 	</fieldset>
@@ -184,8 +184,8 @@
 
 	<div class="mceActionPanel">
             <div style="float: left">
-                    <input type="submit" id="insert" name="insert" value="Einfügen" />
-					<input type="button" id="remove" name="remove" class="button" value="Löschen" onclick="form_remove();">
+                    <input type="submit" id="insert" name="insert" value="EinfÃ¼gen" />
+					<input type="button" id="remove" name="remove" class="button" value="LÃ¶schen" onclick="form_remove();">
             </div>
 
             <div style="float: right">
@@ -195,7 +195,7 @@
 
 </form>
 </div>
-  
+
 
 </body>
 </html>

@@ -464,14 +464,14 @@ body {
     background-color: #D9E8FB !important;
 }
 
-/*#lars-voice-chat-xcollapsed .x-layout-collapsed {*/ 
+/*#lars-voice-chat-xcollapsed .x-layout-collapsed {*/
 #lars-desktop .x-layout-collapsed-east {
     background-position: center;
     background-repeat: no-repeat;
     background-image: url(../img/voice_chat.png) ! important;
 } .x-grid3-row td, .x-grid3-summary-row td {
     line-height: normal !important;
-} 
+}
 
 /*
 #lars-desktop-north .x-btn-right {
@@ -600,7 +600,7 @@ margin-right: auto;
 
 
 	/*display:inline;*/
-	
+
 #lars-desktop-tab-panel .x-tab-panel-header{
 	display:none ! important;
 }
