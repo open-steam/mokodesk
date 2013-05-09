@@ -155,7 +155,7 @@ function getFolder($steam, $id){
 }
 
 function getResources($steam, $id){
-	require_once("includes/derive_url.php");
+	require_once("../libary/php/derive_url.php");
 //	include("../etc/config.php");
 	if ($id == "folder"){
 		$current_room = $steam->get_current_steam_user()->get_attribute("LARS_RESOURCES");
@@ -307,7 +307,7 @@ function getResources($steam, $id){
 }
 
 function getResourcesLinks($steam, $id){
-	require_once("includes/derive_url.php");
+	require_once("../libary/php/derive_url.php");
 //	include("etc/config.php");
 	if ($id == "folder"){
 		$current_room = $steam->get_current_steam_user()->get_attribute("LARS_RESOURCES");

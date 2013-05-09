@@ -14,15 +14,15 @@ $task = ($_POST['task'])?($_POST['task']):
 	$loginPwd = ($_SESSION['pass']) ? ($_SESSION['pass']) : null;
 	$userGroup = ($_SESSION['group']) ? ($_SESSION['group']) : null;
 	$LANG = ($_SESSION['language']) ? ($_SESSION['language']) : "de";
-	session_write_close();	
-	
+	session_write_close();
+
 	$id = ($_POST['id']) ? ($_POST['id']) : null;
-    
+
 	$steam = mokodesk_steam::connect(	$configServerIp,
                                     $configServerPort,
                                     $loginName,
                                     $loginPwd);
-  								  								
+
     if( !$steam || !$steam->get_login_status() )
     {
     	print (json_encode(array(success => false, name=>msg('NO_CONNECTION'))));
@@ -43,7 +43,7 @@ switch($task){
 		$steam->disconnect();
         break;
     case "getLernstand":
-    	getLernstand($steam, $id);        
+    	getLernstand($steam, $id);
         break;
     case "newUploadFile":
         uploadFile($steam, $id);
@@ -174,7 +174,7 @@ switch($task){
 	case "changeHeight":
 		changeHeight($steam);
 		break;
-		
+
 //    default:
 //    	$steam->disconnect();
 //    	print (json_encode(array(success => false)));
@@ -189,7 +189,7 @@ function errorReport($steam){
 	print json_encode(array(success => true, newID => $newID));
 }
 function newLink($steam, $id){
-	require_once("includes/derive_url.php");
+	require_once("../libary/php/derive_url.php");
 	$name = trim($_POST['name']);
 	$url = trim($_POST['url']);
 	if ($name == "" || $url == "" ) {
@@ -228,7 +228,7 @@ function getLernstand($steam, $id){
 	$id = $folder_lernstand->get_id();
 	$text = $folder_lernstand->get_attribute("OBJ_DESC");
 //	getView($steam, $id);
-    $steam->disconnect();                                    
+    $steam->disconnect();
 	print (json_encode(array(success => true, id => $id, text => $text)));
 }
 
@@ -248,8 +248,8 @@ function getOwnStudents($steam){ //TODO: Caching
 //				array(
 ////					array( '+', 'attribute', 'OBJ_TYPE', 'prefix', 'steam_document' ),
 //					array( '+', 'attribute', 'DOC_MIME_TYPE', 'prefix', "text/html" )
-//					), 
-//				array( 
+//					),
+//				array(
 //	 				array( '>', 'attribute', 'DOC_LAST_MODIFIED' )
 //	 			),
 //				$start+0,
@@ -321,13 +321,13 @@ function getOwnStudents($steam){ //TODO: Caching
 			$color = $colors[$i%12];
 			$children = getSchuelerTopics($steam, $id, $schueler_item, $color);
 			$all_folders[] = array(
-				qtip=>$qtipParent, 
-//				qtip=>print_r($schueler_desktop->get_attribute_names()), 
-				text=>($iconCls == "user" ? "<i>" : "").'<b><font color='.$colors[$i%12].'>'.tidyDesc($schueler_desktop->get_attribute("OBJ_DESC")).'</font></b>'.($iconCls == "user" ? "</i>" : ""), 
+				qtip=>$qtipParent,
+//				qtip=>print_r($schueler_desktop->get_attribute_names()),
+				text=>($iconCls == "user" ? "<i>" : "").'<b><font color='.$colors[$i%12].'>'.tidyDesc($schueler_desktop->get_attribute("OBJ_DESC")).'</font></b>'.($iconCls == "user" ? "</i>" : ""),
 				origName=>$schueler_desktop->get_attribute(OBJ_NAME),
-//				state=>$stateParent, 
-//				uiProvider=>"col", 
-				iconCls=>$iconCls, 
+//				state=>$stateParent,
+//				uiProvider=>"col",
+				iconCls=>$iconCls,
 //				id=>$schueler_item->get_id(),
 				allowDrop=>false,
 				allowDrag=>false,
@@ -340,11 +340,11 @@ function getOwnStudents($steam){ //TODO: Caching
 			$i++;
 		}
 session_name("bidowl_session");
-session_start();    
+session_start();
 	$_SESSION['reset_online_status'] = true;
-session_write_close();	
-	echo json_encode($all_folders);	
-    $steam->disconnect();                                    
+session_write_close();
+	echo json_encode($all_folders);
+    $steam->disconnect();
 }
 function newSchueler($steam){
 //	include("lars_lang.php");
@@ -399,7 +399,7 @@ function getView($steam, $id){
 	} else {
 		print (json_encode(array(success => false)));
 	}
-}  
+}
 function getAppointments($steam){
 	global $config_webserver_ip;
 	$current_user = $steam->get_current_steam_user();
@@ -440,8 +440,8 @@ function getDiscussion($steam, $id){
 				array(
 //					array( '+', 'attribute', 'OBJ_TYPE', 'prefix', 'steam_document' ),
 					array( '+', 'attribute', 'DOC_MIME_TYPE', 'prefix', "text/html" )
-					), 
-				array( 
+					),
+				array(
 	 				array( '>', 'attribute', 'DOC_LAST_MODIFIED' )
 	 			),
 				$start+0,
@@ -470,10 +470,10 @@ function getDiscussion($steam, $id){
 			$data[] = array(
 				id=>$attributes["OBJ_ID"],
 				OBJ_NAME=>$attributes["OBJ_NAME"],
-				OBJ_DESC=>$attributes["OBJ_DESC"], 
-				OBJ_AUTHOR=>$attributes["OBJ_AUTHOR"], 
-				DOC_LAST_MODIFIED=>$attributes["DOC_LAST_MODIFIED"], 
-				LARS_CONTENT=>$attributes["LARS_CONTENT"], 
+				OBJ_DESC=>$attributes["OBJ_DESC"],
+				OBJ_AUTHOR=>$attributes["OBJ_AUTHOR"],
+				DOC_LAST_MODIFIED=>$attributes["DOC_LAST_MODIFIED"],
+				LARS_CONTENT=>$attributes["LARS_CONTENT"],
 				);
 //			} else {
 //			}
@@ -563,20 +563,20 @@ function getDesktopAbo($steam, $id) {
 		);
 	$subscribed_ids = array();
 	#### get subscribed desktop ids cached
-	foreach ($inventory3 as $key => $subscribed_desktop) { 
+	foreach ($inventory3 as $key => $subscribed_desktop) {
 		if ($subscribed_desktop instanceof steam_link){
 			$subscribed_desktop_objects[$key] = $subscribed_desktop->get_link_object(1);
 		}
 	}
 	$result = $steam->buffer_flush();
-	foreach ($inventory3 as $key => $subscribed_desktop) { 
+	foreach ($inventory3 as $key => $subscribed_desktop) {
 		if ($subscribed_desktop instanceof steam_link){
 			$subscribed_desktop_objects[$key] = $result[$subscribed_desktop_objects[$key]];
 			$subscribed_ids[] = $subscribed_desktop_objects[$key]->get_id();
 		}
 	}
-	####	
-		
+	####
+
 	$inventory = array_merge($inventory1, $inventory2);
 	$data = array();
 	foreach ($inventory as $key => $desktop){
@@ -623,7 +623,7 @@ try{
 	    switch($fieldValue){
     		case "true":
 				$copy = steam_factory::create_copy( $GLOBALS["STEAM"]->get_id(), $desktop_link );
-				$copy->move( $login_user->get_attribute("MOKO_SUBSCRIPTION_CHECK") );	
+				$copy->move( $login_user->get_attribute("MOKO_SUBSCRIPTION_CHECK") );
 				$success = true;
 				break;
 			case "false":
@@ -652,7 +652,7 @@ try{
         print (json_encode(array(success => false, name=>$e->getMessage())));
 	}
     $steam->disconnect();
-	
+
 }
 
 
@@ -688,7 +688,7 @@ function getSchuelerTopics($steam, $id, $folder = false, $color = false){
 	$result = $steam->buffer_flush();
 	$inventory = $result[$inventory];
 	$archivInventory = $result[$archivInventory];
-	
+
 	$data = array();
 
 	$subInventoryArray = array();
@@ -706,9 +706,9 @@ function getSchuelerTopics($steam, $id, $folder = false, $color = false){
 				1
 			);
 	}
-	
+
 	$result_inventory = $steam->buffer_flush();
-	
+
 	$subInventoryAttributes = array();
 	$subInventoryNames = array();
 	$subInventoryDesc = array();
@@ -735,16 +735,16 @@ function getSchuelerTopics($steam, $id, $folder = false, $color = false){
 		}
 		$data[] = array(
 			qtip=>"Archiv",//TODO: Sprachen
-			text=>"Archiv",  
-			state=>'<div class="whiteIcon">&nbsp;</div>', 
+			text=>"Archiv",
+			state=>'<div class="whiteIcon">&nbsp;</div>',
 			allowDrag=>false,
-			iconCls=>"folder-archiv", 
+			iconCls=>"folder-archiv",
 			leaf=>true,
 			id=>$archiv_folder->get_id()
 			);
 	}
 
-	
+
 	foreach ($inventory as $key => $item){
 		$itemName = $result_attributes[$inventoryNames[$key]];
 		$itemDesc = $result_attributes[$inventoryDesc[$key]];
@@ -759,7 +759,7 @@ function getSchuelerTopics($steam, $id, $folder = false, $color = false){
 //					)
 //				);
 			$children = array();
-			
+
 			foreach ($subInventory as $key2 => $subItem){
 //				if (!($subItem->get_attribute("LARS_HIDDEN")) && $subItem instanceof steam_container){
 //					$attributes = $subItem->get_attribute_names();
@@ -802,14 +802,14 @@ function getSchuelerTopics($steam, $id, $folder = false, $color = false){
 //						$stateCls = '<div class="whiteIcon">&nbsp;</div>';
 						$qtip = $subItemName;
 						$qtipParent = $qtipParent ? $qtipParent : $item->get_name();
-						$stateParent = $stateParent ? $stateParent : ""; 				
+						$stateParent = $stateParent ? $stateParent : "";
 					}
 					$children[] = array(
 						qtip=>$qtip,
-						text=>tidyDesc($subItemDesc), 
+						text=>tidyDesc($subItemDesc),
 						origName=>$subItemName,
-						state=>$state, 
-						iconCls=>$icon, 
+						state=>$state,
+						iconCls=>$icon,
 						leaf=>true,
 						allowDrag=>false,
 						id=>$subItem->get_id(),
@@ -819,14 +819,14 @@ function getSchuelerTopics($steam, $id, $folder = false, $color = false){
 				}
 //			}
 			$data[] = array(
-				qtip=>$qtipParent, 
-				text=>tidyDesc($itemDesc), 
+				qtip=>$qtipParent,
+				text=>tidyDesc($itemDesc),
 				origName=>$itemName,
-				stateCls=>$stateParent, 
-//				uiProvider=>"col", 
-//				cls=>"master-task", 
-//				iconCls=>"comments", 
-				iconCls=>(count($children)>0) ? "comments" : "comments", 
+				stateCls=>$stateParent,
+//				uiProvider=>"col",
+//				cls=>"master-task",
+//				iconCls=>"comments",
+				iconCls=>(count($children)>0) ? "comments" : "comments",
 				id=>$item->get_id(),
 				allowDrag=>false,
 				children=>$children,
@@ -845,9 +845,9 @@ function getSchuelerTopics($steam, $id, $folder = false, $color = false){
 	    echo $data;
 		$steam->disconnect();
     }
-	
-    
-    
+
+
+
 }
 function newAssignmentPackage($steam, $id)
 {
@@ -855,7 +855,7 @@ function newAssignmentPackage($steam, $id)
 //	$name = utf8_decode($_POST['name']);
 	$name = $_POST['name'];
 	//	$description = $_POST['description'];
-	
+
 	// get folder for the new assignment package
 	$current_folder = steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $id );
 	// create new Assignment container
@@ -864,7 +864,7 @@ function newAssignmentPackage($steam, $id)
 	$newPackage->set_attribute("OBJ_TYPE", "ASSIGNMENT_PACKAGE");
 	print (json_encode(array(success => true, newId => $newPackage->get_id(), origName => tidyName($name))));
 	$steam->disconnect();
-	
+
 }
 function copyIntoPackage($steam, $id)
 {
@@ -872,13 +872,13 @@ function copyIntoPackage($steam, $id)
 
 	// 	name and description for the new package
 	$packageId = $_POST['folderId'];
-	
+
 	$current_folder = steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $packageId );
 	$object_to_copy = steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $id );
 	// copy document
 	$copy = steam_factory::create_copy( $GLOBALS["STEAM"]->get_id(), $object_to_copy );
-	$copy->move( $current_folder );	
-	
+	$copy->move( $current_folder );
+
 	// copy embedded pictures
 	if (!($copy instanceof steam_document)){
 		print (json_encode(array(success => true, newId=>$copy->get_id())));
@@ -905,7 +905,7 @@ function copyIntoPackage($steam, $id)
 			$newContent = str_replace($treffer[0][$index], 'src="'.$baseFileName.'"', $newContent);
 		}
 	}
-	
+
 //	print $object_to_copy->get_content()."++++++++++++++";
 //	print $copy->get_content()."old content \n";
 //	print $newContent."<- new content \n";
@@ -925,7 +925,7 @@ function copyPackage($steam, $id)
 	// 	name and description for the new package
 	$sourceId = $_POST['sourceId'];
 	$targetId = $_POST['targetId'];
-	
+
 	$object_to_copy = steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $sourceId );
 	$target_folder = steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $targetId );
 	$archiv_folder = $steam->get_current_steam_user()->get_attribute("LARS_ARCHIV");
@@ -942,9 +942,9 @@ function copyPackage($steam, $id)
 	$copy2 = steam_factory::create_copy( $GLOBALS["STEAM"]->get_id(), $object_to_copy );
 	$steam_user_target = $target_folder->get_environment()->get_environment()->get_creator();
 	if ($steam_user_target->get_attribute("USER_FIRSTNAME")){
-		$folderName = $steam_user_target->get_attribute("USER_FIRSTNAME")." ".$steam_user_target->get_attribute("USER_FULLNAME");	
+		$folderName = $steam_user_target->get_attribute("USER_FIRSTNAME")." ".$steam_user_target->get_attribute("USER_FULLNAME");
 	} else {
-//		$folderName = $target_folder->get_environment()->get_attribute("OBJ_OWNER");	
+//		$folderName = $target_folder->get_environment()->get_attribute("OBJ_OWNER");
 		$other_desktops_inventory = $steam->get_current_steam_user()->get_attribute("LARS_ABO")->get_inventory();
 		foreach ($other_desktops_inventory as $desktop_link){
 			$desktop_path = $desktop_link->get_link_object()->get_path();
@@ -990,9 +990,9 @@ function copyPackage($steam, $id)
 			}
 	}
 
-	$copy1->move( $target_folder );	
+	$copy1->move( $target_folder );
 	$copy2->set_attribute(OBJ_DESC, date("Y.m.d")." ".$copy2->get_attribute(OBJ_DESC));
-	$copy2->move( $archiv_folder );	
+	$copy2->move( $archiv_folder );
 
 	print (json_encode(array(success => true, newId => $copy1->get_id(), origName => $copy1->get_name())));
 }
@@ -1003,7 +1003,7 @@ function copyFolder($steam, $id)
 	// 	name and description for the new package
 	$sourceId = $_POST['sourceId'];
 	$targetId = $_POST['targetId'];
-	
+
 	$object_to_copy = steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $sourceId );
 	$target_folder = steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $targetId );
 	if ($target_folder instanceof steam_link){
@@ -1027,7 +1027,7 @@ function copyFolder($steam, $id)
 				$item->set_content($content);
 			}
 	}
-	$copy1->move( $target_folder );	
+	$copy1->move( $target_folder );
 
 	print (json_encode(array(success => true, newId => $copy1->get_id(), origName => $copy1->get_name())));
 }
@@ -1038,7 +1038,7 @@ function copyFile($steam, $id)
 	// 	name and description for the new package
 	$sourceId = $_POST['sourceId'];
 	$targetId = $_POST['targetId'];
-	
+
 	$object_to_copy = steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $sourceId );
 	$target_folder = steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $targetId );
 	if (!($target_folder instanceof steam_container)){
@@ -1047,14 +1047,14 @@ function copyFile($steam, $id)
 	if ($target_folder instanceof steam_link){
 		$target_folder = $target_folder->get_link_object();
 		}
-	
+
 	if (!($target_folder instanceof steam_container) || ($object_to_copy instanceof steam_container)){
 		print (json_encode(array(success => false)));
 		exit;
 		}
 	// copy document
 	$copy1 = steam_factory::create_copy( $GLOBALS["STEAM"]->get_id(), $object_to_copy );
-	$copy1->move( $target_folder );	
+	$copy1->move( $target_folder );
 
 	print (json_encode(array(success => true, newId => $copy1->get_id(), origName => $copy1->get_name())));
 }
@@ -1065,7 +1065,7 @@ function copyFilePackage($steam, $id)
 	// 	name and description for the new package
 	$sourceId = $_POST['sourceId'];
 	$targetId = $_POST['targetId'];
-	
+
 	$file_to_copy = steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $sourceId );
 	$file_desc = $file_to_copy->get_attribute(OBJ_DESC) ? $file_to_copy->get_attribute(OBJ_DESC) : $file_to_copy->get_attribute(OBJ_NAME);
 	$file_name = pathinfo($file_desc);
@@ -1095,7 +1095,7 @@ function copyFilePackage($steam, $id)
 	} else {
 		$archiv_folder = $result;
 	}
-	
+
 	$copy_inventory_1 = $copy1->get_inventory();
 	$copy_inventory_2 = $copy2->get_inventory();
 //	$current_path = substr( $object_to_move->get_path(), 0, strrpos($object_to_move->get_path(), "/")) . "/";
@@ -1118,10 +1118,10 @@ function copyFilePackage($steam, $id)
 				$item->set_content($content);
 			}
 	}
-	
-	$copy1->move( $target_folder );	
+
+	$copy1->move( $target_folder );
 	$copy2->set_attribute(OBJ_DESC, date("Y.m.d")." ".$copy2->get_attribute(OBJ_DESC));
-	$copy2->move( $archiv_folder );	
+	$copy2->move( $archiv_folder );
 
 	print (json_encode(array(success => true, newId => $copy1->get_id())));
 }
@@ -1130,7 +1130,7 @@ function archivePackage($steam, $id)
 	$larsArchiv = $steam->get_current_steam_user()->get_attribute("LARS_ARCHIV");
 	$object_to_move = steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $id );
 	$folderName = $object_to_move->get_environment()->get_attribute("OBJ_DESC");
-	
+
 	$inventory = $larsArchiv->get_inventory();
 	  for( $i=0; $i < count($inventory); $i++ )
 		if( $folderName == $inventory[$i]->get_attribute("OBJ_DESC") && $inventory[$i] instanceof steam_container){
@@ -1167,7 +1167,7 @@ function archiveGroupPackage($steam, $id)
 	//From here copy of archivePackage
 	$object_to_move = steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $id );
 	$folderName = $object_to_move->get_environment()->get_attribute("OBJ_DESC");
-	
+
 	$inventory = $larsArchiv->get_inventory();
 	  for( $i=0; $i < count($inventory); $i++ )
 		if( $folderName == $inventory[$i]->get_attribute("OBJ_DESC") && $inventory[$i] instanceof steam_container){
@@ -1206,8 +1206,8 @@ function newTopicsFolder($steam, $id)
 	// name and description for the new package
 	$name = utf8_decode($_POST['name']);
 //	$description = $_POST['description'];
-	
-	
+
+
 	if ($id){
 		$current_folder = steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $id )->get_link_object();
 	} else {
@@ -1217,10 +1217,10 @@ function newTopicsFolder($steam, $id)
 	// create new folder
 	$newPackage = steam_factory::create_container($GLOBALS["STEAM"]->get_id(), tidyName($name), $current_folder, tidyDesc($name));
 	$newPackage->set_attribute("OBJ_TYPE", "LARS_FOLDER");
-	
+
 	print (json_encode(array(success => true, newId => $newPackage->get_id())));
 	$steam->disconnect();
-	
+
 }
 function newFolderLinks($steam, $id)
 {
@@ -1236,33 +1236,33 @@ function newFolderLinks($steam, $id)
 	// name and description for the new package
 	$name = trim($_POST['name']);
 	//	$description = $_POST['description'];
-	
+
 	// get folder from user attribute
 	// create new folder
 	$newFolder = steam_factory::create_container($GLOBALS["STEAM"]->get_id(), tidyName($name), $current_folder, tidyDesc($name));
-	
+
 	print (json_encode(array(success => true)));
 	$steam->disconnect();
-	
+
 }
 function getAssignmentPackage($steam, $id)
 {
 	global $config_webserver_ip;
 	//TODO:  Button in Grid erstellen um Parameter anzupassen
 	$showHidden = ($_POST['showHidden']) ? $_POST['showHidden'] : false;
-	
+
 //	$last_login_time = $steam->get_current_steam_user()->get_attribute(USER_LAST_LOGIN_LARS);
 	// get folder for the new assignment package
 	$current_folder = steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $id );
 	// create new Assignment container
-	$inventory = $current_folder->get_inventory_filtered(		
+	$inventory = $current_folder->get_inventory_filtered(
 		array(
 			array( '-', 'attribute', 'bid:hidden', '==', 'hide_always' ),
 			array( '-', 'attribute', 'bid:hidden', '==', 'true' ),
 			array( '-', 'attribute', 'LARS_HIDDEN', '==', true ),
 			array( '+', 'class', 0x00000930),//documents, images, links, ...
 			)
-	);	
+	);
 	$items_array = array();
 	foreach ($inventory as $key => $item){
 		$items_array[$key]["attributes"] = $item->get_attributes(array("bid:hidden", LARS_HIDDEN, DOC_MIME_TYPE, OBJ_NAME, DOC_EXTERN_URL, OBJ_DESC, OBJ_PATH, OBJ_CREATION_TIME, OBJ_LAST_CHANGED, LARS_STATE, LARS_COMMENT, OBJ_TYPE, LARS_TYPE), 1);
@@ -1276,7 +1276,7 @@ function getAssignmentPackage($steam, $id)
 //		if ($item instanceof steam_document){
 //			$items_array[$key]["content"] = $result[$items_array[$key]["content"]];
 //		}
-	}	
+	}
 	foreach ($inventory as $key => $item){
 		$action0 = false;
 		$action1 = false;
@@ -1310,7 +1310,7 @@ function getAssignmentPackage($steam, $id)
 //						$action3 = 'changed';
 //						$qtip3 = 'Diese Datei wurde neu erstellt oder verändert seit dem letzten mal';
 //				}
-			
+
 		if (!($item instanceof steam_docextern)){
 		switch($attributes["DOC_MIME_TYPE"]){
 		    case "text/html":
@@ -1334,7 +1334,7 @@ function getAssignmentPackage($steam, $id)
 			case "image/jpg":
 			case "image/jpeg":
 			case "image/png":
-				$content = '<p style="text-align: center;"><img src="'.$config_webserver_ip.'/tools/get.php?mode=thumbnail&height=100&object='.$attributes["OBJ_ID"].'" border="0" /></p>'; 
+				$content = '<p style="text-align: center;"><img src="'.$config_webserver_ip.'/tools/get.php?mode=thumbnail&height=100&object='.$attributes["OBJ_ID"].'" border="0" /></p>';
 				$qtip0 = msg('SHOW_HERE');
 //						$content = _get_texthtmlnew($config_webserver_ip,'<p><img src="'.$attributes[OBJ_PATH].'" border="0" /></p>', $item);
 //						$mimeType = $attributes["DOC_MIME_TYPE"];
@@ -1354,8 +1354,8 @@ function getAssignmentPackage($steam, $id)
 				$mimeType = "Download";
 //				$action2 = ($attributes["DOC_MIME_TYPE"] != 'application/pdf') ? 'page-save' : "pdf";
 				$action2 = 'page-save';
-				$qtip2 = msg('DOC_DOWNLOAD');				
-				$hide2 = 1;						
+				$qtip2 = msg('DOC_DOWNLOAD');
+				$hide2 = 1;
 				$action3 = 'add-page';
 				$qtip3 = msg('ADD_SOLUTION');
 				$action4 = 'delete';
@@ -1363,26 +1363,26 @@ function getAssignmentPackage($steam, $id)
 				break;
 		    }//end switch
 		} else {
-			$content = $attributes["DOC_EXTERN_URL"]; 
-//					$content = '<p style="text-align: center;"><a href="'.$attributes["DOC_EXTERN_URL"].'">'.$attributes["DOC_EXTERN_URL"].'</a></p>'; 
+			$content = $attributes["DOC_EXTERN_URL"];
+//					$content = '<p style="text-align: center;"><a href="'.$attributes["DOC_EXTERN_URL"].'">'.$attributes["DOC_EXTERN_URL"].'</a></p>';
 			$qtip0 = msg('LINK_TAB');
 			$mimeType = "Link";
 			$hide2 = 1;
 			$action4 = 'delete';
 			$qtip4 = msg('LINK_DEL');
 		}//end if !docextern
-	
+
 	$name_parts = pathinfo($attributes["OBJ_PATH"]);
 	$name_parts["extension"] = ($mimeType == "Link") ? "link" : $name_parts["extension"];
 	$name_parts["extension"] = ($attributes["DOC_MIME_TYPE"] == "text/html") ? "html" : $name_parts["extension"];
 	$name_parts["extension"] = ($attributes["DOC_MIME_TYPE"] == "text/plain") ? "txt" : $name_parts["extension"];
 	$data[] = array(
-			text=>$attributes["OBJ_NAME"], 
-			type=>$mimeType, 
-//					content=>$content, 
-			LARS_CONTENT=>$content, 
-			id=>$attributes["OBJ_ID"], 
-			OBJ_NAME=>$attributes["OBJ_NAME"], 
+			text=>$attributes["OBJ_NAME"],
+			type=>$mimeType,
+//					content=>$content,
+			LARS_CONTENT=>$content,
+			id=>$attributes["OBJ_ID"],
+			OBJ_NAME=>$attributes["OBJ_NAME"],
 			OBJ_CREATION_TIME=>$attributes["OBJ_CREATION_TIME"]+1,
 			OBJ_LAST_CHANGED=>$attributes["OBJ_LAST_CHANGED"]+1,
 //					DOC_LAST_MODIFIED=>$attributes["DOC_LAST_MODIFIED"]+1,
@@ -1414,17 +1414,17 @@ function getAssignmentPackage($steam, $id)
 			hide4=>$action4 ? 0 : 1,
 			hide5=>$qtip5 ? 0 : 1
 			);
-		
-		
+
+
 	}
 	$output[success] = true;
 	$output[ass] = $data;
 	$output = json_encode($output);  //encode the data in json format
     echo $output;
 	$steam->disconnect();
-	
+
 }
-		
+
 
 /*
  * Neue Dokumente rekursiv mit getNewItemsRec holen
@@ -1469,7 +1469,7 @@ function getNewItems($steam)
 			1
 		);
 	}
-	
+
 	$last_login_time = $login_user->get_attribute(USER_LAST_LOGIN_LARS, 1);
 	$result = $steam->buffer_flush();
 	foreach ($all_folder as $key => $value) {
@@ -1478,7 +1478,7 @@ function getNewItems($steam)
 	$last_login_time = $result[$last_login_time];
 
 	$current_lars_room = array();
-	foreach ($inventory as $key => $studentsLarsFolder) { 
+	foreach ($inventory as $key => $studentsLarsFolder) {
 		if ($studentsLarsFolder instanceof steam_link){
 			$current_lars_room[$key] = $studentsLarsFolder->get_link_object(1);
 		} else {
@@ -1487,7 +1487,7 @@ function getNewItems($steam)
 		$description_array[$key] = $studentsLarsFolder->get_attribute("OBJ_DESC", 1);
 	}
 	$result = $steam->buffer_flush();
-	foreach ($inventory as $key => $studentsLarsFolder) { 
+	foreach ($inventory as $key => $studentsLarsFolder) {
 		if ($studentsLarsFolder instanceof steam_link){
 			$current_lars_room[$key] = $result[$current_lars_room[$key]];
 			$is_link[$key] = true;
@@ -1499,13 +1499,13 @@ function getNewItems($steam)
 	}
 
 	$is_readable = array();
-	foreach ($inventory as $key => $studentsLarsFolder) { 
+	foreach ($inventory as $key => $studentsLarsFolder) {
 		if ($is_link[$key] && $current_lars_room[$key]){ //Zweites Argument nötig, wenn ein Schriebtisch gelöscht wurde
 			$is_readable[$key] = $current_lars_room[$key]->check_access_read( $login_user, 1 );
 		}
 	}
 	$result = $steam->buffer_flush();
-	foreach ($inventory as $key => $studentsLarsFolder) { 
+	foreach ($inventory as $key => $studentsLarsFolder) {
 		if ($is_link[$key]){
 			if (!($current_lars_room[$key] instanceof steam_container)){
 				$is_readable[$key] = false;
@@ -1516,7 +1516,7 @@ function getNewItems($steam)
 			$is_readable[$key] = true;
 		}
 	}
-		
+
 	$data = array();
 	foreach ($inventory as $key => $studentsLarsFolder){
 		$dataTmp = array();
@@ -1524,7 +1524,7 @@ function getNewItems($steam)
 			$is_home = !$is_link[$key];
 			$dataTmp = (getNewItemsRec($steam, $current_lars_room[$key], $last_login_time - $lag, $dataTmp, $description_array[$key]."/", $is_home));
 			$data = array_merge($data, $dataTmp);
-		}	
+		}
 	}
 	$output[success] = true;
 	$output[newItems] = $data;
@@ -1568,15 +1568,15 @@ function getNewItemsRec($steam, $current_folder, $last_login_time, $data, $folde
 	$inventory_documents = $result[$inventory_documents];
 	$inventory_container = $result[$inventory_container];
 	$container_type = $result[$container_type];
-	
-	foreach ($inventory_documents as $key => $item) { 
+
+	foreach ($inventory_documents as $key => $item) {
 		$items_attributes_array[$key] = $item->get_attributes(array(DOC_MIME_TYPE, OBJ_NAME, OBJ_DESC, OBJ_PATH, OBJ_CREATION_TIME, OBJ_LAST_CHANGED, LARS_STATE, LARS_COMMENT, OBJ_TYPE), 1);
 //		if ($item instanceof steam_document){
 //			$items_content_array[$key] = $item->get_content(1);
 //		}
 	}
 	$result = $steam->buffer_flush();
-	foreach ($inventory_documents as $key => $item) { 
+	foreach ($inventory_documents as $key => $item) {
 		$items_attributes_array[$key] = $result[$items_attributes_array[$key]];
 		if ($item instanceof steam_document){
 //			$items_content_array[$key] = $result[$items_content_array[$key]];
@@ -1615,8 +1615,8 @@ function getNewItemsRec($steam, $current_folder, $last_login_time, $data, $folde
 			$action1 = 'comment-edit';
 			$qtip1 = 'Schreibe eine Anmerkung zu diesem Dokument';
 		}
-		
-	if (!($item instanceof steam_docextern)){		
+
+	if (!($item instanceof steam_docextern)){
 		switch($attributes[DOC_MIME_TYPE]){
 		    case "text/html":
 		    case "text/plain":
@@ -1639,7 +1639,7 @@ function getNewItemsRec($steam, $current_folder, $last_login_time, $data, $folde
 			case "image/jpeg":
 			case "image/png":
 			case "image/tiff":
-				$content = '<p style="text-align: center;"><img src="'.$config_webserver_ip.'/tools/get.php?mode=thumbnail&height=100&object='.$attributes["OBJ_ID"].'" border="0" /></p>'; 
+				$content = '<p style="text-align: center;"><img src="'.$config_webserver_ip.'/tools/get.php?mode=thumbnail&height=100&object='.$attributes["OBJ_ID"].'" border="0" /></p>';
 				$qtip0 = msg('SHOW_HERE');
 //						$content = _get_texthtmlnew($config_webserver_ip,'<p><img src="'.$attributes[OBJ_PATH].'" border="0" /></p>', $item);
 //						$mimeType = $attributes["DOC_MIME_TYPE"];
@@ -1660,32 +1660,32 @@ function getNewItemsRec($steam, $current_folder, $last_login_time, $data, $folde
 //				$action2 = ($attributes["DOC_MIME_TYPE"] != 'application/pdf') ? 'page-save' : "pdf";
 				$action2 = 'page-save';
 				$qtip2 = msg('DOC_DOWNLOAD');
-				$hide2 = 1;						
+				$hide2 = 1;
 				$action4 = 'delete';
 				$qtip4 = msg('DOC_DEL');
 				break;
 		    }//end switch
 		}else{
-			$content = $attributes["DOC_EXTERN_URL"]; 
-//					$content = '<p style="text-align: center;"><a href="'.$attributes["DOC_EXTERN_URL"].'">'.$attributes["DOC_EXTERN_URL"].'</a></p>'; 
+			$content = $attributes["DOC_EXTERN_URL"];
+//					$content = '<p style="text-align: center;"><a href="'.$attributes["DOC_EXTERN_URL"].'">'.$attributes["DOC_EXTERN_URL"].'</a></p>';
 			$qtip0 = msg('LINK_TAB');
 			$mimeType = "Link";
 			$hide2 = 1;
 			$action4 = 'delete';
 			$qtip4 = msg('LINK_DEL');
 		}//end if !docextern
-			
+
 	$name_parts = pathinfo($attributes["OBJ_PATH"]);
 	$name_parts["extension"] = ($mimeType == "Link") ? "link" : $name_parts["extension"];
 	$name_parts["extension"] = ($attributes["DOC_MIME_TYPE"] == "text/html") ? "html" : $name_parts["extension"];
 	$name_parts["extension"] = ($attributes["DOC_MIME_TYPE"] == "text/plain") ? "txt" : $name_parts["extension"];
     $data[] = array(
-			text=>$attributes["OBJ_NAME"], 
-			type=>$mimeType, 
-//					content=>$content, 
-			LARS_CONTENT=>$content, 
-			id=>$attributes["OBJ_ID"], 
-			OBJ_NAME=>$attributes["OBJ_NAME"], 
+			text=>$attributes["OBJ_NAME"],
+			type=>$mimeType,
+//					content=>$content,
+			LARS_CONTENT=>$content,
+			id=>$attributes["OBJ_ID"],
+			OBJ_NAME=>$attributes["OBJ_NAME"],
 			OBJ_CREATION_TIME=>$attributes["OBJ_CREATION_TIME"]+1,
 			OBJ_LAST_CHANGED=>$attributes["OBJ_LAST_CHANGED"]+1,
 //					DOC_LAST_MODIFIED=>$attributes["DOC_LAST_MODIFIED"]+1,
@@ -1770,22 +1770,22 @@ function getUserIcon($steam){
 // }
  print (json_encode(array(success => true, imageUri => $imageUri)));
 }
-	
+
 function getCustomImage($steam){
  global $config_webserver_ip;
  $login_user = $steam->get_current_steam_user();
  $attributes = $login_user->get_attribute_names();
  if (in_array("OBJ_ICON", $attributes)){
 	 $imageId = $login_user->get_attribute("OBJ_ICON")->get_id();
-	 print ('<img src="'.$config_webserver_ip.'/tools/get.php?mode=thumbnail&height=100&object='.$imageId.'" border="0" height="100%" />'); //TODO: Not working locally 
-//	 print ('"tools/get.php?mode=thumbnail&height=100&object='.$imageId.'" border="0" height="100%"'.'<img src="tools/get.php?mode=thumbnail&height=100&object='.$imageId.'" border="0" height="100%" />'); 
+	 print ('<img src="'.$config_webserver_ip.'/tools/get.php?mode=thumbnail&height=100&object='.$imageId.'" border="0" height="100%" />'); //TODO: Not working locally
+//	 print ('"tools/get.php?mode=thumbnail&height=100&object='.$imageId.'" border="0" height="100%"'.'<img src="tools/get.php?mode=thumbnail&height=100&object='.$imageId.'" border="0" height="100%" />');
  } else {
  	print ("Doppelklick um hier ein eigenes Bild anzeigen zu lassen.");// TODO: Sprachen
  }
 // print (json_encode(array(success => true, imageId => $imageId)));
 }
 function setCustomImage($steam){
-	require_once("includes/derive_mimetype.php");
+	require_once("../libary/php/derive_mimetype.php");
 	try{
 	$login_user = $steam->get_current_steam_user();
 	$description = $_POST['description'];
@@ -1796,12 +1796,12 @@ function setCustomImage($steam){
 	$mimetype = derive_mimetype( $baseFileName );
 	//create image
 	$result = steam_factory::create_document($GLOBALS["STEAM"]->get_id(), tidyName($baseFileName), $fileContent, $mimetype, false, tidyDesc($baseFileName) );
-	
+
 	$login_user->set_attribute("OBJ_ICON", $result);
-	
+
 	if( tidyDesc($_POST["description"]) != "" )
 		$result->set_attribute( "OBJ_DESC", tidyDesc($description) );
-		
+
 	print (json_encode(array(success => true)));
 	}catch (Exception $e){
 	print "catch";
@@ -1811,7 +1811,7 @@ function setLarsPackageState($steam, $id){
 	$login_user = $steam->get_current_steam_user();
 	$state = $_POST['state'];
     $packageContainer = steam_factory::get_object($GLOBALS["STEAM"]->get_id(),$id);
-	
+
 	$packageContainer->set_attribute("LARS_STATE", $state);
 
 	print (json_encode(array(success => true)));
@@ -1833,7 +1833,7 @@ function getRightsGroups($steam, $id)
 	$groups = is_array($login_user->get_attribute("USER_FAVOURITES")) ? array_merge($groups, $buddies) : $groups;
 	$lars_abo = $login_user->get_attribute("LARS_ABO")->get_inventory();
 	$lars_desktop = $login_user->get_attribute("LARS_DESKTOP");
-	
+
 	// check if already in abo
 	foreach ($groups as $group){
 		$abo = 0;
@@ -1842,8 +1842,8 @@ function getRightsGroups($steam, $id)
 		$name = ($group instanceof steam_group) ? $group->get_groupname() : $group->get_attribute("OBJ_NAME");
 		$data[] = array(
 //				text=>$group->get_attribute("OBJ_NAME"),
-//				text=>$group->get_groupname(), 
-				text=>$name, 
+//				text=>$group->get_groupname(),
+				text=>$name,
 				id=>$group->get_id(),
 				group=>($group instanceof steam_group) ? "Gruppe" : "Nutzer",
 				fav=>(in_array($group->get_id(), $buddies_ids)) ? "Ja" : "Nein",
@@ -1868,7 +1868,7 @@ function getAboGroups($steam, $id)
 	$groups = $login_user->get_groups();
 	$lars_abo = $login_user->get_attribute("LARS_ABO")->get_inventory();
 	$lars_desktop = $login_user->get_attribute("LARS_DESKTOP");
-	
+
 	// check if already in abo
 	foreach ($groups as $group){
 		$abo = 0;
@@ -1888,14 +1888,14 @@ function getAboGroups($steam, $id)
 					}
 				}
 			}
-		} elseif ($id == "desktops") { // Gruppen die nicht gelesen werden für das Abonnieren übersprungen 
+		} elseif ($id == "desktops") { // Gruppen die nicht gelesen werden für das Abonnieren übersprungen
 			continue;
 		}
 
 		$data[] = array(
-//				text=>$group->get_parent_and_group_name(), 
-				text=>$group->get_groupname(), 
-				id=>$group->get_id(), 
+//				text=>$group->get_parent_and_group_name(),
+				text=>$group->get_groupname(),
+				id=>$group->get_id(),
 				ABO=>$abo,
 				);
 	}
@@ -1918,14 +1918,14 @@ try{
 	    $message 	= " ";
 
 	    $group_object = steam_factory::get_object($GLOBALS["STEAM"]->get_id(),$id);
-	    
+
 	    switch($field){
     		case "ABO":
 				if ($fieldValue && $fieldValue != "false"){
 					$abo_container = $steam->get_current_steam_user()->get_attribute("LARS_ABO");
 					// Überprüfen, ob ein Desktop vorhanden ist und ggf. erstellen
 					$group_workroom = $group_object->get_workroom();
-					
+
 					$group_inventory = $group_workroom->get_inventory();
 					for( $i=0; $i < count($group_inventory); $i++ )
 						if( $group_inventory[$i]->get_attribute(OBJ_TYPE) == "LARS_DESKTOP"){
@@ -1993,7 +1993,7 @@ try{
         print (json_encode(array(success => false, name=>$e->getMessage())));
 	}
     $steam->disconnect();
-	
+
 }
 
 function getGroupsTree($steam, $id){
@@ -2009,12 +2009,12 @@ function getGroupsTree($steam, $id){
 	foreach ($subGroups as $group) {
 		$arr[] = array(
 			"text"=>$group->get_attribute("OBJ_NAME"),
-			"id"=>$group->get_id(), 
+			"id"=>$group->get_id(),
 			"iconCls"=>"group",
-	    ); 
+	    );
 	}
-  	echo json_encode($arr);      
-    $steam->disconnect();                                    
+  	echo json_encode($arr);
+    $steam->disconnect();
 }
 function addBuddy($steam, $id){
 	$login_user = $steam->get_current_steam_user();
@@ -2026,18 +2026,18 @@ function addBuddy($steam, $id){
 		$name = ($_POST['name']) ? ($_POST['name']) : null;
   		$new_group = steam_factory::get_user($GLOBALS["STEAM"]->get_id(),$name);
   	}
-	
+
 //  	$access_read = $new_group->check_access_read( $steam->get_current_steam_user() );
 //  	if ($access_read){
 	if ($new_group instanceof steam_user || $new_group instanceof steam_group){
   		$buddies[] = $new_group;
   	} else {
 		print (json_encode(array(success => false, message => msg('FAILURE'))));
-		$steam->disconnect();                           
+		$steam->disconnect();
 		exit;
   	}
 	$login_user->set_attribute("USER_FAVOURITES", $buddies);
-	$steam->disconnect();                           
+	$steam->disconnect();
 	print (json_encode(array(success => true)));
 }
 function deleteBuddy($steam, $id){
@@ -2061,11 +2061,11 @@ function deleteBuddy($steam, $id){
   	}
 	if ($success){
 		$steam->get_current_steam_user()->set_buddies($buddies);
-		print (json_encode(array(success => true)));                         
+		print (json_encode(array(success => true)));
 	} else {
 		print (json_encode(array(success => false, message => msg('FAILURE'))));
 	}
-	
+
 }
 ############------------getgroups end
 
@@ -2079,7 +2079,7 @@ try{
 	    $field = $_POST['field'];
 	    $fieldValue = $_POST['fieldValue'];
 	    $message = " ";
-	    
+
 	    switch($field){
     		case "OBJ_DESC":
     	    	if ($fieldValue == "")
@@ -2093,7 +2093,7 @@ try{
 		$current_obj->set_attribute($field, $fieldValue, 1);
 		if ($field == "OBJ_DESC" && !($current_obj instanceOf steam_document))
 			$current_obj->set_attribute("OBJ_NAME", tidyName($fieldValue), 1);
-		
+
 		print (json_encode(array(success => true, name=>$message)));
 
 	}catch(Exception $e){
@@ -2101,6 +2101,6 @@ try{
 	}
 	$steam->buffer_flush();
     $steam->disconnect();
-	
+
 }//end saveData
 ?>
