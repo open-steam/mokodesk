@@ -20,9 +20,10 @@ require_once("mokodesk_steam.php");
 		<script type="text/javascript" src="' . $config_webserver_ip . '/moko/tiny_mce/plugins/asciimath/js/ASCIIMathMLwFallbackMin.js"></script>
 		<script type="text/javascript" src="' . $config_webserver_ip . '/moko/tiny_mce/plugins/asciisvg/js/ASCIIsvgPIMin.js"></script>
 		<script type="text/javascript">
-		var AScgiloc = "http://www.bid-owl.de/tools/asciisvg/svgimg.php"; 
+		var AScgiloc = "http://www.bid-owl.de/tools/asciisvg/svgimg.php";
 		var AMTcgiloc = "http://www.bid-owl.de/cgi-bin/mimetex.cgi";
 		</script>
+        <link href="/moko/tiny_mce/plugins/bid_tooltip/css/content.css" type="text/css" rel="stylesheet">
 		</head>';
 		$content = 	$addition_math.' '.$content;
 	}
@@ -38,7 +39,7 @@ require_once("mokodesk_steam.php");
     return $content;
 //	$steam->disconnect();
   }
-  
+
 function tidyDesc($desc){
 	$allowed = "/[^a-zÖÄÜöäüß0-9\\040\\.\\-\\_\\(\\)\\!\\,\\;\\?\\:]/i";
     if (mb_detect_encoding($desc, 'UTF-8, ISO-8859-1') !== 'UTF-8') $desc = utf8_encode($desc);
@@ -47,7 +48,7 @@ function tidyDesc($desc){
 }
 function tidyName($name){
 	$search =  Array(' ', 'ß', 'ö', 'ä', 'ü', 'Ö', 'Ä', 'Ü', '&');
-	$replace = Array('_', 'ss','oe','ae','ue','Oe','Ae','Ue', 'und');    
+	$replace = Array('_', 'ss','oe','ae','ue','Oe','Ae','Ue', 'und');
 	$name = str_replace($search, $replace, $name);
 	$allowed = "/[^a-z0-9\\040\\.\\-\\_]/i";
 	$name = preg_replace($allowed,"",$name);

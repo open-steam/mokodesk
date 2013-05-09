@@ -2,7 +2,6 @@
 <FlocsConfig>
         <ServerSettings>
                 <Server type="red5" uri="rtmp://xserve2.ufc.uni-paderborn.de/flocs/" />
-                <Server type="steam" uri="steam.upb.de" />
                 <Server type="steam" uri="bid-owl.de" />
         </ServerSettings>
 </FlocsConfig>

@@ -4,25 +4,25 @@ require_once("mokodesk_steam.php");
 
 $task = ($_POST['task']) ? ($_POST['task']) : null;
 
-	include("../etc/config.php");
-    include("$phpsteamApiRoot/steam_connector.class.php");
-    include("lars_tools.php");
-	include("lars_lang.php");
+include("../etc/config.php");
+include("$phpsteamApiRoot/steam_connector.class.php");
+include("lars_tools.php");
+include("lars_lang.php");
 
 session_name("bidowl_session");
-session_start();    
+session_start();
 	$loginName = ($_SESSION['user']) ? ($_SESSION['user']) : null;
 	$loginPwd = ($_SESSION['pass']) ? ($_SESSION['pass']) : null;
 	$LANG = ($_SESSION['language']) ? ($_SESSION['language']) : "de";
-session_write_close();	
-	
+session_write_close();
+
 	$id = ($_POST['id']) ? ($_POST['id']) : null;
-    
+
 	$steam = mokodesk_steam::connect(	$configServerIp,
                                     $configServerPort,
                                     $loginName,
                                     $loginPwd);
-  								  								
+
     if( !$steam || !$steam->get_login_status() )
     {
 //        ErrorException::getTrace();
@@ -78,7 +78,7 @@ $origContent = ($_POST['origValue']) ? ($_POST['origValue']) : null;
     $origContent = stripslashes($origContent);
 	$origContent = preg_replace('#src="' . $config_webserver_ip . '/tools/get.php\?object=([a-z0-9.\- _\/]*)"#iU', 'src="$1"', $origContent);
     $origContent = preg_replace('#'.$current_path.'#iU', '', $origContent);
-  
+
   if($origContent == $serverContent)
   {
     $result = $document->set_content($content);
@@ -91,7 +91,7 @@ $origContent = ($_POST['origValue']) ? ($_POST['origValue']) : null;
     			oldId => $document->get_id()
     			)));
   }
-	
+
 }
 
 function saveEditNewName($steam, $id){
@@ -101,9 +101,9 @@ $name = ($_POST['name']) ? $_POST['name'] : "Neu";
   $document = steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $id );
   $current_folder = $document->get_environment();
   $newDocument = steam_factory::create_document($GLOBALS["STEAM"]->get_id(), tidyName($name).".html", stripslashes($content), "text/html", $current_folder, tidyDesc($name) );
-  
+
   print (json_encode(array(success => true, message => $result)));
-	
+
 }
 
 function saveTitleAndTextMessage($steam, $id){
@@ -134,16 +134,16 @@ $name = ($_POST['name']) ? $_POST['name'] : "Neu";
 		echo json_encode(array(success => false, name=>msg('NO_WRITE_ACCESS')));
 		exit;
 	}
-#####  
+#####
   	$newDocument = steam_factory::create_document($GLOBALS["STEAM"]->get_id(), tidyName($name).".html", stripslashes($content), "text/html", $discussion_folder, tidyDesc($name) );
   } else {
   	$document->set_attribute("OBJ_DESC", tidyDesc($name)); //Name wird nicht geändert bei erneutem editieren
   	$document->set_content(stripslashes($content));
   }
-  
-  
+
+
   print (json_encode(array(success => true, name => msg('MSG_SAVED'))));
-	
+
 }
 
 function getHtml($steam, $id){
@@ -153,7 +153,7 @@ function getHtml($steam, $id){
 //		$current_path = $object->get_path();
 	    $current_path = substr( $object->get_path(), 0, strrpos($object->get_path(), "/")) . "/";
 		$content = $object->get_content();
-		$content = $content ? $content : ""; 
+		$content = $content ? $content : "";
 		$content = preg_replace('/\n\n/', '</p>', $content);
 		$content = stripslashes($content);
 //	    $content = preg_replace('/src="\/([a-z0-9.\-\%_\/]*)"/iU', 'src="' . $config_webserver_ip . '/tools/get.php?object=$1"', $content);
@@ -165,6 +165,6 @@ function getHtml($steam, $id){
 		print (json_encode(array(success => false)));
 	}
 	$steam->disconnect();
-	
-}  
+
+}
 ?>

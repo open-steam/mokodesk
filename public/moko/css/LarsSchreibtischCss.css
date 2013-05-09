@@ -1,57 +1,3 @@
-/** vim: ts=4:sw=4:nu:fdc=4:nospell
- *
- * rowactions css file
- *
- * @author    Ing.Jozef Sakáloš
- * @copyright (c) 2008, by Ing. Jozef Sakáloš
- * @date      5. April 2008
- * @version   $Id: rowactions.css 150 2008-04-08 21:50:58Z jozo $
- */
-
-#ct a {
-	text-decoration:none;
-}
-#ct a:hover {
-	text-decoration:underline;
-}
-#west {
-	width:280px;
-}
-#center {
-	width:640px;
-}
-#adsense-top {
-	margin: 10px 0 10px 0;
-}
-#west-content {
-	font-family:arial, sans-serif;
-}
-#center-content {
-	font-family:arial, sans-serif;
-	margin:0 0 0 10px;
-	text-align:center;
-}
-#center-content h2 {
-	font-size:16px;
-}
-#description {
-	color:#777777;
-	text-align:justify;
-}
-#description em {
-	font-style:italic;
-	font-weight:bold;
-}
-#description p {
-	margin: 2px 0 8px 0;
-}
-.adsense {
-	opacity:.55;
-	filter:alpha(opacity=55);
-	-moz-opacity:.55;
-}
-/* eof */
-
 /** vim: ts=4:sw=4:nu:fdc=4:nospell 
  *
  * Ext.ux.grid.RowActions.css 
@@ -130,6 +76,261 @@
 }
 
 /* eof */ 
+/** vim:sw=4:ts=4:fdc=4
+ *
+ * Mimetypes for FileTree and others
+ *
+ * $Id: filetype.css 51 2008-03-10 01:52:18Z jozo $
+ *
+ */
+
+ .file-pdf
+,.file-ai
+{
+	background-image: url(../img/mime/pdf_document.png) ! important;
+}
+.file-txt {
+	background-image: url(../img/mime/txt.png) ! important;
+}
+ .file-bmp  
+,.file-cgm  
+,.file-dcm  
+,.file-dds  
+,.file-exr  
+,.file-gif  
+,.file-hdr  
+,.file-ico  
+,.file-jng  
+,.file-jp2  
+,.file-jpeg  
+,.file-jpg  
+,.file-pbm  
+,.file-pbmraw  
+,.file-pcd  
+,.file-pcx  
+,.file-pgm  
+,.file-pgmraw  
+,.file-pic  
+,.file-png  
+,.file-pnm  
+,.file-psd  
+,.file-raw  
+,.file-rgb  
+,.file-rgba  
+,.file-tga  
+,.file-tif  
+,.file-tiff  
+,.file-xbm  
+,.file-xcf  
+,.file-xpm  
+{
+	background-image: url(../img/mime/image.png) ! important;
+}
+ .file-conf  
+,.file-vim 
+{
+	background-image: url(../img/mime/source.png) ! important;
+}
+ .file-html  
+,.file-htm  
+,.file-sgml  
+,.file-xhtml  
+,.file-xml  
+{
+ 	background-image: url(../img/mime/html.png) ! important;
+	/*background-image: url(../img/mime/txt.png) ! important;
+    background-image:url(../img/silk/icons/page_edit.png) !important;*/ 	
+}
+.file-sh  {
+	background-image: url(../img/mime/shellscript.png) ! important;
+}
+ .file-3g2 
+,.file-3gp 
+,.file-asf 
+,.file-asx  
+,.file-avi  
+,.file-flc 
+,.file-fli 
+,.file-flv 
+,.file-mkv 
+,.file-mng 
+,.file-mp4 
+,.file-mpeg 
+,.file-mpg 
+,.file-ogm 
+,.file-rv 
+,.file-wmp 
+,.file-wmv 
+{
+	background-image: url(../img/mime/video.png) ! important;
+}
+ .file-ttf  
+,.file-otf 
+{
+	background-image: url(../img/mime/font_truetype.png) ! important;
+}
+ .file-exe  
+,.file-dll 
+{
+	background-image: url(../img/mime/exec_wine.png) ! important;
+}
+ .file-doc  
+,.file-odt 
+,.file-rtf 
+{
+	background-image: url(../img/mime/wordprocessing.png) ! important;
+}
+ .file-xls  
+,.file-ods 
+,.file-xlc 
+,.file-xll 
+,.file-xlm 
+,.file-xlw 
+,.file-wpd 
+,.file-abw 
+{
+	background-image: url(../img/mime/spreadsheet_document.png) ! important;
+}
+.file-js  {
+	background-image: url(../img/mime/source_j.png) ! important;
+}
+.file-css  {
+	background-image: url(../img/mime/source_c.png) ! important;
+}
+.file-php  {
+	background-image: url(../img/mime/source_php.png) ! important;
+}
+ .file-7z 
+,.file-a 
+,.file-ace 
+,.file-arj  
+,.file-bz 
+,.file-bz2 
+,.file-cpio  
+,.file-gz 
+,.file-rar 
+,.file-tgz 
+,.file-tnf 
+,.file-z  
+,.file-zip  
+,.file-zoo  
+{
+	background-image: url(../img/mime/zip.png) ! important;
+}
+ .file-ppt  
+,.file-odp 
+,.file-ppz 
+,.file-ppt 
+{
+	background-image: url(../img/mime/pps.png) ! important;
+}
+.file-msg  {
+	background-image: url(../img/mime/message.png) ! important;
+}
+ .file-dwg  
+,.file-sxd 
+,.file-dhw 
+,.file-svg 
+,.file-ps 
+,.file-eps 
+,.file-wmf 
+,.file-fig 
+,.file-msod  
+,.file-qpic  
+{
+	background-image: url(../img/mime/vectorgfx.png) ! important;
+}
+.file-ics 
+{
+	background-image: url(../img/mime/vcalendar.png) ! important;
+}
+ .file-chm 
+,.file-info 
+,.file-hlp 
+,.file-help 
+{
+	background-image: url(../img/mime/info.png) ! important;
+}
+ .file-aac 
+,.file-ac3 
+,.file-aifc 
+,.file-aiff 
+,.file-ape 
+,.file-au 
+,.file-flac 
+,.file-m3u 
+,.file-m4a 
+,.file-mac 
+,.file-mid 
+,.file-midi 
+,.file-mp2 
+,.file-mp3 
+,.file-ogg 
+,.file-psid 
+,.file-ra 
+,.file-ram 
+,.file-sf 
+,.file-sid 
+,.file-spx 
+,.file-wav 
+,.file-wma 
+,.file-wv 
+,.file-wvc 
+{
+	background-image: url(../img/mime/sound.png) ! important;
+}
+ .file-asc 
+,.file-cer 
+,.file-cert 
+,.file-crt 
+,.file-der 
+,.file-gpg 
+,.file-gpg 
+,.file-p10 
+,.file-p12 
+,.file-p7c 
+,.file-p7m 
+,.file-p7s 
+,.file-pem 
+,.file-sig 
+{
+	background-image: url(../img/mime/file_locked.png) ! important;
+}
+ .file-bin 
+,.file-cue 
+,.file-img 
+,.file-iso 
+,.file-mdf 
+,.file-nrg 
+{
+	background-image: url(../img/mime/cdimage.png) ! important;
+}
+ .file-jar 
+,.file-java 
+,.file-class 
+{
+	background-image: url(../img/mime/java_src.png) ! important;
+}
+.file-sql 
+{
+	background-image: url(../img/mime/source_s.png) ! important;
+}
+ .file-moov 
+,.file-mov 
+,.file-qt 
+{
+	background-image: url(../img/mime/quicktime.png) ! important;
+}
+.file-link
+{
+	background-image:url(../img/silk/icons/link.png) ! important;
+}
+.file- 
+{
+	background-image: url(../img/mime/exec_wine.png) ! important;
+}
+
+/* eof */
 #loading-mask {
     height: 100%;
     left: 0pt;
@@ -596,14 +797,14 @@ body {
     background-color: #D9E8FB !important;
 }
 
-/*#lars-voice-chat-xcollapsed .x-layout-collapsed {*/ 
+/*#lars-voice-chat-xcollapsed .x-layout-collapsed {*/
 #lars-desktop .x-layout-collapsed-east {
     background-position: center;
     background-repeat: no-repeat;
     background-image: url(../img/voice_chat.png) ! important;
 } .x-grid3-row td, .x-grid3-summary-row td {
     line-height: normal !important;
-} 
+}
 
 /*
 #lars-desktop-north .x-btn-right {
@@ -732,7 +933,7 @@ margin-right: auto;
 
 
 	/*display:inline;*/
-	
+
 #lars-desktop-tab-panel .x-tab-panel-header{
 	display:none ! important;
 }
@@ -760,258 +961,81 @@ margin-right: auto;
 	color: #393939;
 	font-size: 12px;
 }
-/** vim:sw=4:ts=4:fdc=4
+
+acronym {
+    border: none !important;
+    cursor: default !important;
+}
+
+acronym.bid_tooltip_color_yellow {
+    background-color: #FFF8B8 !important;
+}
+acronym.bid_tooltip_color_green {
+    background-color: #B8FFBA !important;
+}
+acronym.bid_tooltip_color_red {
+    background-color: #FFB8B8 !important;
+}
+acronym.bid_tooltip_color_blue {
+    background-color: #B8D4FF !important;
+}
+acronym.bid_tooltip_color_orange {
+    background-color: #FFDCB8 !important;
+}
+acronym.bid_tooltip_color_pink {
+    background-color: #FFB8F9 !important;
+}
+/** vim: ts=4:sw=4:nu:fdc=4:nospell
  *
- * Mimetypes for FileTree and others
+ * rowactions css file
  *
- * $Id: filetype.css 51 2008-03-10 01:52:18Z jozo $
- *
+ * @author    Ing.Jozef Sakáloš
+ * @copyright (c) 2008, by Ing. Jozef Sakáloš
+ * @date      5. April 2008
+ * @version   $Id: rowactions.css 150 2008-04-08 21:50:58Z jozo $
  */
 
- .file-pdf
-,.file-ai
-{
-	background-image: url(../img/mime/pdf_document.png) ! important;
+#ct a {
+	text-decoration:none;
 }
-.file-txt {
-	background-image: url(../img/mime/txt.png) ! important;
+#ct a:hover {
+	text-decoration:underline;
 }
- .file-bmp  
-,.file-cgm  
-,.file-dcm  
-,.file-dds  
-,.file-exr  
-,.file-gif  
-,.file-hdr  
-,.file-ico  
-,.file-jng  
-,.file-jp2  
-,.file-jpeg  
-,.file-jpg  
-,.file-pbm  
-,.file-pbmraw  
-,.file-pcd  
-,.file-pcx  
-,.file-pgm  
-,.file-pgmraw  
-,.file-pic  
-,.file-png  
-,.file-pnm  
-,.file-psd  
-,.file-raw  
-,.file-rgb  
-,.file-rgba  
-,.file-tga  
-,.file-tif  
-,.file-tiff  
-,.file-xbm  
-,.file-xcf  
-,.file-xpm  
-{
-	background-image: url(../img/mime/image.png) ! important;
+#west {
+	width:280px;
 }
- .file-conf  
-,.file-vim 
-{
-	background-image: url(../img/mime/source.png) ! important;
+#center {
+	width:640px;
 }
- .file-html  
-,.file-htm  
-,.file-sgml  
-,.file-xhtml  
-,.file-xml  
-{
- 	background-image: url(../img/mime/html.png) ! important;
-	/*background-image: url(../img/mime/txt.png) ! important;
-    background-image:url(../img/silk/icons/page_edit.png) !important;*/ 	
+#adsense-top {
+	margin: 10px 0 10px 0;
 }
-.file-sh  {
-	background-image: url(../img/mime/shellscript.png) ! important;
+#west-content {
+	font-family:arial, sans-serif;
 }
- .file-3g2 
-,.file-3gp 
-,.file-asf 
-,.file-asx  
-,.file-avi  
-,.file-flc 
-,.file-fli 
-,.file-flv 
-,.file-mkv 
-,.file-mng 
-,.file-mp4 
-,.file-mpeg 
-,.file-mpg 
-,.file-ogm 
-,.file-rv 
-,.file-wmp 
-,.file-wmv 
-{
-	background-image: url(../img/mime/video.png) ! important;
+#center-content {
+	font-family:arial, sans-serif;
+	margin:0 0 0 10px;
+	text-align:center;
 }
- .file-ttf  
-,.file-otf 
-{
-	background-image: url(../img/mime/font_truetype.png) ! important;
+#center-content h2 {
+	font-size:16px;
 }
- .file-exe  
-,.file-dll 
-{
-	background-image: url(../img/mime/exec_wine.png) ! important;
+#description {
+	color:#777777;
+	text-align:justify;
 }
- .file-doc  
-,.file-odt 
-,.file-rtf 
-{
-	background-image: url(../img/mime/wordprocessing.png) ! important;
+#description em {
+	font-style:italic;
+	font-weight:bold;
 }
- .file-xls  
-,.file-ods 
-,.file-xlc 
-,.file-xll 
-,.file-xlm 
-,.file-xlw 
-,.file-wpd 
-,.file-abw 
-{
-	background-image: url(../img/mime/spreadsheet_document.png) ! important;
+#description p {
+	margin: 2px 0 8px 0;
 }
-.file-js  {
-	background-image: url(../img/mime/source_j.png) ! important;
+.adsense {
+	opacity:.55;
+	filter:alpha(opacity=55);
+	-moz-opacity:.55;
 }
-.file-css  {
-	background-image: url(../img/mime/source_c.png) ! important;
-}
-.file-php  {
-	background-image: url(../img/mime/source_php.png) ! important;
-}
- .file-7z 
-,.file-a 
-,.file-ace 
-,.file-arj  
-,.file-bz 
-,.file-bz2 
-,.file-cpio  
-,.file-gz 
-,.file-rar 
-,.file-tgz 
-,.file-tnf 
-,.file-z  
-,.file-zip  
-,.file-zoo  
-{
-	background-image: url(../img/mime/zip.png) ! important;
-}
- .file-ppt  
-,.file-odp 
-,.file-ppz 
-,.file-ppt 
-{
-	background-image: url(../img/mime/pps.png) ! important;
-}
-.file-msg  {
-	background-image: url(../img/mime/message.png) ! important;
-}
- .file-dwg  
-,.file-sxd 
-,.file-dhw 
-,.file-svg 
-,.file-ps 
-,.file-eps 
-,.file-wmf 
-,.file-fig 
-,.file-msod  
-,.file-qpic  
-{
-	background-image: url(../img/mime/vectorgfx.png) ! important;
-}
-.file-ics 
-{
-	background-image: url(../img/mime/vcalendar.png) ! important;
-}
- .file-chm 
-,.file-info 
-,.file-hlp 
-,.file-help 
-{
-	background-image: url(../img/mime/info.png) ! important;
-}
- .file-aac 
-,.file-ac3 
-,.file-aifc 
-,.file-aiff 
-,.file-ape 
-,.file-au 
-,.file-flac 
-,.file-m3u 
-,.file-m4a 
-,.file-mac 
-,.file-mid 
-,.file-midi 
-,.file-mp2 
-,.file-mp3 
-,.file-ogg 
-,.file-psid 
-,.file-ra 
-,.file-ram 
-,.file-sf 
-,.file-sid 
-,.file-spx 
-,.file-wav 
-,.file-wma 
-,.file-wv 
-,.file-wvc 
-{
-	background-image: url(../img/mime/sound.png) ! important;
-}
- .file-asc 
-,.file-cer 
-,.file-cert 
-,.file-crt 
-,.file-der 
-,.file-gpg 
-,.file-gpg 
-,.file-p10 
-,.file-p12 
-,.file-p7c 
-,.file-p7m 
-,.file-p7s 
-,.file-pem 
-,.file-sig 
-{
-	background-image: url(../img/mime/file_locked.png) ! important;
-}
- .file-bin 
-,.file-cue 
-,.file-img 
-,.file-iso 
-,.file-mdf 
-,.file-nrg 
-{
-	background-image: url(../img/mime/cdimage.png) ! important;
-}
- .file-jar 
-,.file-java 
-,.file-class 
-{
-	background-image: url(../img/mime/java_src.png) ! important;
-}
-.file-sql 
-{
-	background-image: url(../img/mime/source_s.png) ! important;
-}
- .file-moov 
-,.file-mov 
-,.file-qt 
-{
-	background-image: url(../img/mime/quicktime.png) ! important;
-}
-.file-link
-{
-	background-image:url(../img/silk/icons/link.png) ! important;
-}
-.file- 
-{
-	background-image: url(../img/mime/exec_wine.png) ! important;
-}
-
 /* eof */
+
