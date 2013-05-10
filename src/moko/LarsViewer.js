@@ -23,6 +23,8 @@ task = {};
 var AScgiloc = 'http://www.imathas.com/imathas/filter/graph/svgimg.php';
 var AMTcgiloc = "http://www.imathas.com/cgi-bin/mimetex.cgi";
 var larsNews = '<font size="3">'
+		+ '<b>Version 1.0.2:<br></b>'
+		+ '<ul><li>- fehlerhafte Links korrigiert</li></ul>'
 		+ '<b>Version 1.0.1:<br></b>'
 		+ '<ul><li>- Textannotationen für den Editor</li>'
 		+ '<li>- Fehlerbehandlung verbessert</li>'
