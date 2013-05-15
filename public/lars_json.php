@@ -183,7 +183,7 @@ switch($task){
 
 function errorReport($steam){
 	$message = $_POST['message'];
-	$discussion_folder = steam_factory::get_object($GLOBALS["STEAM"]->get_id(), 430552);
+	$discussion_folder = steam_factory::get_object($GLOBALS["STEAM"]->get_id(), ERROR_REPORT_CONTAINER_ID);
 	$newMessageObject = steam_factory::create_document($GLOBALS["STEAM"]->get_id(), "Fehlermeldung", $message, "text/html", $discussion_folder, "Fehlermeldung" );
 	$newID = $newMessageObject->get_id();
 	print json_encode(array(success => true, newID => $newID));
