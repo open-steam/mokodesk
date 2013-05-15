@@ -24,4 +24,7 @@
   $MOKODESK_TEACHER_GROUP_NAME = "asb.Jule.jule-lehrer";
   //$MOKODESK_TEACHER_GROUP_NAME = "mokoteacher";
 
+  define("ERROR_REPORT_CONTAINER_ID", 925833);
+
+
 ?>
