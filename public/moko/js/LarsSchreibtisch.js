@@ -16291,8 +16291,8 @@ Ext.extend(MainPanel, Ext.TabPanel, {
 										theme_advanced_statusbar_location : "none",
 										theme_advanced_resizing : false,
 										convert_urls : false, // IMPORTANT!
-									    AScgiloc : 'http://www.bid-owl.de/tools/asciisvg/svgimg.php',	//TODO: Server URI
-									    ASdloc : 'http://www.bid-owl.de/mokodesk/moko/tiny_mce/plugins/asciisvg/js/d.svg', //TODO: Diese Adresse dynamisch ersetzen beim Speichern!
+									    AScgiloc : 'tools/asciisvg/svgimg.php',
+									    ASdloc : 'moko/tiny_mce/plugins/asciisvg/js/d.svg',
 										extended_valid_elements : "embed[*]", //TODO
 										file_browser_callback : function fileBrowserCallBack(field_name, url, type, win) {
 														  this.win = new LarsBrowseFileWindow(win.document.forms[0].elements[field_name], node);

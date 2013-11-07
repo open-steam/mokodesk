@@ -30,8 +30,8 @@ require_once("$configDocRoot/libary/php/derive_mimetype.php");
   $object = (int) (isset($_GET["object"]))?trim($_GET["object"]):0;
 session_name("bidowl_session");
 session_start();
-	$login_name = ($_SESSION['user']) ? ($_SESSION['user']) : null;
-	$login_pwd = ($_SESSION['pass']) ? ($_SESSION['pass']) : null;
+	$login_name = (isset($_SESSION['user'])) ? ($_SESSION['user']) : null;
+	$login_pwd = (isset($_SESSION['pass'])) ? ($_SESSION['pass']) : null;
 session_write_close();
 	$steam = mokodesk_steam::connect(	$configServerIp,
                   $configServerPort,

@@ -3,7 +3,7 @@
 $baseDir = dirname(dirname(__FILE__));
 $publicDir = $baseDir . "/public";
 $tmpDir = $baseDir . "/var/tmp";
-$compressorCmd = "java -jar " . $baseDir . "/build/yuicompressor-2.4.7.jar";
+$compressorCmd = "java -jar " . $baseDir . "/build/yuicompressor-2.4.8.jar";
 
 $ext_js_files = array(
         $baseDir . "/libary/javascript/ext2/adapter/ext/ext-base.js",
