@@ -1,2 +1,2 @@
 <?php
-define("MOKODESK_VERSION", "1.0.2-1");
+define("MOKODESK_VERSION", "1.0.3");

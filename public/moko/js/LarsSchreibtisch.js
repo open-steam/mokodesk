@@ -20618,7 +20618,7 @@ Ext.extend(UploadCustomImage, Ext.Window, {
             scope: this
         });
     }
-});var version = "1.0.2-1";var larsVoiceChat = {
+});var version = "1.0.3";var larsVoiceChat = {
 			title: Lars.main.chat.title,
 			iconCls: 'webcam',
 			collapsible: true,
