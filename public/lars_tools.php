@@ -21,12 +21,12 @@ require_once("mokodesk_steam.php");
 		$addition_math = '<script type="text/javascript" src="' . $config_webserver_ip . '/moko/tiny_mce/plugins/asciimath/js/ASCIIMathMLwFallbackMin.js"></script>
 		                  <script type="text/javascript" src="' . $config_webserver_ip . '/moko/tiny_mce/plugins/asciisvg/js/ASCIIsvgPIMin.js"></script>
 		                  <script type="text/javascript">
-		                  var AScgiloc = "http://www.bid-owl.de/tools/asciisvg/svgimg.php";
-		                  var AMTcgiloc = "http://www.bid-owl.de/cgi-bin/mimetex.cgi";
+		                  var AScgiloc = "tools/asciisvg/svgimg.php";
+		                  var AMTcgiloc = "cgi-bin/mimetex.cgi";
 		                  </script>';
 	}
     if (strpos($content, '<acronym')) {
-        $addition_anno = '<link href="/moko/tiny_mce/plugins/bid_tooltip/css/content.css" type="text/css" rel="stylesheet">';
+        $addition_anno = '<link href="moko/tiny_mce/plugins/bid_tooltip/css/content.css" type="text/css" rel="stylesheet">';
     }
 
     $content =  '<head>' . $addition_math . $addition_anno . '</head> ' . $content;
