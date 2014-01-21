@@ -26,7 +26,7 @@ require_once("mokodesk_steam.php");
 		                  </script>';
 	}
     if (strpos($content, '<acronym')) {
-        $addition_anno = '<link href="moko/tiny_mce/plugins/bid_tooltip/css/content.css" type="text/css" rel="stylesheet">';
+        $addition_anno = '<link href="/moko/tiny_mce/plugins/bid_tooltip/css/content.css" type="text/css" rel="stylesheet">';
     }
 
     $content =  '<head>' . $addition_math . $addition_anno . '</head> ' . $content;
